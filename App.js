@@ -1,21 +1,41 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Text,
+} from "native-base";
 
-export default function App() {
+// components ===============
+import FooterContainer from "./components/Footer/Footer";
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Team 3</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Container>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="menu" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Header</Title>
+        </Body>
+        <Right />
+      </Header>
+      <Content>
+        <Text>Here goes the main contents</Text>
+      </Content>
+      <FooterContainer />
+    </Container>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default App;
