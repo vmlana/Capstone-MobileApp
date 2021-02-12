@@ -1,4 +1,8 @@
 import React from "react";
+// Redux
+import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { setNavigator } from "./src/navigationRef";
+
 import { View, Button, StyleSheet } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -10,9 +14,13 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./src/screens/HomeScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import BlogScreen from "./src/screens/BlogScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import SignScreen from "./src/screens/SigninScreen";
+// =====================================================
 
 const TabNavigator = createBottomTabNavigator(
   {
+    Signin: SigninScreen,
     Home: HomeScreen,
     Blog: BlogScreen,
     Profile: ProfileScreen,
@@ -35,7 +43,7 @@ const TabNavigator = createBottomTabNavigator(
           iconName = focused ? "ios-person" : "ios-person-outline";
         }
 
-        // You can return any component that you like here!
+        // You can return any component that you like here
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
     }),
@@ -49,5 +57,9 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator);
 
 export default () => {
-  return <AppContainer />;
+  return (
+    <AuthProvider>
+      <AppContainer ref={(navigation) => setNavigator(navigator)} />;
+    </AuthProvider>
+  );
 };
