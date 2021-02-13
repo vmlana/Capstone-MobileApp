@@ -1,6 +1,10 @@
 import React from "react";
+// Redux
+import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { setNavigator } from "./src/navigationRef";
+
 import { View, Button, StyleSheet } from "react-native";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
@@ -10,6 +14,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./src/screens/HomeScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import BlogScreen from "./src/screens/BlogScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+// =====================================================
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -35,7 +42,7 @@ const TabNavigator = createBottomTabNavigator(
           iconName = focused ? "ios-person" : "ios-person-outline";
         }
 
-        // You can return any component that you like here!
+        // You can return any component that you like here
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
     }),
@@ -46,8 +53,21 @@ const TabNavigator = createBottomTabNavigator(
   }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+// The most top will be initially renddered
+const switchNavigator = createSwitchNavigator({
+  Home: TabNavigator,
+  loginFlow: createStackNavigator({
+    Signin: SigninScreen,
+    Signup: SignupScreen,
+  }),
+});
+
+const AppContainer = createAppContainer(switchNavigator);
 
 export default () => {
-  return <AppContainer />;
+  return (
+    // <AuthProvider>
+    <AppContainer ref={(navigation) => setNavigator(navigator)} />
+    // </AuthProvider>
+  );
 };
