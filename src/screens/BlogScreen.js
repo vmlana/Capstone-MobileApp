@@ -1,4 +1,5 @@
 import React from "react";
+import SearchIcon from "../components/Search/SearchIcon";
 
 import {
   Container,
@@ -13,16 +14,20 @@ import {
   Text,
 } from "native-base";
 
-const BlogScreen = () => {
+const BlogScreen = ({ navigation }) => {
   return (
     <Container>
       <Header>
+        <Left />
         <Body>
-          <Title>Header</Title>
+          <Title>Blog</Title>
         </Body>
+        <Right>
+          <SearchIcon />
+        </Right>
       </Header>
       <Content>
-        <Text>Here goes the main Blog contents</Text>
+        <Text>Here goes the main contents</Text>
       </Content>
     </Container>
   );

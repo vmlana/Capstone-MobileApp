@@ -14,23 +14,25 @@ import {
 } from "native-base";
 
 // components ===============
+import SearchIcon from "../components/Search/SearchIcon";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <Container>
       <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="menu" />
-          </Button>
-        </Left>
+        <Left />
         <Body>
-          <Title>Header</Title>
+          <Title>Home</Title>
         </Body>
-        <Right />
+        <Right>
+          <SearchIcon />
+        </Right>
       </Header>
       <Content>
         <Text>Here goes the main contents</Text>
+        <Button onPress={() => navigation.navigate("PlayList")}>
+          <Text>Play List</Text>
+        </Button>
       </Content>
     </Container>
   );

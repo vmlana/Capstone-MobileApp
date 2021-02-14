@@ -37,7 +37,19 @@ const SignupScreen = ({ navigation }) => {
         text={"Already have an account? Sign in from here"}
         routeName="Signin"
       /> */}
-      <Text>Sign Up</Text>
+      <Text style={{ textAlign: "center" }}>Sign Up Screen</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Signin")}
+        style={{ marginTop: 50 }}
+      >
+        <Text>Jump to Sign In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Home")}
+        style={{ marginTop: 20 }}
+      >
+        <Text>Jump to Home</Text>
+      </TouchableOpacity>
     </View>
   );
 };

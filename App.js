@@ -6,9 +6,14 @@ import { setNavigator } from "./src/navigationRef";
 import { View, Button, StyleSheet } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import {
+  createBottomTabNavigator,
+  createTabNavigator,
+} from "react-navigation-tabs";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import { Tab } from "native-base";
 
 // Screens ============================================
 import HomeScreen from "./src/screens/HomeScreen";
@@ -16,16 +21,43 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 import BlogScreen from "./src/screens/BlogScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
+import SearchScreen from "./src/screens/SearchScreen";
+import PlayListScreen from "./src/screens/PlayListScreen";
 // =====================================================
+
+// The most top will be initially renddered
+const HomeStack = createStackNavigator(
+  {
+    Search: SearchScreen,
+    PlayList: PlayListScreen,
+
+    // loginFlow: createStackNavigator({
+    //   Signin: SigninScreen,
+    //   Signup: SignupScreen,
+    // }),
+  },
+  {
+    // initialRouteName: "Home",
+    // headerMode: "none",
+    // navigationOptions: {
+    //   headerVisible: false,
+    // },
+  }
+);
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Blog: BlogScreen,
-    Profile: ProfileScreen,
+    Home: createSwitchNavigator({
+      screen: HomeScreen,
+    }),
+    Blog: createSwitchNavigator({
+      screen: BlogScreen,
+    }),
+    Profile: createSwitchNavigator({
+      screen: ProfileScreen,
+    }),
   },
   {
-    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
@@ -53,16 +85,16 @@ const TabNavigator = createBottomTabNavigator(
   }
 );
 
-// The most top will be initially renddered
-const switchNavigator = createSwitchNavigator({
-  Home: TabNavigator,
-  loginFlow: createStackNavigator({
+const AppNavigator = createSwitchNavigator({
+  Auth: createStackNavigator({
     Signin: SigninScreen,
     Signup: SignupScreen,
   }),
+  mainFlow: TabNavigator,
+  Others: HomeStack,
 });
 
-const AppContainer = createAppContainer(switchNavigator);
+const AppContainer = createAppContainer(AppNavigator);
 
 export default () => {
   return (
