@@ -16,15 +16,6 @@ import {
 const SearchScreen = ({ navigation }) => {
   return (
     <Container>
-      <Header>
-        <Left />
-        <Body>
-          <Title>Search Screen</Title>
-        </Body>
-        <Right>
-          <SearchIcon />
-        </Right>
-      </Header>
       <Content>
         <Text>Here goes the main contents</Text>
         <Button onPress={() => navigation.navigate("Home")}>

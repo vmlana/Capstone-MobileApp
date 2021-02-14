@@ -3,7 +3,7 @@ import React from "react";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
 
-import { View, Button, StyleSheet } from "react-native";
+import { View, Button, StyleSheet, Text } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
@@ -23,22 +23,57 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import PlayListScreen from "./src/screens/PlayListScreen";
+import SearchIcon from "./src/components/Search/SearchIcon";
 // =====================================================
 
 // The most top will be initially renddered
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-  PlayList: PlayListScreen,
-  Search: SearchScreen,
-});
-const BlogStack = createStackNavigator({
-  Blog: BlogScreen,
-  Search: SearchScreen,
-});
-const ProfileStack = createStackNavigator({
-  Profile: ProfileScreen,
-  Search: SearchScreen,
-});
+const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    PlayList: {
+      screen: PlayListScreen,
+      navigationOptions: { title: "Play List" },
+    },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        title: "Search",
+        headerRight: () => "",
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+    },
+  }
+);
+const BlogStack = createStackNavigator(
+  {
+    Blog: BlogScreen,
+    Search: SearchScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+    },
+  }
+);
+const ProfileStack = createStackNavigator(
+  {
+    Profile: ProfileScreen,
+    Search: SearchScreen,
+  },
+
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+    },
+  }
+);
 
 const TabNavigator = createBottomTabNavigator(
   {

@@ -37,15 +37,6 @@ for (let i = 0; i < 6; i++) {
 const ProfileScreen = ({ navigation }) => {
   return (
     <Container>
-      <Header>
-        <Left />
-        <Body>
-          <Title>Profile</Title>
-        </Body>
-        <Right>
-          <SearchIcon />
-        </Right>
-      </Header>
       <Content>
         <View style={styles.container}>
           <CalendarStrip

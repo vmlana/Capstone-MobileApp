@@ -17,15 +17,6 @@ import {
 const BlogScreen = ({ navigation }) => {
   return (
     <Container>
-      <Header>
-        <Left />
-        <Body>
-          <Title>Blog</Title>
-        </Body>
-        <Right>
-          <SearchIcon />
-        </Right>
-      </Header>
       <Content>
         <Text>Here goes the main contents</Text>
       </Content>
