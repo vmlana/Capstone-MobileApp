@@ -26,36 +26,25 @@ import PlayListScreen from "./src/screens/PlayListScreen";
 // =====================================================
 
 // The most top will be initially renddered
-const HomeStack = createStackNavigator(
-  {
-    Search: SearchScreen,
-    PlayList: PlayListScreen,
-
-    // loginFlow: createStackNavigator({
-    //   Signin: SigninScreen,
-    //   Signup: SignupScreen,
-    // }),
-  },
-  {
-    // initialRouteName: "Home",
-    // headerMode: "none",
-    // navigationOptions: {
-    //   headerVisible: false,
-    // },
-  }
-);
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
+  PlayList: PlayListScreen,
+  Search: SearchScreen,
+});
+const BlogStack = createStackNavigator({
+  Blog: BlogScreen,
+  Search: SearchScreen,
+});
+const ProfileStack = createStackNavigator({
+  Profile: ProfileScreen,
+  Search: SearchScreen,
+});
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: createSwitchNavigator({
-      screen: HomeScreen,
-    }),
-    Blog: createSwitchNavigator({
-      screen: BlogScreen,
-    }),
-    Profile: createSwitchNavigator({
-      screen: ProfileScreen,
-    }),
+    Home: HomeStack,
+    Blog: BlogStack,
+    Profile: ProfileStack,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -90,8 +79,7 @@ const AppNavigator = createSwitchNavigator({
     Signin: SigninScreen,
     Signup: SignupScreen,
   }),
-  mainFlow: TabNavigator,
-  Others: HomeStack,
+  Home: TabNavigator,
 });
 
 const AppContainer = createAppContainer(AppNavigator);
