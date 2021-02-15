@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import {
   Container,
@@ -14,6 +14,8 @@ import {
   Icon,
   Text,
 } from "native-base";
+
+import SearchIcon from "../components/Search/SearchIcon";
 
 let customDatesStyles = [];
 let startDate = moment();
@@ -34,15 +36,20 @@ for (let i = 0; i < 6; i++) {
 
 const ProfileScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.container}>
-        <CalendarStrip
-          customDatesStyles={customDatesStyles}
-          scrollable
-          style={{ height: 150, paddingTop: 20, paddingBottom: 10 }}
-        />
-      </View>
-    </View>
+    <Container>
+      <Content>
+        <View style={styles.container}>
+          <CalendarStrip
+            customDatesStyles={customDatesStyles}
+            scrollable
+            style={{ height: 150, paddingTop: 20, paddingBottom: 10 }}
+          />
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+          <Text>Sign Out</Text>
+        </TouchableOpacity>
+      </Content>
+    </Container>
   );
 };
 

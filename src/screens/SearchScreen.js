@@ -1,14 +1,29 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import SearchIcon from "../components/Search/SearchIcon";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Text,
+} from "native-base";
 
-const SearchScreen = () => {
-    return (
-        <View>
-            <Text>
-                Search Screen
-            </Text>
-        </View>
-    )
-}
+const SearchScreen = ({ navigation }) => {
+  return (
+    <Container>
+      <Content>
+        <Text>Here goes the main contents</Text>
+        <Button onPress={() => navigation.navigate("Home")}>
+          <Text>Home</Text>
+        </Button>
+      </Content>
+    </Container>
+  );
+};
 
-export default SearchScreen
+export default SearchScreen;

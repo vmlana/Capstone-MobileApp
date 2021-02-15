@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { NavigationEvents } from "react-navigation";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { navigate } from "../navigationRef";
 
 // import { Context as AuthContext } from "../context/AuthContext";
 
@@ -37,7 +38,19 @@ const SigninScreen = ({ navigation }) => {
         text={"Don't have an account? Sign up first"}
         routeName="Signup"
       /> */}
-      <Text>Sign in</Text>
+      <Text style={{ textAlign: "center" }}>Sign in Screen</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Signup")}
+        style={{ marginTop: 50 }}
+      >
+        <Text>Jump to Sign Up</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Home")}
+        style={{ marginTop: 20 }}
+      >
+        <Text>Jump to Home</Text>
+      </TouchableOpacity>
     </View>
   );
 };

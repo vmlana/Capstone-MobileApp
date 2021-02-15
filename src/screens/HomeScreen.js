@@ -13,27 +13,52 @@ import {
   Text,
 } from "native-base";
 
+import { StyleSheet } from "react-native";
+
+import {
+  categoryPlayList as catPlays,
+  recentlyAddedPlayList as recAddPlays,
+  playList,
+} from "../demoData";
+
 // components ===============
+import SearchIcon from "../components/Search/SearchIcon";
+import ContentListContainer from "../components/Home/ContentListContainer";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="menu" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Header</Title>
-        </Body>
-        <Right />
-      </Header>
-      <Content>
-        <Text>Here goes the main contents</Text>
+      <Content style={styles.container}>
+        <ContentListContainer
+          title={"Select Your workout type"}
+          dataList={catPlays}
+          type={"cat"}
+        />
+        <ContentListContainer
+          title={"Recently Added"}
+          dataList={recAddPlays}
+          type={"movie"}
+        />
+        <ContentListContainer
+          title={"Most Viewed / Hit List"}
+          dataList={recAddPlays}
+          sizeBig={false}
+          type={"movie"}
+        />
+        <ContentListContainer
+          title={"Workout Playlists"}
+          dataList={playList}
+          type={"playlist"}
+        />
       </Content>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 10,
+  },
+});
 
 export default HomeScreen;
