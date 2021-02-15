@@ -2,10 +2,8 @@ import React, { useContext } from "react";
 import { NavigationEvents } from "react-navigation";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-// import AuthForm from "../components/Auth/AuthForm";
-// import NavLink from "../components/NavLink";
-
-// import Spacer from "../components/Spacer";
+import AuthForm from "../components/Auth/AuthForm";
+import NavLink from "../components/Auth/NavLink";
 
 // import { Context as AuthContext } from "../context/AuthContext";
 
@@ -26,30 +24,17 @@ const SignupScreen = ({ navigation }) => {
 
         // onDidBlur gets called right after transitionig away from this component screen
         //   onDidBlur={()=>{}}
-      />
-      <AuthForm
-        headerText="Sing Up"
-        errorMessage={state.errorMessage}
-        submitButtonText="Sign Up"
-        onSubmit={signup}
-      />
-      <NavLink
-        text={"Already have an account? Sign in from here"}
-        routeName="Signin"
       /> */}
-      <Text style={{ textAlign: "center" }}>Sign Up Screen</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Signin")}
-        style={{ marginTop: 50 }}
-      >
-        <Text>Jump to Sign In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={{ marginTop: 20 }}
-      >
-        <Text>Jump to Home</Text>
-      </TouchableOpacity>
+      <AuthForm
+        headerText1="Create Account,"
+        headerText2="Sign up to get started!"
+        // errorMessage={state.errorMessage}
+        submitButtonText="Sign Up"
+        routeName="Signup"
+        // onSubmit={signup}
+        navigation={navigation}
+      />
+      <NavLink text={"I'm already a member."} routeName="Signin" />
     </View>
   );
 };
@@ -63,8 +48,6 @@ SignupScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    marginBottom: 200,
   },
 });
 
