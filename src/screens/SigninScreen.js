@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import { NavigationEvents } from "react-navigation";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, Input, Button } from "react-native-elements";
+
 import { navigate } from "../navigationRef";
 
 // import { Context as AuthContext } from "../context/AuthContext";
 
-// import AuthForm from "../components/Auth/AuthForm";
-// import NavLink from "../components/NavLink";
+import AuthForm from "../components/Auth/AuthForm";
+import NavLink from "../components/Auth/NavLink";
 
 // import Spacer from "../components/Spacer";
 
@@ -27,30 +29,18 @@ const SigninScreen = ({ navigation }) => {
 
         // onDidBlur gets called right after transitionig away from this component screen
         //   onDidBlur={()=>{}}
-      />
-      <AuthForm
-        headerText="Sing In to Your Account"
-        errorMessage={state.errorMessage}
-        submitButtonText="Sign In"
-        onSubmit={signin}
-      />
-      <NavLink
-        text={"Don't have an account? Sign up first"}
-        routeName="Signup"
       /> */}
-      <Text style={{ textAlign: "center" }}>Sign in Screen</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Signup")}
-        style={{ marginTop: 50 }}
-      >
-        <Text>Jump to Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={{ marginTop: 20 }}
-      >
-        <Text>Jump to Home</Text>
-      </TouchableOpacity>
+      <AuthForm
+        headerText1="Welcome,"
+        headerText2="Sign in to Continue!"
+        // errorMessage={state.errorMessage}
+        submitButtonText="Sign In"
+        routeName="Signin"
+        // onSubmit={signin}
+        navigation={navigation}
+        style={styles.auth}
+      />
+      <NavLink text={"I'm a new user."} routeName="Signup" />
     </View>
   );
 };
@@ -64,8 +54,6 @@ SigninScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    marginBottom: 200,
   },
 });
 
