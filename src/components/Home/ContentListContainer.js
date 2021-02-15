@@ -1,12 +1,36 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import {
+  Container,
+  Title,
+  Content,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+} from "native-base";
 
-const ContentListContainer = () => {
-    return (
-        <View>
-            <Text>Content List Container</Text>
-        </View>
-    )
-}
+import { View, FlatList } from "react-native";
+import { Text } from "react-native-elements";
 
-export default ContentListContainer
+import ContentContainer from "./ContentContainer";
+
+const ContentListContainer = ({ title, dataList, navigation, type }) => {
+  return (
+    <View>
+      <Text h4>{title}</Text>
+      <FlatList
+        style={{ marginBottom: 20 }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={dataList}
+        keyExtractor={(result) => result.index}
+        renderItem={({ item }) => (
+          <ContentContainer result={item} type={type} />
+        )}
+      />
+    </View>
+  );
+};
+
+export default ContentListContainer;
