@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Button, Text, Input } from "react-native-elements";
-import { View, StyleSheet } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  KeyboardAvoidingView,
+} from "react-native";
+import NavLink from "./NavLink";
 // import Spacer from "./Spacer";
 
 const AuthForm = ({
@@ -16,9 +22,10 @@ const AuthForm = ({
   const [password, setPassword] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [employeeNum, setEmployeeNum] = useState("");
+
   return (
     <View style={styles.container}>
-      <View>
+      <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
         <Text h3 style={{ fontWeight: "bold", marginHorizontal: 10 }}>
           {headerText1}
         </Text>
@@ -36,7 +43,7 @@ const AuthForm = ({
             borderWidth: 1,
             borderRadius: 4,
             marginTop: 4,
-            height: 36,
+            // height: 36,
           }}
         />
         <Input
@@ -51,7 +58,7 @@ const AuthForm = ({
             borderWidth: 1,
             borderRadius: 4,
             marginTop: 4,
-            height: 36,
+            // height: 36,
           }}
           containerStyle={{ paddingBottom: 0 }}
         />
@@ -69,7 +76,7 @@ const AuthForm = ({
                 borderWidth: 1,
                 borderRadius: 4,
                 marginTop: 4,
-                height: 36,
+                // height: 36,
               }}
             />
             <Input
@@ -84,13 +91,13 @@ const AuthForm = ({
                 borderWidth: 1,
                 borderRadius: 4,
                 marginTop: 4,
-                height: 36,
+                // height: 36,
               }}
               containerStyle={{ paddingBottom: 0 }}
             />
           </>
         ) : null}
-      </View>
+      </KeyboardAvoidingView>
       {/* {errorMessage ? (
         <Text style={styles.errorMessage}>{errorMessage}</Text>
       ) : (
@@ -101,14 +108,14 @@ const AuthForm = ({
         <Button
           title={submitButtonText}
           titleStyle={{ fontSize: 17 }}
-          style={{ marginHorizontal: 10, height: 36 }}
+          buttonStyle={{ marginHorizontal: 10 }}
           // onPress={() => onSubmit({ email, password })}
           onPress={() => navigation.navigate("Home")}
         />
         <Button
           title={"Connect with Google"}
           titleStyle={{ fontSize: 17 }}
-          style={styles.button}
+          buttonStyle={styles.button}
           // onPress={() => onSubmit({ email, password })}
           onPress={() => navigation.navigate("Home")}
         />
@@ -117,11 +124,13 @@ const AuthForm = ({
   );
 };
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginHorizontal: 50,
-    marginTop: 50,
+    marginTop: windowHeight / 18,
     marginBottom: 30,
     justifyContent: "space-between",
   },
@@ -142,7 +151,6 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     marginHorizontal: 10,
-    height: 36,
   },
 });
 
