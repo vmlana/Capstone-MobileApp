@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Button, Text, Input } from "react-native-elements";
-import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  KeyboardAvoidingView,
+} from "react-native";
 import NavLink from "./NavLink";
 // import Spacer from "./Spacer";
 
@@ -17,9 +22,10 @@ const AuthForm = ({
   const [password, setPassword] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [employeeNum, setEmployeeNum] = useState("");
+
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView style={{ marginBottom: 80 }}>
+      <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
         <Text h3 style={{ fontWeight: "bold", marginHorizontal: 10 }}>
           {headerText1}
         </Text>
@@ -37,6 +43,7 @@ const AuthForm = ({
             borderWidth: 1,
             borderRadius: 4,
             marginTop: 4,
+            // height: 36,
           }}
         />
         <Input
@@ -51,6 +58,7 @@ const AuthForm = ({
             borderWidth: 1,
             borderRadius: 4,
             marginTop: 4,
+            // height: 36,
           }}
           containerStyle={{ paddingBottom: 0 }}
         />
@@ -68,6 +76,7 @@ const AuthForm = ({
                 borderWidth: 1,
                 borderRadius: 4,
                 marginTop: 4,
+                // height: 36,
               }}
             />
             <Input
@@ -82,6 +91,7 @@ const AuthForm = ({
                 borderWidth: 1,
                 borderRadius: 4,
                 marginTop: 4,
+                // height: 36,
               }}
               containerStyle={{ paddingBottom: 0 }}
             />
@@ -114,10 +124,13 @@ const AuthForm = ({
   );
 };
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 50,
-    marginTop: 50,
+    marginTop: windowHeight / 18,
     marginBottom: 30,
     justifyContent: "space-between",
   },

@@ -13,7 +13,7 @@ import {
   Text,
 } from "native-base";
 
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import {
   categoryPlayList as catPlays,
@@ -22,34 +22,38 @@ import {
 } from "../demoData";
 
 // components ===============
+import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <Container>
-      <Content style={styles.container}>
-        <ContentListContainer
-          title={"Select Your workout type"}
-          dataList={catPlays}
-          type={"cat"}
-        />
-        <ContentListContainer
-          title={"Recently Added"}
-          dataList={recAddPlays}
-          type={"movie"}
-        />
-        <ContentListContainer
-          title={"Most Viewed / Hit List"}
-          dataList={recAddPlays}
-          sizeBig={false}
-          type={"movie"}
-        />
-        <ContentListContainer
-          title={"Workout Playlists"}
-          dataList={playList}
-          type={"playlist"}
-        />
+      <Content>
+        <Update />
+        <View style={styles.container}>
+          <ContentListContainer
+            title={"Select Your workout type"}
+            dataList={catPlays}
+            type={"cat"}
+          />
+          <ContentListContainer
+            title={"Recently Added"}
+            dataList={recAddPlays}
+            type={"movie"}
+          />
+          <ContentListContainer
+            title={"Most Viewed / Hit List"}
+            dataList={recAddPlays}
+            sizeBig={false}
+            type={"movie"}
+          />
+          <ContentListContainer
+            title={"Workout Playlists"}
+            dataList={playList}
+            type={"playlist"}
+          />
+        </View>
       </Content>
     </Container>
   );
