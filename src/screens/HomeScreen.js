@@ -36,22 +36,26 @@ const HomeScreen = ({ navigation }) => {
             title={"Select Your workout type"}
             dataList={catPlays}
             type={"cat"}
+            navigation={navigation}
           />
           <ContentListContainer
             title={"Recently Added"}
             dataList={recAddPlays}
             type={"movie"}
+            navigation={navigation}
           />
           <ContentListContainer
             title={"Most Viewed / Hit List"}
             dataList={recAddPlays}
             sizeBig={false}
             type={"movie"}
+            navigation={navigation}
           />
           <ContentListContainer
             title={"Workout Playlists"}
             dataList={playList}
             type={"playlist"}
+            navigation={navigation}
           />
         </View>
       </Content>

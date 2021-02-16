@@ -26,7 +26,7 @@ const ContentListContainer = ({ title, dataList, navigation, type }) => {
         data={dataList}
         keyExtractor={(result) => result.index}
         renderItem={({ item }) => (
-          <ContentContainer result={item} type={type} />
+          <ContentContainer result={item} type={type} navigation={navigation} />
         )}
       />
     </View>

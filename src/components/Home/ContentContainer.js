@@ -13,12 +13,14 @@ import {
   Text,
   Thumbnail,
 } from "native-base";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const ContentContainer = ({ navigation, result, type }) => {
   return (
     <View style={styles.container}>
-      <ThumbNail type={type} source={{ uri: result.thumbNail }} />
+      <TouchableOpacity onPress={() => navigation.navigate("SingleVideo")}>
+        <ThumbNail type={type} source={{ uri: result.thumbNail }} />
+      </TouchableOpacity>
       {type === "cat" || type === "movie" ? <Text>{result.title}</Text> : null}
 
       {type === "movie" ? (
@@ -30,6 +32,7 @@ const ContentContainer = ({ navigation, result, type }) => {
               uri: result.trainerPic,
             }}
           />
+
           <Text style={{ fontSize: 12 }}>{result.trainer}</Text>
         </View>
       ) : type === "playlist" ? (

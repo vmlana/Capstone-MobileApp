@@ -23,6 +23,7 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import PlayListScreen from "./src/screens/PlayListScreen";
+import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 // =====================================================
 
@@ -33,6 +34,10 @@ const HomeStack = createStackNavigator(
     PlayList: {
       screen: PlayListScreen,
       navigationOptions: { title: "Play List" },
+    },
+    SingleVideo: {
+      screen: SingleVideoScreen,
+      navigationOptions: { title: "Single Video" },
     },
     Search: {
       screen: SearchScreen,
