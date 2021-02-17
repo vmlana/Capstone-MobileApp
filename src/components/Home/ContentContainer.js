@@ -15,10 +15,14 @@ import {
 } from "native-base";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
+import { videoData } from "../../demoData";
+
 const ContentContainer = ({ navigation, result, type }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("SingleVideo")}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("SingleVideo", { data: videoData })}
+      >
         <ThumbNail type={type} source={{ uri: result.thumbNail }} />
       </TouchableOpacity>
       {type === "cat" || type === "movie" ? <Text>{result.title}</Text> : null}
@@ -77,8 +81,8 @@ const styles = StyleSheet.create({
 });
 
 const ThumbNail = styled.Image`
-  width: ${({ type }) => (type === "cat" ? 140 : 120)};
-  height: ${({ type }) => (type === "cat" ? 130 : 130)};
+  width: ${({ type }) => (type === "cat" ? 160 : 140)};
+  height: ${({ type }) => (type === "cat" ? 140 : 140)};
   border-radius: 4;
   margin-bottom: 5;
 `;
