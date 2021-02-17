@@ -65,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 10,
+    marginLeft: 25,
   },
 });
 

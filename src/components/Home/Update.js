@@ -11,8 +11,7 @@ const Update = () => {
         <Text>You completed 5 workouts last week!</Text>
       </View>
       <Thumbnail
-        // style={styles.trainerThumb}
-        large
+        medium
         source={{
           uri:
             "https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png",
@@ -28,13 +27,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     marginVertical: 30,
     height: 100,
     alignItems: "center",
     padding: 20,
   },
-  textContainer: {},
+  textContainer: { width: "60%" },
 });
 
 export default Update;
