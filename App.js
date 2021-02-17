@@ -24,6 +24,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import PlayListScreen from "./src/screens/PlayListScreen";
 import SingleVideoScreen from "./src/screens/SingleVideoScreen";
+import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 // =====================================================
 
@@ -38,6 +39,10 @@ const HomeStack = createStackNavigator(
     SingleVideo: {
       screen: SingleVideoScreen,
       navigationOptions: { title: "Single Video" },
+    },
+    SetSchedule: {
+      screen: SetScheduleScreen,
+      navigationOptions: { title: "Schedule a Session" },
     },
     Search: {
       screen: SearchScreen,
