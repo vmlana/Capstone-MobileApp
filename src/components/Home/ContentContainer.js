@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
 });
 
 const ThumbNail = styled.Image`
-  width: ${({ type }) => (type === "cat" ? 170 : 150)};
-  height: ${({ type }) => (type === "cat" ? 150 : 150)};
+  width: ${({ type }) => (type === "cat" ? 140 : 120)};
+  height: ${({ type }) => (type === "cat" ? 130 : 130)};
   border-radius: 4;
   margin-bottom: 5;
 `;
