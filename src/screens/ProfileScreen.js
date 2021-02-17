@@ -16,6 +16,7 @@ import {
 } from "native-base";
 
 import SearchIcon from "../components/Search/SearchIcon";
+import Calendar from "../components/Profile/Calendar";
 
 let customDatesStyles = [];
 let startDate = moment();
@@ -39,11 +40,7 @@ const ProfileScreen = ({ navigation }) => {
     <Container>
       <Content>
         <View style={styles.container}>
-          <CalendarStrip
-            customDatesStyles={customDatesStyles}
-            scrollable
-            style={{ height: 150, paddingTop: 20, paddingBottom: 10 }}
-          />
+          <Calendar customStyles={customDatesStyles} />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
           <Text>Sign Out</Text>

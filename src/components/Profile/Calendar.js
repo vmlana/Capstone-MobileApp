@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import CalendarStrip from "react-native-calendar-strip";
 import {
   Container,
   Header,
@@ -11,29 +14,24 @@ import {
   Icon,
   Text,
 } from "native-base";
-import CalendarStrip from "react-native-calendar-strip";
 
-const Calendar = () => {
-  <Container>
-    <Header>
-      <Left />
-      <Body>{/* <Title>Pivot Care</Title> */}</Body>
-      <Right>
-        <SearchIcon />
-      </Right>
-    </Header>
-    <Content>
+const Calendar = ({ navigation, customStyles }) => {
+  const [customStyle, setCustomStyle] = useState(null);
+
+  useEffect(() => {
+    customStyles ? setCustomStyle(customStyles) : setCustomStyle(null);
+  }, []);
+
+  return (
+    <View style={styles.container}>
       <CalendarStrip
+        customDatesStyles={customStyle}
         scrollable
-        style={{ height: 200, paddingTop: 20, paddingBottom: 10 }}
-        calendarColor={"#3343CE"}
-        calendarHeaderStyle={{ color: "white" }}
-        dateNumberStyle={{ color: "white" }}
-        dateNameStyle={{ color: "white" }}
-        iconContainer={{ flex: 0.1 }}
+        style={{ height: 150, paddingTop: 20, paddingBottom: 10 }}
+        onDateSelected={(date) => console.log(date)}
       />
-    </Content>
-  </Container>;
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

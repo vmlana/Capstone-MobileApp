@@ -18,7 +18,11 @@ const SingleVideoScreen = ({ navigation }) => {
         <Blogs data={blogData} />
       </ScrollView>
       <View style={styles.bottom}>
-        <Button title="Schedule a Session" buttonStyle={styles.button} />
+        <Button
+          title="Schedule a Session"
+          buttonStyle={styles.button}
+          onPress={() => navigation.navigate("SetSchedule")}
+        />
       </View>
     </View>
   );

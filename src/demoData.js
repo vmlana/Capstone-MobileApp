@@ -142,8 +142,7 @@ export const blogData = {
 };
 
 export const videoData = {
-  video:
-    "https://pivotcare-s3.s3-us-west-2.amazonaws.com/videos/TutorialOpening1613176335390",
+  video: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/exercise01.mp4",
   videoTitle: "Workout Name",
   trainerName: "Alvin Kamara",
   trainerPic:
