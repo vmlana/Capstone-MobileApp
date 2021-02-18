@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
 });
 
 const ThumbNail = styled.Image`
-  width: ${({ type }) => (type === "cat" ? 160 : 140)};
-  height: ${({ type }) => (type === "cat" ? 140 : 140)};
-  border-radius: 4;
-  margin-bottom: 5;
+  width: ${({ type }) => (type === "cat" ? "160px" : "140px")};
+  height: ${({ type }) => (type === "cat" ? "140px" : "140px")};
+  border-radius: 4px;
+  margin-bottom: 5px;
 `;
 
 export default ContentContainer;
