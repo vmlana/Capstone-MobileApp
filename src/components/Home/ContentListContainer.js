@@ -24,7 +24,7 @@ const ContentListContainer = ({ title, dataList, navigation, type }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={dataList}
-        keyExtractor={(result) => result.index}
+        keyExtractor={(item, index) => index}
         renderItem={({ item }) => (
           <ContentContainer result={item} type={type} navigation={navigation} />
         )}
