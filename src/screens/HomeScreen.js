@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Header,
@@ -21,12 +21,37 @@ import {
   playList,
 } from "../demoData";
 
+import { getPrograms, getPlayLists } from "../data/api";
+
 // components ===============
 import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
 
+const programId = 1;
+
 const HomeScreen = ({ navigation }) => {
+  const [programs, setPrograms] = useState([]);
+  const [playLists, setPlayLists] = useState([]);
+
+  useEffect(() => {
+    const getProgramArr = async () => {
+      const programArr = await getPrograms();
+      const filteredProgramList = await programArr.filter(
+        (program) => program.programId === programId
+      );
+      await setPrograms(filteredProgramList);
+    };
+
+    const getPlayListArr = async () => {
+      const playListArr = await getPlayLists();
+      setPlayLists(playListArr);
+    };
+
+    getProgramArr();
+    getPlayListArr();
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -40,23 +65,28 @@ const HomeScreen = ({ navigation }) => {
           />
           <ContentListContainer
             title={"Recently Added"}
-            dataList={recAddPlays}
-            type={"movie"}
+            dataList={playLists}
+            type={"playlists"}
             navigation={navigation}
           />
-          <ContentListContainer
-            title={"Most Viewed / Hit List"}
-            dataList={recAddPlays}
-            sizeBig={false}
-            type={"movie"}
-            navigation={navigation}
-          />
-          <ContentListContainer
-            title={"Workout Playlists"}
-            dataList={playList}
-            type={"playlist"}
-            navigation={navigation}
-          />
+          {playLists.length !== 0 ? (
+            <ContentListContainer
+              title={"Most Viewed / Hit List"}
+              dataList={playLists}
+              sizeBig={false}
+              type={"playlists"}
+              navigation={navigation}
+            />
+          ) : null}
+
+          {programs.length !== 0 ? (
+            <ContentListContainer
+              title={"Workout Playlists"}
+              dataList={programs}
+              type={"programs"}
+              navigation={navigation}
+            />
+          ) : null}
         </View>
       </Content>
     </Container>

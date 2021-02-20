@@ -15,50 +15,49 @@ import {
 } from "native-base";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-import { videoData } from "../../demoData";
+import { playList, videoData } from "../../demoData";
+import TrainerName from "../Trainer/TrainerName";
 
 const ContentContainer = ({ navigation, result, type }) => {
-	return (
-		<View style={styles.container}>
-			<TouchableOpacity
-				onPress={() => navigation.navigate("SingleVideo", { data: videoData })}
-			>
-				<ThumbNail type={type} source={{ uri: result.thumbNail }} />
-			</TouchableOpacity>
-			{type === "cat" || type === "movie" ? <Text>{result.title}</Text> : null}
 
-			{type === "movie" ? (
-				<TouchableOpacity
-					onPress={() => navigation.navigate("TrainerDetails", { name: result.trainer, id: 2 })}
-				>
-					<View style={styles.trainerContainer}>
-						<Thumbnail
-							style={styles.trainerThumb}
-							small
-							source={{
-								uri: result.trainerPic,
-							}}
-						/>
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("PlayList", {
+            singleVideoData: result.lessons,
+            playListData: result,
+          })
+        }
+      >
+        <ThumbNail
+          type={type}
+          source={{ uri: "https://dummyimage.com/150x150/000/fff" }}
+        />
+      </TouchableOpacity>
+      {type === "cat" || type === "playlists" ? (
+        <Text>{result.playlistName}</Text>
+      ) : null}
 
-						<Text style={{ fontSize: 12 }}>{result.trainer}</Text>
-					</View>
-				</TouchableOpacity>
-			) : type === "playlist" ? (
-				<View style={styles.playListContainer}>
-					<Text>{result.title}</Text>
-					<View style={{ flexDirection: "row" }}>
-						<MaterialCommunityIcons
-							name="checkbox-multiple-blank-outline"
-							size={15}
-							color="black"
-							style={{ marginRight: 5, alignItems: "center" }}
-						/>
-						<Text>{result.movieLists.length}</Text>
-					</View>
-				</View>
-			) : null}
-		</View>
-	);
+      {type === "playlists" ? (
+        <TrainerName data={result} />
+      ) : type === "programs" ? (
+        <View style={styles.playListContainer}>
+          <Text>{result.playlistName}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <MaterialCommunityIcons
+              name="checkbox-multiple-blank-outline"
+              size={15}
+              color="black"
+              style={{ marginRight: 5, alignItems: "center" }}
+            />
+            <Text>{result.lessons.length}</Text>
+          </View>
+        </View>
+      ) : null}
+    </View>
+  );
+
 };
 
 const styles = StyleSheet.create({
