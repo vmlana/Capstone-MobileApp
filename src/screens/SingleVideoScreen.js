@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 
@@ -7,14 +7,21 @@ import SingleVideo from "../components/PlayList/SingleVideo";
 import Blogs from "../components/Blog/Blogs";
 
 // Data ====================
-import { blogData } from "../demoData";
+import { blogData, playList } from "../demoData";
 
 const SingleVideoScreen = ({ navigation }) => {
-  const data = navigation.getParam("data");
+  const data = navigation.getParam("videoData");
+  const playList = navigation.getParam("playListData");
+
+  const [playListData, setPlayList] = useState([]);
+
+  useEffect(() => {
+    setPlayList(playList);
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView>
-        <SingleVideo data={data} />
+        <SingleVideo data={data} playListData={playListData} />
         <Blogs data={blogData} />
       </ScrollView>
       <View style={styles.bottom}>

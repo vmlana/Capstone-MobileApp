@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Title,
@@ -19,16 +19,40 @@ const ContentListContainer = ({ title, dataList, navigation, type }) => {
   return (
     <View>
       <Text h4>{title}</Text>
-      <FlatList
-        style={{ marginBottom: 20 }}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={dataList}
-        keyExtractor={(item, index) => index}
-        renderItem={({ item }) => (
-          <ContentContainer result={item} type={type} navigation={navigation} />
-        )}
-      />
+
+      {type === "programs" ? (
+        <FlatList
+          style={{ marginBottom: 20 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={dataList[0].playlists}
+          keyExtractor={(item, index) => {
+            return item.toString() + index;
+          }}
+          renderItem={({ item }) => (
+            <ContentContainer
+              result={item}
+              type={type}
+              navigation={navigation}
+            />
+          )}
+        />
+      ) : (
+        <FlatList
+          style={{ marginBottom: 20 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={dataList}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item }) => (
+            <ContentContainer
+              result={item}
+              type={type}
+              navigation={navigation}
+            />
+          )}
+        />
+      )}
     </View>
   );
 };

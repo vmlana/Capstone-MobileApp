@@ -15,13 +15,18 @@ import {
 } from "native-base";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-import { videoData } from "../../demoData";
+import { playList, videoData } from "../../demoData";
 
 const ContentContainer = ({ navigation, result, type }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("SingleVideo", { data: videoData })}
+        onPress={() =>
+          navigation.navigate("PlayList", {
+            singleVideoData: result.lessons,
+            playListData: result,
+          })
+        }
       >
         <ThumbNail type={type} source={{ uri: result.thumbNail }} />
       </TouchableOpacity>
@@ -39,9 +44,9 @@ const ContentContainer = ({ navigation, result, type }) => {
 
           <Text style={{ fontSize: 12 }}>{result.trainer}</Text>
         </View>
-      ) : type === "playlist" ? (
+      ) : type === "programs" ? (
         <View style={styles.playListContainer}>
-          <Text>{result.title}</Text>
+          <Text>{result.playlistName}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="checkbox-multiple-blank-outline"
@@ -49,7 +54,7 @@ const ContentContainer = ({ navigation, result, type }) => {
               color="black"
               style={{ marginRight: 5, alignItems: "center" }}
             />
-            <Text>{result.movieLists.length}</Text>
+            <Text>{result.lessons.length}</Text>
           </View>
         </View>
       ) : null}

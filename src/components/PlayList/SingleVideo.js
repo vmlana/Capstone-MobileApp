@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Video } from "expo-av";
 import {
   View,
@@ -16,7 +16,7 @@ import TrainerName from "../Trainer/TrainerName";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const SingleVideo = ({ data }) => {
+const SingleVideo = ({ data, playListData }) => {
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
@@ -35,7 +35,7 @@ const SingleVideo = ({ data }) => {
     <View>
       <Video
         source={{
-          uri: data.video,
+          uri: data.videoFile,
         }}
         rate={1.0}
         volume={1.0}
@@ -50,14 +50,14 @@ const SingleVideo = ({ data }) => {
       />
 
       <View style={styles.videoHeader}>
-        <Text h3>{data.videoTitle}</Text>
+        <Text h3>{data.lessonName}</Text>
         <TrainerName data={data} />
       </View>
       <View style={styles.videoInfo}>
-        <Text>{data.category}</Text>
-        <Text>{data.duration}</Text>
+        <Text>{playListData.categoryName}</Text>
+        <Text>Need to get duration</Text>
       </View>
-      <Text style={styles.desc}>{data.desc}</Text>
+      <Text style={styles.desc}>{data.lessonDescription}</Text>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Header,
@@ -21,12 +21,30 @@ import {
   playList,
 } from "../demoData";
 
+import { getPrograms } from "../data/api";
+
 // components ===============
 import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
 
+const programId = 1;
+
 const HomeScreen = ({ navigation }) => {
+  const [programs, setPrograms] = useState([]);
+
+  useEffect(() => {
+    const getProgramArr = async () => {
+      const programArr = await getPrograms();
+      const filteredProgramList = await programArr.filter(
+        (program) => program.programId === programId
+      );
+      await setPrograms(filteredProgramList);
+    };
+
+    getProgramArr();
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -51,12 +69,14 @@ const HomeScreen = ({ navigation }) => {
             type={"movie"}
             navigation={navigation}
           />
-          <ContentListContainer
-            title={"Workout Playlists"}
-            dataList={playList}
-            type={"playlist"}
-            navigation={navigation}
-          />
+          {programs.length !== 0 ? (
+            <ContentListContainer
+              title={"Workout Playlists"}
+              dataList={programs}
+              type={"programs"}
+              navigation={navigation}
+            />
+          ) : null}
         </View>
       </Content>
     </Container>
