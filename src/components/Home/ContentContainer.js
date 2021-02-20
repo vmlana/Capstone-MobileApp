@@ -3,15 +3,15 @@ import styled from "styled-components";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
-  Container,
-  Title,
-  Button,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Text,
-  Thumbnail,
+	Container,
+	Title,
+	Button,
+	Left,
+	Right,
+	Body,
+	Icon,
+	Text,
+	Thumbnail,
 } from "native-base";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
@@ -19,6 +19,7 @@ import { playList, videoData } from "../../demoData";
 import TrainerName from "../Trainer/TrainerName";
 
 const ContentContainer = ({ navigation, result, type }) => {
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -56,29 +57,30 @@ const ContentContainer = ({ navigation, result, type }) => {
       ) : null}
     </View>
   );
+
 };
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 20,
-  },
-  trainerContainer: {
-    flexDirection: "row",
-    marginTop: 7,
-    alignItems: "center",
-  },
-  trainerThumb: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
-  },
-  playListContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
+	container: {
+		display: "flex",
+		marginTop: 10,
+		marginBottom: 10,
+		marginRight: 20,
+	},
+	trainerContainer: {
+		flexDirection: "row",
+		marginTop: 7,
+		alignItems: "center",
+	},
+	trainerThumb: {
+		width: 24,
+		height: 24,
+		marginRight: 10,
+	},
+	playListContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
 });
 
 const ThumbNail = styled.Image`

@@ -7,8 +7,8 @@ import { View, Button, StyleSheet, Text } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
-  createBottomTabNavigator,
-  createTabNavigator,
+	createBottomTabNavigator,
+	createTabNavigator,
 } from "react-navigation-tabs";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -26,113 +26,120 @@ import PlayListScreen from "./src/screens/PlayListScreen";
 import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
+import TrainerScreen from './src/screens/TrainerScreen';
 // =====================================================
 
 // The most top will be initially renddered
 const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    PlayList: {
-      screen: PlayListScreen,
-      navigationOptions: { title: "Play List" },
-    },
-    SingleVideo: {
-      screen: SingleVideoScreen,
-      navigationOptions: { title: "Single Video" },
-    },
-    SetSchedule: {
-      screen: SetScheduleScreen,
-      navigationOptions: { title: "Schedule a Session" },
-    },
-    Search: {
-      screen: SearchScreen,
-      navigationOptions: {
-        title: "Search",
-        headerRight: () => "",
-      },
-    },
-  },
-  {
-    defaultNavigationOptions: {
-      headerRight: () => <SearchIcon />,
-      headerBackTitle: " ",
-    },
-  }
+	{
+		Home: HomeScreen,
+		PlayList: {
+			screen: PlayListScreen,
+			navigationOptions: { title: "Play List" },
+		},
+		SingleVideo: {
+			screen: SingleVideoScreen,
+			navigationOptions: { title: "Single Video" },
+		},
+		SetSchedule: {
+			screen: SetScheduleScreen,
+			navigationOptions: { title: "Schedule a Session" },
+		},
+		Search: {
+			screen: SearchScreen,
+			navigationOptions: {
+				title: "Search",
+				headerRight: () => "",
+			},
+		},
+		TrainerDetails: {
+			screen: TrainerScreen,
+			navigationOptions: ({ navigation }) => ({
+				title: `${navigation.state.params.name}`,
+			}),
+		},
+	},
+	{
+		defaultNavigationOptions: {
+			headerRight: () => <SearchIcon />,
+			headerBackTitle: " ",
+		},
+	}
 );
 const BlogStack = createStackNavigator(
-  {
-    Blog: BlogScreen,
-    Search: SearchScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      headerRight: () => <SearchIcon />,
-      headerBackTitle: " ",
-    },
-  }
+	{
+		Blog: BlogScreen,
+		Search: SearchScreen,
+	},
+	{
+		defaultNavigationOptions: {
+			headerRight: () => <SearchIcon />,
+			headerBackTitle: " ",
+		},
+	}
 );
 const ProfileStack = createStackNavigator(
-  {
-    Profile: ProfileScreen,
-    Search: SearchScreen,
-  },
+	{
+		Profile: ProfileScreen,
+		Search: SearchScreen,
+	},
 
-  {
-    defaultNavigationOptions: {
-      headerRight: () => <SearchIcon />,
-      headerBackTitle: " ",
-    },
-  }
+	{
+		defaultNavigationOptions: {
+			headerRight: () => <SearchIcon />,
+			headerBackTitle: " ",
+		},
+	}
 );
 
 const TabNavigator = createBottomTabNavigator(
-  {
-    Home: HomeStack,
-    Blog: BlogStack,
-    Profile: ProfileStack,
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
-        let IconComponent = Ionicons;
-        let iconName;
-        if (routeName === "Home") {
-          iconName = focused ? "ios-home" : "ios-home-outline";
-          // Sometimes we want to add badges to some icons.
-          // You can check the implementation below.
-          //   IconComponent = HomeIconWithBadge;
-        } else if (routeName === "Blog") {
-          iconName = focused ? "ios-book" : "ios-book-outline";
-        } else if (routeName === "Profile") {
-          iconName = focused ? "ios-person" : "ios-person-outline";
-        }
+	{
+		Home: HomeStack,
+		Blog: BlogStack,
+		Profile: ProfileStack,
+	},
+	{
+		defaultNavigationOptions: ({ navigation }) => ({
+			tabBarIcon: ({ focused, horizontal, tintColor }) => {
+				const { routeName } = navigation.state;
+				let IconComponent = Ionicons;
+				let iconName;
+				if (routeName === "Home") {
+					iconName = focused ? "ios-home" : "ios-home-outline";
+					// Sometimes we want to add badges to some icons.
+					// You can check the implementation below.
+					//   IconComponent = HomeIconWithBadge;
+				} else if (routeName === "Blog") {
+					iconName = focused ? "ios-book" : "ios-book-outline";
+				} else if (routeName === "Profile") {
+					iconName = focused ? "ios-person" : "ios-person-outline";
+				}
 
-        // You can return any component that you like here
-        return <IconComponent name={iconName} size={25} color={tintColor} />;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: "blue",
-      inactiveTintColor: "gray",
-    },
-  }
+				// You can return any component that you like here
+				return <IconComponent name={iconName} size={25} color={tintColor} />;
+			},
+		}),
+		tabBarOptions: {
+			activeTintColor: "blue",
+			inactiveTintColor: "gray",
+		},
+	}
 );
 
 const AppNavigator = createSwitchNavigator({
-  Auth: createStackNavigator({
-    Signin: SigninScreen,
-    Signup: SignupScreen,
-  }),
-  Home: TabNavigator,
+	Auth: createStackNavigator({
+		Signin: SigninScreen,
+		Signup: SignupScreen,
+	}),
+	Home: TabNavigator,
 });
 
 const AppContainer = createAppContainer(AppNavigator);
 
 export default () => {
-  return (
-    // <AuthProvider>
-    <AppContainer ref={(navigation) => setNavigator(navigator)} />
-    // </AuthProvider>
-  );
+	return (
+		// <AuthProvider>
+		<AppContainer ref={(navigation) => setNavigator(navigator)} />
+		// </AuthProvider>
+	);
 };
