@@ -5,3 +5,11 @@ export const getPrograms = async () => {
 
   return programs;
 };
+
+export const getPlayLists = async () => {
+  const playlists = await fetch(
+    "http://localhost:3000/api/v1/playlists?userId=100350049&programId="
+  ).then((response) => response.json());
+
+  return playlists;
+};

@@ -21,7 +21,7 @@ import {
   playList,
 } from "../demoData";
 
-import { getPrograms } from "../data/api";
+import { getPrograms, getPlayLists } from "../data/api";
 
 // components ===============
 import Update from "../components/Home/Update";
@@ -32,6 +32,7 @@ const programId = 1;
 
 const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
+  const [playLists, setPlayLists] = useState([]);
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -42,7 +43,13 @@ const HomeScreen = ({ navigation }) => {
       await setPrograms(filteredProgramList);
     };
 
+    const getPlayListArr = async () => {
+      const playListArr = await getPlayLists();
+      setPlayLists(playListArr);
+    };
+
     getProgramArr();
+    getPlayListArr();
   }, []);
 
   return (
@@ -58,17 +65,20 @@ const HomeScreen = ({ navigation }) => {
           />
           <ContentListContainer
             title={"Recently Added"}
-            dataList={recAddPlays}
-            type={"movie"}
+            dataList={playLists}
+            type={"playlists"}
             navigation={navigation}
           />
-          <ContentListContainer
-            title={"Most Viewed / Hit List"}
-            dataList={recAddPlays}
-            sizeBig={false}
-            type={"movie"}
-            navigation={navigation}
-          />
+          {playLists.length !== 0 ? (
+            <ContentListContainer
+              title={"Most Viewed / Hit List"}
+              dataList={playLists}
+              sizeBig={false}
+              type={"playlists"}
+              navigation={navigation}
+            />
+          ) : null}
+
           {programs.length !== 0 ? (
             <ContentListContainer
               title={"Workout Playlists"}

@@ -16,6 +16,7 @@ import {
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { playList, videoData } from "../../demoData";
+import TrainerName from "../Trainer/TrainerName";
 
 const ContentContainer = ({ navigation, result, type }) => {
   return (
@@ -28,22 +29,17 @@ const ContentContainer = ({ navigation, result, type }) => {
           })
         }
       >
-        <ThumbNail type={type} source={{ uri: result.thumbNail }} />
+        <ThumbNail
+          type={type}
+          source={{ uri: "https://dummyimage.com/150x150/000/fff" }}
+        />
       </TouchableOpacity>
-      {type === "cat" || type === "movie" ? <Text>{result.title}</Text> : null}
+      {type === "cat" || type === "playlists" ? (
+        <Text>{result.playlistName}</Text>
+      ) : null}
 
-      {type === "movie" ? (
-        <View style={styles.trainerContainer}>
-          <Thumbnail
-            style={styles.trainerThumb}
-            small
-            source={{
-              uri: result.trainerPic,
-            }}
-          />
-
-          <Text style={{ fontSize: 12 }}>{result.trainer}</Text>
-        </View>
+      {type === "playlists" ? (
+        <TrainerName data={result} />
       ) : type === "programs" ? (
         <View style={styles.playListContainer}>
           <Text>{result.playlistName}</Text>

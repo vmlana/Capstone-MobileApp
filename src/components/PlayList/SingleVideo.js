@@ -51,7 +51,7 @@ const SingleVideo = ({ data, playListData }) => {
 
       <View style={styles.videoHeader}>
         <Text h3>{data.lessonName}</Text>
-        <TrainerName data={data} />
+        <TrainerName data={playListData} />
       </View>
       <View style={styles.videoInfo}>
         <Text>{playListData.categoryName}</Text>

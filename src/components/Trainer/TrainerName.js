@@ -9,11 +9,12 @@ const TrainerName = ({ data }) => {
       <Thumbnail
         small
         source={{
-          uri: data.trainerPic,
+          uri:
+            "https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png",
         }}
         style={styles.thumbNail}
       />
-      <Text style={{ marginLeft: 5 }}>{data.trainerName}</Text>
+      <Text style={{ marginLeft: 5 }}>{data.instructorName}</Text>
     </TouchableOpacity>
   );
 };
