@@ -26,7 +26,7 @@ const PlayListScreen = ({ navigation }) => {
                 onPress={() =>
                   navigation.navigate("SingleVideo", {
                     //   passing the parameter to the single video screen
-                    videoData: data,
+                    videoData: singleVideo,
                     playListData,
                   })
                 }
