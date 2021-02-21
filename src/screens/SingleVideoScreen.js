@@ -21,7 +21,7 @@ const SingleVideoScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <SingleVideo data={data} playListData={playListData} />
+        <SingleVideo data={data} playListData={playListData} navigation={navigation} />
         <Blogs data={blogData} />
       </ScrollView>
       <View style={styles.bottom}>

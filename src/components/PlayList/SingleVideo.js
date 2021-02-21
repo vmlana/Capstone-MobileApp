@@ -16,7 +16,7 @@ import TrainerName from "../Trainer/TrainerName";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const SingleVideo = ({ data, playListData }) => {
+const SingleVideo = ({ navigation, data, playListData }) => {
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
@@ -51,7 +51,7 @@ const SingleVideo = ({ data, playListData }) => {
 
       <View style={styles.videoHeader}>
         <Text h3>{data.lessonName}</Text>
-        <TrainerName data={playListData} />
+        <TrainerName data={playListData} navigation={navigation} />
       </View>
       <View style={styles.videoInfo}>
         <Text>{playListData.categoryName}</Text>
