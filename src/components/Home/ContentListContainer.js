@@ -37,13 +37,32 @@ const ContentListContainer = ({ title, dataList, navigation, type }) => {
             />
           )}
         />
+      ) : type === "playlists" ? (
+        <FlatList
+          style={{ marginBottom: 20 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={dataList}
+          keyExtractor={(item, index) => {
+            return item.toString() + index;
+          }}
+          renderItem={({ item }) => (
+            <ContentContainer
+              result={item}
+              type={type}
+              navigation={navigation}
+            />
+          )}
+        />
       ) : (
         <FlatList
           style={{ marginBottom: 20 }}
           horizontal
           showsHorizontalScrollIndicator={false}
           data={dataList}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => {
+            return item.toString() + index;
+          }}
           renderItem={({ item }) => (
             <ContentContainer
               result={item}
