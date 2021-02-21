@@ -47,6 +47,7 @@ const PlayListScreen = ({ navigation }) => {
           ))
         : null} */}
         <FlatList
+          style={styles.flatList}
           data={playListData.lessons}
           keyExtractor={(item)=> item.lessonId.toString()}
           renderItem={({item, index}) => {
@@ -137,7 +138,10 @@ PlayListScreen.navigationOptions = (navData) => {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      padding: 33,
+      // padding: 33,
+  },
+  flatList: {
+    padding: 33,
   },
   centered: {
       flex: 1,
