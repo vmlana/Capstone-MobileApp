@@ -55,7 +55,7 @@ const HomeStack = createStackNavigator(
 		TrainerDetails: {
 			screen: TrainerScreen,
 			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.name}`,
+				title: `${navigation.state.params.instructorName}`,
 			}),
 		},
 	},
