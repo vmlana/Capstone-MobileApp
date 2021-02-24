@@ -24,3 +24,22 @@ export const getInstructorInfo = async (instructoId) => {
 		.catch((error) => console.error(error));
 	return instructor;
 };
+
+export const getCategories = async() => {
+	const categories = await fetch(
+		`${API_URL}/categories`
+	).then((response) => response.json())
+		.catch((error) => console.error(error));
+	return categories;
+}
+
+export const getPlayListsByCategoryId = async (categoryId) => {
+	const playlists = await fetch(
+		`${API_URL}/playlists?categoryId=${categoryId}`
+	)
+		.then((response) => response.json())
+		.catch((error) => console.error(error));
+	return playlists;
+};
+
+

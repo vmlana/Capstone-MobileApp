@@ -128,13 +128,6 @@ const PlayListScreen = ({ navigation }) => {
   );
 };
 
-PlayListScreen.navigationOptions = (navData) => {
-  const playList = navData.navigation.getParam("playListData");
-  return {
-      headerTitle: playList.playlistName,
-  };
-};
-
 const styles = StyleSheet.create({
   container: {
       flex: 1,

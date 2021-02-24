@@ -21,7 +21,7 @@ import {
   playList,
 } from "../demoData";
 
-import { getPrograms, getPlayLists } from "../data/api";
+import { getPrograms, getPlayLists, getCategories } from "../data/api";
 
 // components ===============
 import Update from "../components/Home/Update";
@@ -33,6 +33,7 @@ const programId = 1;
 const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -48,8 +49,14 @@ const HomeScreen = ({ navigation }) => {
       setPlayLists(playListArr);
     };
 
+    const getCategoriesArr = async () => {
+      const categoriesArr = await getCategories();
+      setCategories(categoriesArr);
+    };
+
     getProgramArr();
     getPlayListArr();
+    getCategoriesArr();
   }, []);
 
   return (
@@ -59,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
           <ContentListContainer
             title={"Select Your workout type"}
-            dataList={catPlays}
+            dataList={categories}
             type={"cat"}
             navigation={navigation}
           />

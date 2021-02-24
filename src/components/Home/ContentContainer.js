@@ -17,17 +17,26 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { playList, videoData } from "../../demoData";
 import TrainerName from "../Trainer/TrainerName";
+import { getCategories } from "../../data/api";
 
 const ContentContainer = ({ navigation, result, type }) => {
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("PlayList", {
-            singleVideoData: result.lessons,
-            playListData: result,
-          })
+        onPress={() => {
+          {
+            type !== "cat" ?
+              navigation.navigate("PlayList", {
+                singleVideoData: result.lessons,
+                playListData: result,
+              })
+            :
+            navigation.navigate("Category", {
+                category: result,
+              })
+            }
+          }
         }
       >
         <ThumbNail
@@ -35,8 +44,10 @@ const ContentContainer = ({ navigation, result, type }) => {
           source={{ uri: "https://dummyimage.com/150x150/000/fff" }}
         />
       </TouchableOpacity>
-      {type === "cat" || type === "playlists" ? (
+      { type === "playlists" ? (
         <Text>{result.playlistName}</Text>
+      ) : type === "cat" ? (
+        <Text>{result.name}</Text>
       ) : null}
 
       {type === "playlists" ? (
