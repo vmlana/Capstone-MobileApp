@@ -27,6 +27,7 @@ import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 import TrainerScreen from './src/screens/TrainerScreen';
+import CategoryScreen from './src/screens/CategoryScreen';
 // =====================================================
 
 // The most top will be initially renddered
@@ -35,7 +36,9 @@ const HomeStack = createStackNavigator(
 		Home: HomeScreen,
 		PlayList: {
 			screen: PlayListScreen,
-			navigationOptions: { title: "Play List" },
+			navigationOptions: ({ navigation }) => ({
+				title: `${navigation.state.params.playList.playlistName}`,
+			}),
 		},
 		SingleVideo: {
 			screen: SingleVideoScreen,
@@ -56,6 +59,12 @@ const HomeStack = createStackNavigator(
 			screen: TrainerScreen,
 			navigationOptions: ({ navigation }) => ({
 				title: `${navigation.state.params.instructorName}`,
+			}),
+		},
+		Category: {
+			screen: CategoryScreen,
+			navigationOptions: ({ navigation }) => ({
+				title: `${navigation.state.params.category.name}`,
 			}),
 		},
 	},
