@@ -37,7 +37,7 @@ const HomeStack = createStackNavigator(
 		PlayList: {
 			screen: PlayListScreen,
 			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.playList.playlistName}`,
+				title: `${navigation.state.params.playListData.playlistName}`,
 			}),
 		},
 		SingleVideo: {
