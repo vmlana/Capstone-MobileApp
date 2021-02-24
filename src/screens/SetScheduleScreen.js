@@ -3,32 +3,24 @@ import { StyleSheet, View, Button } from "react-native";
 import { Text } from "react-native-elements";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import CalendarStrip from "react-native-calendar-strip";
-// import DatePicker from "react-native-date-picker";
-
-import Calendar from "../components/Profile/Calendar";
+// import CalendarStrip from "react-native-calendar-strip";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import moment from "moment";
+const today = new Date();
+const todaysDate = today.toISOString().slice(0, 10);
 
 const SetScheduleScreen = () => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [formatedTime, setFormatedTime] = useState(null);
-  const [ampm, setAmpm] = useState(null);
-  const [dateTime, setDateTime] = useState([]);
+  const [pressedDay, setPressedDay] = useState("");
+  const [bookedDateArr, setBookedDateArr] = useState([]);
+  const [marked, setMarked] = useState({});
+  const [isoDateTimeArr, setIsoDateTimeArr] = useState([]);
+  const [formatedDateTimeArr, setFormatedDateTimeArr] = useState([]);
 
-  //   const showDatePicker = () => {
-  //     setDatePickerVisibility(true);
-  //   };
-
-  //   const hideDatePicker = () => {
-  //     setDatePickerVisibility(false);
-  //   };
-
-  const showTimePicker = () => {
+  const showTimePicker = (day) => {
     setTimePickerVisibility(true);
+    setPressedDay(day.dateString);
   };
 
   const hideTimePicker = () => {
@@ -36,38 +28,43 @@ const SetScheduleScreen = () => {
   };
 
   const handleConfirm = (time) => {
-    console.log("A time has been picked: ", new Date(time).toLocaleString());
-    const readableTime = new Date(time).toLocaleString();
-    const arrayTime = readableTime.split(" ");
-    setFormatedTime(
-      arrayTime.length !== 5
-        ? arrayTime[1].slice(0, -3)
-        : arrayTime[3].slice(0, -3)
-    );
-    setAmpm(arrayTime.length !== 5 ? arrayTime[2] : "");
-    setSelectedTime(time.toISOString().split("T")[1]);
+    const dateGot = time.toISOString().split("T")[0];
+    const pickedDateTime = time.toISOString().replace(dateGot, pressedDay);
+    const readableDateTime = moment
+      .utc(pickedDateTime)
+      .format("MMM Do, h:mm a");
+
+    setBookedDateArr([...bookedDateArr, pressedDay]);
+    setFormatedDateTimeArr([...formatedDateTimeArr, readableDateTime]);
+    setIsoDateTimeArr([...isoDateTimeArr, pickedDateTime]);
     setTimePickerVisibility(false);
   };
 
-  //   console.log(selectedDate);
-  //   console.log(selectedTime);
+  const getMarkedDate = () => {
+    const marking = bookedDateArr.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item]: { selected: true, selectedColor: "blue" },
+      };
+    }, {});
 
-  //   const dateTime = moment(
-  //     `${selectedDate} ${selectedTime}`,
-  //     "YYYY-MM-DD HH:mm:ss"
-  //   ).format();
+    setMarked(marking);
+  };
+
+  const sortBookedDate = () => {
+    return formatedDateTimeArr.map((a, b) => a - b);
+  };
 
   useEffect(() => {
-    const concatDateTime = selectedDate + "T" + selectedTime;
-    setDateTime(concatDateTime);
-  }, [selectedDate, selectedTime, dateTime]);
-
-  const formatedDate = new Date();
+    const today = new Date();
+    setPressedDay(today.toISOString().slice(0, 10));
+    getMarkedDate();
+  }, [bookedDateArr, formatedDateTimeArr]);
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
-        <CalendarStrip
+        {/* <CalendarStrip
           scrollable
           onDateSelected={(date) => (
             showTimePicker(),
@@ -88,9 +85,16 @@ const SetScheduleScreen = () => {
           disabledDateNameStyle={{ color: "grey" }}
           disabledDateNumberStyle={{ color: "grey" }}
           iconStyle={{ display: "none" }}
+        /> */}
+
+        <Calendar
+          onDayPress={showTimePicker}
+          enableSwipeMonths={true}
+          hideArrows={true}
+          markedDates={marked}
         />
       </View>
-      {/* <DatePicker mode={"time"} /> */}
+
       <DateTimePickerModal
         isVisible={isTimePickerVisible}
         onConfirm={handleConfirm}
@@ -98,16 +102,18 @@ const SetScheduleScreen = () => {
         mode="time"
       />
 
-      {!selectedTime ? null : (
+      {formatedDateTimeArr.length === 0 ? null : (
         <>
           <View style={styles.bookTitle}>
             <Text h4>Session Booked</Text>
             <Text>Bell Icon</Text>
           </View>
-          <View style={styles.bookInfo}>
-            <Text>{moment(selectedDate).format("MMM Do YY")}</Text>
-            <Text style={{ marginLeft: 20 }}>{formatedTime + " " + ampm}</Text>
-          </View>
+          {formatedDateTimeArr.map((dateTime, index) => (
+            <View key={index} style={styles.bookInfo}>
+              <Text>{dateTime.split(",")[0]}</Text>
+              <Text style={{ marginLeft: 20 }}>{dateTime.split(",")[1]}</Text>
+            </View>
+          ))}
         </>
       )}
     </View>
@@ -121,11 +127,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 25,
-    marginBottom: 10,
+    marginTop: 30,
   },
   bookInfo: {
     flexDirection: "row",
     justifyContent: "flex-start",
     marginHorizontal: 25,
+    marginVertical: 10,
   },
 });
