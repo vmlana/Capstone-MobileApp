@@ -28,8 +28,15 @@ export const getInstructorInfo = async (instructoId) => {
 export const getCategories = async() => {
 	const categories = await fetch(
 		`${API_URL}/categories`
-	).then((response) => response.json())
-		.catch((error) => console.error(error));
+	)
+	.then((response) => {
+		if (response.status != 404) {
+			return response.json();
+		} else {
+			return null;
+		}
+	})
+	.catch((error) => console.error(error));
 	return categories;
 }
 
@@ -37,9 +44,30 @@ export const getPlayListsByCategoryId = async (categoryId) => {
 	const playlists = await fetch(
 		`${API_URL}/playlists?categoryId=${categoryId}`
 	)
-		.then((response) => response.json())
+		.then((response) => {
+			if (response.status != 404) {
+				return response.json();
+			} else {
+				return null;
+			}
+		})
 		.catch((error) => console.error(error));
 	return playlists;
+};
+
+export const getSearchResult = async (userId, keyword) => {
+	const result = await fetch(
+		`${API_URL}/search?userId=${userId}&keyword=${keyword}`
+	)
+	.then((response) => {
+		if (response.status != 404) {
+			return response.json();
+		} else {
+			return null;
+		}
+	})
+	.catch((error) => console.error(error));
+	return result;
 };
 
 

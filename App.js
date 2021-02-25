@@ -1,6 +1,7 @@
 import React from "react";
 // Redux
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { SearchProvider } from './src/context/searchContext';
 import { setNavigator } from "./src/navigationRef";
 
 import { View, Button, StyleSheet, Text } from "react-native";
@@ -26,6 +27,7 @@ import PlayListScreen from "./src/screens/PlayListScreen";
 import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
+import CloseIcon from "./src/components/Search/CloseIcon";
 import TrainerScreen from './src/screens/TrainerScreen';
 import CategoryScreen from './src/screens/CategoryScreen';
 // =====================================================
@@ -52,7 +54,7 @@ const HomeStack = createStackNavigator(
 			screen: SearchScreen,
 			navigationOptions: {
 				title: "Search",
-				headerRight: () => "",
+				headerRight: () => <CloseIcon />,
 			},
 		},
 		TrainerDetails: {
@@ -148,7 +150,9 @@ const AppContainer = createAppContainer(AppNavigator);
 export default () => {
 	return (
 		// <AuthProvider>
-		<AppContainer ref={(navigation) => setNavigator(navigator)} />
+			<SearchProvider>
+				<AppContainer ref={(navigation) => setNavigator(navigator)} />
+			</SearchProvider>
 		// </AuthProvider>
 	);
 };
