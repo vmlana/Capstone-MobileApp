@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { getPlaylistByPlaylistId } from '../data/api';
 
-const PlayListScreen = ({ navigation }) => {
+const PlayListScreen = ({ navigation, playlistId }) => {
   // data and playList contain info of single videos and playlist respectively passed to the parameter from the ContentContainer component.
   // data conatins the info about playlists.lessons
   const data = navigation.getParam("singleVideoData");
@@ -14,9 +15,19 @@ const PlayListScreen = ({ navigation }) => {
   useEffect(() => {
     setSingleVideos(data);
     setPlayList(playList);
+    // console.log("***********")
+    // console.log(playList);
+    if(playList && !data) {
+      (async()=>{
+      const playlistData = await getPlaylistByPlaylistId(playList.itemId);
+      // console.log("***********")
+      // console.log(playlistData[0].lessons);
+      setSingleVideos(playlistData[0].lessons);
+      })();
+    }
   }, []);
 
-  if (!data || !playList) {
+  if (!data && !playList) {
     return (
         <View style={styles.centered}>
             <Text>No lessons found.</Text>
@@ -48,7 +59,7 @@ const PlayListScreen = ({ navigation }) => {
         : null} */}
         <FlatList
           style={styles.flatList}
-          data={playListData.lessons}
+          data={singleVideos}
           keyExtractor={(item)=> item.lessonId.toString()}
           renderItem={({item, index}) => {
             return (

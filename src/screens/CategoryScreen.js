@@ -12,7 +12,7 @@ const CategoryScreen = ({ navigation }) => {
     (async () => {
       const categoryPlayLists = await getPlayListsByCategoryId(category.categoryId);
 
-      console.log(categoryPlayLists);
+      // console.log(categoryPlayLists);
       setPlaylists(categoryPlayLists);
     })();
   }, []);

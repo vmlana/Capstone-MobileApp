@@ -70,4 +70,19 @@ export const getSearchResult = async (userId, keyword) => {
 	return result;
 };
 
+export const getPlaylistByPlaylistId = async (playlistId) => {
+	const result = await fetch(
+		`${API_URL}/playlists?playlistId=${playlistId}`
+	)
+	.then((response) => {
+		if (response.status != 404) {
+			return response.json();
+		} else {
+			return null;
+		}
+	})
+	.catch((error) => console.error(error));
+	return result;
+};
+
 
