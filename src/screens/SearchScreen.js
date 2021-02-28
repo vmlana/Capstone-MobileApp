@@ -12,14 +12,18 @@ import {
   Body,
   Icon,
   Text,
+  Thumbnail
 } from "native-base";
 
 import SearchInput from '../components/Search/SearchInput';
 import ContentListContainer from "../components/Home/ContentListContainer";
+import InstructorSection from '../components/Search/InstructorSection';
 
+import { blogData, instructorsData } from '../demoData';
 
 import { useSearchContext } from '../../src/context/searchContext';
 import { getSearchResult } from '../data/api';
+import RectangleListContainer from "../components/Search/RectangleListContainer";
 
 
 const SearchScreen = ({ navigation }) => {
@@ -32,19 +36,32 @@ const SearchScreen = ({ navigation }) => {
   })
 
   useEffect(()=>{
-    (async()=>{
-      const searchResult = await getSearchResult(3, searchString);
-
-      setSearchResultObject(searchResult);
-    })();
+    if(searchString !== "") {
+      (async()=>{
+        let searchResult = await getSearchResult(3, searchString);
+  
+        // console.log(searchResult);
+        if(searchResult){
+          setSearchResultObject(searchResult);
+        }
+      })();
+    }
   },[searchString])
 
+  // TEST data set up *********
+  const blogsArray = [blogData, blogData, blogData];
+  const instructorsArray = instructorsData;
+
+  // **************************
+
   if (
-      searchString === "" ||
-      searchResultObject === null) {
+      searchResultObject.playlists.length === 0
+      && searchResultObject.programs.length === 0
+      && searchResultObject.blogs.length === 0 
+      ) {
     return (
       <View style={styles.centered}>
-        <Text>No result found. Please try other keyword.</Text>
+        <Text>Nothing found.</Text>
       </View>
     )
   }
@@ -53,15 +70,28 @@ const SearchScreen = ({ navigation }) => {
     <Container>
       <Content>
         <View style={styles.container}>
-        {/* <Button onPress={() => navigation.navigate("Home")}>
-          <Text>Home</Text>
-        </Button> */}
+        {/* INSTRUCTOR SECTION **********************/}
+        {
+          instructorsArray.length !== 0?
+          <InstructorSection dataList={instructorsArray} />
+          : null
+        }
+        {/* PLAYLIST SECTION **********************/}
         {
           searchResultObject.playlists.length !== 0 ?
           <ContentListContainer
-            title={searchString + " Related Videos"}
+            title={"Playlists"}
             dataList={searchResultObject.playlists}
             type={"playlists"}
+            navigation={navigation}
+          /> : null
+        }
+        {/* BLOG SECTION **********************/}
+        {
+          blogsArray.length !== 0?
+          <RectangleListContainer
+            title="Blog Posts"
+            dataList={blogsArray}
             navigation={navigation}
           /> : null
         }
@@ -72,11 +102,6 @@ const SearchScreen = ({ navigation }) => {
 };
 
 SearchScreen.navigationOptions = (navData) => {
-  const searchFn = () => {
-    console.log("search");
-  };
-  // const { search } = this.state;
-
   return {
       headerTitle: (
         <SearchInput />
@@ -87,7 +112,6 @@ SearchScreen.navigationOptions = (navData) => {
         </View>
       ),
       // headerRight: (
-
       // )
   };
 };

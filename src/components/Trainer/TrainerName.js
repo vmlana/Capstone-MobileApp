@@ -17,7 +17,9 @@ const TrainerName = ({ navigation, data }) => {
 				}}
 				style={styles.thumbNail}
 			/>
-			<Text style={{ marginLeft: 5 }}>{data.instructorName}</Text>
+			<Text style={{ marginLeft: 5 }}>
+				{data.instructorName ? data.instructorName :data.trainerName}
+			</Text>
 		</TouchableOpacity>
 	);
 };
