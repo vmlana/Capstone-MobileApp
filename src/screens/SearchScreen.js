@@ -25,7 +25,6 @@ import { useSearchContext } from '../../src/context/searchContext';
 import { getSearchResult } from '../data/api';
 import RectangleListContainer from "../components/Search/RectangleListContainer";
 
-
 const SearchScreen = ({ navigation }) => {
   const {searchString, setSearchString} = useSearchContext();
   const [searchResultObject, setSearchResultObject] = useState({
@@ -33,9 +32,18 @@ const SearchScreen = ({ navigation }) => {
     playlists: [],
     programs: [],
     blogs: [],
+    instructors: [],
   })
 
   useEffect(()=>{
+    setSearchResultObject({
+      keyword: "",
+      playlists: [],
+      programs: [],
+      blogs: [],
+      instructors: [],
+    })
+
     if(searchString !== "") {
       (async()=>{
         let searchResult = await getSearchResult(3, searchString);
@@ -55,7 +63,8 @@ const SearchScreen = ({ navigation }) => {
   // **************************
 
   if (
-      searchResultObject.playlists.length === 0
+      searchResultObject.instructors.length === 0
+      && searchResultObject.playlists.length === 0
       && searchResultObject.programs.length === 0
       && searchResultObject.blogs.length === 0 
       ) {
@@ -72,10 +81,20 @@ const SearchScreen = ({ navigation }) => {
         <View style={styles.container}>
         {/* INSTRUCTOR SECTION **********************/}
         {
-          instructorsArray.length !== 0?
-          <InstructorSection dataList={instructorsArray} />
+          searchResultObject.instructors.length?
+          <InstructorSection
+            navigation={navigation}
+            dataList={searchResultObject.instructors} />
           : null
         }
+        {/* TEST INSTRUCTOR SECTION **********************/}
+        {/* {
+          instructorsArray.length !== 0?
+          <InstructorSection
+            navigation={navigation}
+            dataList={instructorsArray} />
+          : null
+        } */}
         {/* PLAYLIST SECTION **********************/}
         {
           searchResultObject.playlists.length !== 0 ?
@@ -88,10 +107,29 @@ const SearchScreen = ({ navigation }) => {
         }
         {/* BLOG SECTION **********************/}
         {
+          searchResultObject.blogs.length !== 0?
+          <RectangleListContainer
+            title="Blog Posts"
+            dataList={searchResultObject.blogs}
+            navigation={navigation}
+          /> : null
+        }
+        {/* TEST BLOG SECTION **********************/}
+        {/* {
           blogsArray.length !== 0?
           <RectangleListContainer
             title="Blog Posts"
             dataList={blogsArray}
+            navigation={navigation}
+          /> : null
+        } */}
+        {/* BLOG SECTION **********************/}
+        {
+          searchResultObject.programs.length !== 0?
+          <ContentListContainer
+            title={"Programs"}
+            dataList={searchResultObject.programs}
+            type={"programs"}
             navigation={navigation}
           /> : null
         }

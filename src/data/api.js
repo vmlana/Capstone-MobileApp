@@ -85,4 +85,19 @@ export const getPlaylistByPlaylistId = async (playlistId) => {
 	return result;
 };
 
+export const getProgramByProgramId = async (programId) => {
+	const result = await fetch(
+		`${API_URL}/programs?programId=${programId}`
+	)
+	.then((response) => {
+		if (response.status != 404) {
+			return response.json();
+		} else {
+			return null;
+		}
+	})
+	.catch((error) => console.error(error));
+	return result;
+};
+
 

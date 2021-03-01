@@ -25,7 +25,8 @@ const ContentListContainer = ({ title, dataList, navigation, type }) => {
           style={{ marginBottom: 20 }}
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={dataList[0].playlists}
+          data={dataList}
+          // data={dataList[0].playlists}
           keyExtractor={(item, index) => {
             return item.toString() + index;
           }}

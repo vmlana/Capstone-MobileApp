@@ -19,7 +19,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
     // console.log(playList);
     if(playList && !data) {
       (async()=>{
-      const playlistData = await getPlaylistByPlaylistId(playList.itemId);
+      const playlistData = await getPlaylistByPlaylistId(playList.playlistId);
       // console.log("***********")
       // console.log(playlistData[0].lessons);
       setSingleVideos(playlistData[0].lessons);
