@@ -33,12 +33,16 @@ const RectangleContainer = ({ navigation, result, type }) => {
       >
         <View style={styles.thumbNailContainer}>
             <ThumbNail
-                source={{ uri: result.blogImage }}
+                source={{ uri: 
+                result.blogImage ? result.blogImage : "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1994&q=80" }}
             />
-            <Text style={styles.blogTitle}>{result.title}</Text>
+            <Text style={styles.blogTitle}>{result.blogName}</Text>
         </View>
       </TouchableOpacity>
-      <TrainerName data={result} navigation={navigation} />
+      <View style={styles.descriptionContainer}>
+        <TrainerName data={result} navigation={navigation} />
+        <Text style={styles.date}>30.01.2021</Text>
+      </View>
     </View>
   );
 
@@ -75,6 +79,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  descriptionContainer: {
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  date: {
+    color: "#444",
+    marginRight: 2,
+  }
 });
 
 const ThumbNail = styled.Image`

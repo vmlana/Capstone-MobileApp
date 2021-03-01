@@ -15,8 +15,6 @@ import {
 } from "native-base";
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 
-import { blogData, instructorsData } from '../demoData';
-
 const InstructorSection = ({ dataList, navigation }) => {
 
   const [index, setIndex] = React.useState(0);
@@ -27,12 +25,14 @@ const InstructorSection = ({ dataList, navigation }) => {
       <View style={styles.instructorContainer}>
         <Thumbnail
           style={styles.thumbnail}
-          source={{ uri: item.instructorImage }} />
+          source={{ 
+              uri: item.instructorImage ? item.instructorImage : "https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png" 
+              }} />
         <View style={styles.instructorContainerRight}>
           <Text style={styles.instructorName}>{item.instructorName}</Text>
           <Text  style={styles.instructorDescription}>
           {
-            item.instructorProfile.substring(100, 0) + "..."
+            item.instructorResume.substring(100, 0) + "..."
           }
           </Text>
           <Text
@@ -45,7 +45,11 @@ const InstructorSection = ({ dataList, navigation }) => {
   };
 
   return (
-    <View style={styles.instructorSection}>
+    <View style={
+        dataList.length > 1 ?
+        {marginBottom: 0}:
+        {marginBottom: 26}
+        }>
     <Carousel
         ref={isCarousel}
         data={dataList}
@@ -55,7 +59,7 @@ const InstructorSection = ({ dataList, navigation }) => {
         onSnapToItem={(index) => setIndex(index)}
     />
     <Pagination
-        dotsLength={instructorsData.length}
+        dotsLength={dataList.length}
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{
@@ -74,9 +78,9 @@ const InstructorSection = ({ dataList, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  instructorSection: {
-    // marginBottom: 10,
-  },
+//   instructorSection: {
+//     marginBottom: 26,
+//   },
   instructorContainer: {
     flexDirection: "row",
   },

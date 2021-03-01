@@ -26,14 +26,18 @@ const ContentContainer = ({ navigation, result, type }) => {
       <TouchableOpacity
         onPress={() => {
           {
-            type !== "cat" ?
+            type === "playlists" ?
               navigation.navigate("PlayList", {
                 singleVideoData: result.lessons,
                 playListData: result,
               })
-            :
+            : type === "cat" ?
             navigation.navigate("Category", {
                 category: result,
+              })
+            :
+            navigation.navigate("Program", {
+                program: result,
               })
             }
           }
@@ -54,7 +58,7 @@ const ContentContainer = ({ navigation, result, type }) => {
         <TrainerName data={result} navigation={navigation} />
       ) : type === "programs" ? (
         <View style={styles.playListContainer}>
-          <Text>{result.playlistName}</Text>
+          <Text>{result.programName}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="checkbox-multiple-blank-outline"
@@ -62,7 +66,11 @@ const ContentContainer = ({ navigation, result, type }) => {
               color="black"
               style={{ marginRight: 5, alignItems: "center" }}
             />
-            <Text>{result.lessons.length}</Text>
+            <Text>{
+              result.lessons ?
+              result.lessons.length :
+              null
+              }</Text>
           </View>
         </View>
       ) : null}

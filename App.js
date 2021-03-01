@@ -30,6 +30,7 @@ import SearchIcon from "./src/components/Search/SearchIcon";
 import CloseIcon from "./src/components/Search/CloseIcon";
 import TrainerScreen from './src/screens/TrainerScreen';
 import CategoryScreen from './src/screens/CategoryScreen';
+import ProgramScreen from './src/screens/ProgramScreen';
 // =====================================================
 
 // The most top will be initially renddered
@@ -67,6 +68,12 @@ const HomeStack = createStackNavigator(
 			screen: CategoryScreen,
 			navigationOptions: ({ navigation }) => ({
 				title: `${navigation.state.params.category.name}`,
+			}),
+		},
+		Program: {
+			screen: ProgramScreen,
+			navigationOptions: ({ navigation }) => ({
+				title: `${navigation.state.params.program.programName}`
 			}),
 		},
 	},
