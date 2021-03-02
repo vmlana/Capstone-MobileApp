@@ -87,7 +87,13 @@ const HomeStack = createStackNavigator(
 const BlogStack = createStackNavigator(
 	{
 		Blog: BlogScreen,
-		Search: SearchScreen,
+		Search: {
+			screen: SearchScreen,
+			navigationOptions: {
+				title: "Search",
+				headerRight: () => <CloseIcon />,
+			},
+		},
 	},
 	{
 		defaultNavigationOptions: {
@@ -99,7 +105,13 @@ const BlogStack = createStackNavigator(
 const ProfileStack = createStackNavigator(
 	{
 		Profile: ProfileScreen,
-		Search: SearchScreen,
+		Search: {
+			screen: SearchScreen,
+			navigationOptions: {
+				title: "Search",
+				headerRight: () => <CloseIcon />,
+			},
+		},
 	},
 
 	{

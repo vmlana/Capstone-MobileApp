@@ -10,7 +10,7 @@ const CloseIcon = ({ navigation }) => {
   const {searchString, setSearchString} = useSearchContext();
 
   const deleteInput = () => {
-    // navigation.goBack();
+    navigation.goBack();
     setSearchString("");
   };
   return <Ionicons name="close" onPress={deleteInput} style={styles.icon} />;
