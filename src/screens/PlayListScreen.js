@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { getPlaylistByPlaylistId } from '../data/api';
 
 const PlayListScreen = ({ navigation, playlistId }) => {
@@ -8,9 +8,9 @@ const PlayListScreen = ({ navigation, playlistId }) => {
   const data = navigation.getParam("singleVideoData");
   // playList conatins the info about playlists
   const playList = navigation.getParam("playListData");
-
   const [singleVideos, setSingleVideos] = useState([]);
   const [playListData, setPlayList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setSingleVideos(data);
@@ -19,13 +19,23 @@ const PlayListScreen = ({ navigation, playlistId }) => {
     // console.log(playList);
     if(playList && !data) {
       (async()=>{
+      setIsLoading(true);
       const playlistData = await getPlaylistByPlaylistId(playList.playlistId);
+      setIsLoading(false);
       // console.log("***********")
       // console.log(playlistData[0].lessons);
       setSingleVideos(playlistData[0].lessons);
       })();
     }
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   if (!data && !playList) {
     return (

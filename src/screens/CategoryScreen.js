@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image, ActivityIndicator } from "react-native";
 
 import { getPlayListsByCategoryId } from '../data/api';
 
@@ -7,15 +7,28 @@ const CategoryScreen = ({ navigation }) => {
   const category = navigation.getParam("category");
 
   const [playlists, setPlaylists] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect( () => {
     (async () => {
+      setIsLoading(true);
       const categoryPlayLists = await getPlayListsByCategoryId(category.categoryId);
+      setIsLoading(false);
 
       // console.log(categoryPlayLists);
       setPlaylists(categoryPlayLists);
     })();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
 
   if (!playlists) {
     return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../components/Search/SearchIcon";
-import { View, StyleSheet }  from "react-native";
+import { View, StyleSheet, ActivityIndicator }  from "react-native";
 import {
   Container,
   Header,
@@ -27,6 +27,7 @@ import RectangleListContainer from "../components/Search/RectangleListContainer"
 
 const SearchScreen = ({ navigation }) => {
   const {searchString, setSearchString} = useSearchContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [searchResultObject, setSearchResultObject] = useState({
     keyword: "",
     playlists: [],
@@ -46,8 +47,10 @@ const SearchScreen = ({ navigation }) => {
 
     if(searchString !== "") {
       (async()=>{
+        setIsLoading(true);
         let searchResult = await getSearchResult(3, searchString);
-  
+        setIsLoading(false);
+
         // console.log(searchResult);
         if(searchResult){
           setSearchResultObject(searchResult);
@@ -61,6 +64,14 @@ const SearchScreen = ({ navigation }) => {
   const instructorsArray = instructorsData;
 
   // **************************
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   if (
       searchResultObject.instructors.length === 0
