@@ -30,6 +30,7 @@ const SearchInput = (props) => {
           onChangeText={onChange}
           value={searchInput}
           onSubmitEditing={onSubmit}
+          autoFocus={true}
         />
     </View>
   );
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   input: {
-    backgroundColor: "#cccccc",
+    // backgroundColor: "#cccccc",
     width: "100%",
     padding: 5,
     fontSize: 20,

@@ -41,7 +41,7 @@ const RectangleContainer = ({ navigation, result, type }) => {
       </TouchableOpacity>
       <View style={styles.descriptionContainer}>
         <TrainerName data={result} navigation={navigation} />
-        <Text style={styles.date}>30.01.2021</Text>
+        <Text style={styles.date}>{result.blogPostDate}</Text>
       </View>
     </View>
   );

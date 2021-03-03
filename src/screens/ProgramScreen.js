@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image, ActivityIndicator } from "react-native";
 
 import { getProgramByProgramId } from '../data/api';
 
@@ -7,10 +7,13 @@ const ProgramScreen = ({ navigation }) => {
   const program = navigation.getParam("program");
 
   const [playlists, setPlaylists] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect( () => {
     (async () => {
+      setIsLoading(true);
       const programPlayLists = await getProgramByProgramId(program.programId);
+      setIsLoading(false);
 
       // console.log("**************");
       // console.log(programPlayLists);
@@ -18,6 +21,14 @@ const ProgramScreen = ({ navigation }) => {
       setPlaylists(programPlayLists[0].playlists);
     })();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   if (!playlists) {
     return (
