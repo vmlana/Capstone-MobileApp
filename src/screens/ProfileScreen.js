@@ -35,6 +35,31 @@ for (let i = 0; i < 6; i++) {
   });
 }
 
+{
+  /* <CalendarStrip
+          scrollable
+          onDateSelected={(date) => (
+            showTimePicker(),
+            setSelectedDate(date.toISOString().substring(0, 10))
+          )}
+          style={{
+            paddingTop: 40,
+            paddingBottom: 10,
+            height: 200,
+            marginHorizontal: 25,
+          }}
+          calendarHeaderStyle={{ color: "gray", fontSize: 18 }}
+          dateNumberStyle={{ color: "#B7B7B7", fontSize: 24 }}
+          dateNameStyle={{ color: "#B7B7B7" }}
+          styleWeekend={false}
+          highlightDateNumberStyle={{ color: "blue", fontSize: 24 }}
+          highlightDateNameStyle={{ color: "blue" }}
+          disabledDateNameStyle={{ color: "grey" }}
+          disabledDateNumberStyle={{ color: "grey" }}
+          iconStyle={{ display: "none" }}
+        /> */
+}
+
 const ProfileScreen = ({ navigation }) => {
   return (
     <Container>
