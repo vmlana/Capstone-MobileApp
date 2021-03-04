@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Text } from "react-native-elements";
+import { onChange } from "react-native-reanimated";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
 
 const wheelPickerData = [
@@ -11,32 +12,23 @@ const wheelPickerData = [
   "friday",
 ];
 
-const Picker = () => {
+const Picker = ({ onChange }) => {
   return (
     <>
       <ScrollPicker
-        dataSource={[
-          //   { value: 10, text: "10 mins" },
-          //   { value: 15, text: "15 mins" },
-          //   { value: 20, text: "20 mins" },
-          //   { value: 25, text: "25 mins" },
-          //   { value: 30, text: "30 mins" },
-          "10",
-          "15",
-          "20",
-        ]}
+        dataSource={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]}
         selectedIndex={1}
-        renderItem={(data, index) => data.text}
+        renderItem={(data, index) => data}
         onValueChange={(data, selectedIndex) => {
-          console.log(data);
+          onChange(data);
         }}
         wrapperHeight={40}
         wrapperWidth={100}
         wrapperBackground={"#624A99"}
-        itemHeight={20}
+        itemHeight={23}
         highlightColor={"#624A99"}
-        itemTextStyle={{ color: "white" }}
-        // activeItemTextStyle={}
+        itemTextStyle={{ fontSize: 0.5, color: "white" }}
+        activeItemTextStyle={{ color: "black" }}
       />
     </>
   );

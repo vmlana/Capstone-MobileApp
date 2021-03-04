@@ -22,6 +22,9 @@ const SetScheduleScreen = () => {
   const [isoDateTimeArr, setIsoDateTimeArr] = useState([]);
   const [formatedDateTimeArr, setFormatedDateTimeArr] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [timeData, setTimeData] = useState("");
+
+  const [reminderVisible, setReminderVisible] = useState(false);
 
   const showTimePicker = (day) => {
     setTimePickerVisibility(true);
@@ -30,6 +33,11 @@ const SetScheduleScreen = () => {
 
   const hideTimePicker = () => {
     setTimePickerVisibility(false);
+  };
+
+  const reminderSwitch = (index) => {
+    setTimeData(formatedDateTimeArr[index]);
+    setReminderVisible(!reminderVisible);
   };
 
   const handleConfirm = (time) => {
@@ -98,20 +106,19 @@ const SetScheduleScreen = () => {
               <Icon
                 name={"bell"}
                 size={20}
-                onPress={() => setModalVisible(true)}
+                onPress={() => reminderSwitch(index)}
               />
+              <Modal
+                transparent={true}
+                visible={reminderVisible}
+                onRequestClose={() => {
+                  reminderSwitch;
+                }}
+              >
+                <Reminder onPress={reminderSwitch} dateTime={timeData} />
+              </Modal>
             </View>
           ))}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              console.log("Modal has been closed.");
-            }}
-          >
-            <Reminder onPress={() => setModalVisible(false)} />
-          </Modal>
         </>
       )}
     </View>

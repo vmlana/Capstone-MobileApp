@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
+import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
 
-const Reminder = ({ onPress }) => {
+const Reminder = ({ onPress, dateTime }) => {
+  const [min, setMin] = useState(0);
+
+  const setMinTime = (val) => {
+    setMin(val);
+  };
+
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
+        <Icon
+          name={"cross"}
+          size={32}
+          style={styles.crossIcon}
+          onPress={onPress}
+        />
         <View style={styles.modalHeader}>
           <Text style={styles.modalText}>Add a Reminder</Text>
           <Text style={styles.modalTextSmall}>
@@ -28,8 +41,10 @@ const Reminder = ({ onPress }) => {
               Session Name
             </Text>
             <View style={styles.bookedTime}>
-              <Text style={{ color: "white" }}>06.01.2021</Text>
-              <Text style={{ marginLeft: 20, color: "white" }}>12:00PM</Text>
+              <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
+              <Text style={{ marginLeft: 20, color: "white" }}>
+                {dateTime.split(",")[1]}
+              </Text>
             </View>
           </View>
 
@@ -40,11 +55,9 @@ const Reminder = ({ onPress }) => {
                 position: "relative",
               }}
             >
-              <Picker style={styles.reminderPicker} />
+              <Picker style={styles.reminderPicker} onChange={setMinTime} />
               <Text
                 style={{
-                  alignSelf: "center",
-                  backgroundColor: "#93c3e6",
                   marginLeft: 45,
                 }}
               ></Text>
@@ -53,10 +66,12 @@ const Reminder = ({ onPress }) => {
                   position: "absolute",
                   alignSelf: "center",
                   right: 0,
-                  backgroundColor: "rgba(0, 123, 255, 0.48)",
-                  paddingLeft: 60,
+                  backgroundColor: "rgba(144, 186, 226, 0.5)",
+                  paddingLeft: 50,
                   paddingRight: 5,
                   paddingVertical: 5,
+                  borderRadius: 5,
+                  color: "black",
                 }}
               >
                 mins
@@ -102,6 +117,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  crossIcon: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    color: "white",
+    padding: 6,
+    zIndex: 3,
   },
   modalHeader: {
     borderBottomWidth: 1,
