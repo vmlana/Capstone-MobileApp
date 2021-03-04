@@ -23,7 +23,6 @@ const SetScheduleScreen = () => {
   const [formatedDateTimeArr, setFormatedDateTimeArr] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [timeData, setTimeData] = useState("");
-
   const [reminderVisible, setReminderVisible] = useState(false);
 
   const showTimePicker = (day) => {
