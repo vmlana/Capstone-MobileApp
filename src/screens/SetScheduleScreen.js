@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Button } from "react-native";
-import { Text } from "react-native-elements";
+import { StyleSheet, View, Modal, TouchableOpacity } from "react-native";
+import { makeStyles } from "@material-ui/core/styles";
+import { Text, Button } from "react-native-elements";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import CalendarStrip from "react-native-calendar-strip";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import Reminder from "../components/Schedule/Reminder";
 
 import moment from "moment";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Directions } from "react-native-gesture-handler";
+
 const today = new Date();
 const todaysDate = today.toISOString().slice(0, 10);
 
@@ -17,6 +21,10 @@ const SetScheduleScreen = () => {
   const [marked, setMarked] = useState({});
   const [isoDateTimeArr, setIsoDateTimeArr] = useState([]);
   const [formatedDateTimeArr, setFormatedDateTimeArr] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [timeData, setTimeData] = useState("");
+
+  const [reminderVisible, setReminderVisible] = useState(false);
 
   const showTimePicker = (day) => {
     setTimePickerVisibility(true);
@@ -25,6 +33,11 @@ const SetScheduleScreen = () => {
 
   const hideTimePicker = () => {
     setTimePickerVisibility(false);
+  };
+
+  const reminderSwitch = (index) => {
+    setTimeData(formatedDateTimeArr[index]);
+    setReminderVisible(!reminderVisible);
   };
 
   const handleConfirm = (time) => {
@@ -64,29 +77,6 @@ const SetScheduleScreen = () => {
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
-        {/* <CalendarStrip
-          scrollable
-          onDateSelected={(date) => (
-            showTimePicker(),
-            setSelectedDate(date.toISOString().substring(0, 10))
-          )}
-          style={{
-            paddingTop: 40,
-            paddingBottom: 10,
-            height: 200,
-            marginHorizontal: 25,
-          }}
-          calendarHeaderStyle={{ color: "gray", fontSize: 18 }}
-          dateNumberStyle={{ color: "#B7B7B7", fontSize: 24 }}
-          dateNameStyle={{ color: "#B7B7B7" }}
-          styleWeekend={false}
-          highlightDateNumberStyle={{ color: "blue", fontSize: 24 }}
-          highlightDateNameStyle={{ color: "blue" }}
-          disabledDateNameStyle={{ color: "grey" }}
-          disabledDateNumberStyle={{ color: "grey" }}
-          iconStyle={{ display: "none" }}
-        /> */}
-
         <Calendar
           onDayPress={showTimePicker}
           enableSwipeMonths={true}
@@ -106,12 +96,27 @@ const SetScheduleScreen = () => {
         <>
           <View style={styles.bookTitle}>
             <Text h4>Session Booked</Text>
-            <Text>Bell Icon</Text>
           </View>
           {formatedDateTimeArr.map((dateTime, index) => (
-            <View key={index} style={styles.bookInfo}>
-              <Text>{dateTime.split(",")[0]}</Text>
-              <Text style={{ marginLeft: 20 }}>{dateTime.split(",")[1]}</Text>
+            <View key={index} style={styles.bookList}>
+              <View style={styles.bookInfo}>
+                <Text>{dateTime.split(",")[0]}</Text>
+                <Text style={{ marginLeft: 20 }}>{dateTime.split(",")[1]}</Text>
+              </View>
+              <Icon
+                name={"bell"}
+                size={20}
+                onPress={() => reminderSwitch(index)}
+              />
+              <Modal
+                transparent={true}
+                visible={reminderVisible}
+                onRequestClose={() => {
+                  reminderSwitch;
+                }}
+              >
+                <Reminder onPress={reminderSwitch} dateTime={timeData} />
+              </Modal>
             </View>
           ))}
         </>
@@ -129,10 +134,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginTop: 30,
   },
+  bookList: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 25,
+    marginVertical: 10,
+  },
   bookInfo: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    marginHorizontal: 25,
-    marginVertical: 10,
   },
 });
