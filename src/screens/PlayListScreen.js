@@ -89,8 +89,8 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                 >
                   <Image
                     style={styles.image}
-                    // source={{ uri: item.imageFile }}
-                    source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                    source={{ uri: item.imageFile }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                   <View style={styles.nameAndDesView}>
                     <Text 
@@ -105,7 +105,11 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                         {item.lessonDescription}
                       </Text>
                     </View>
-                    <Text style={styles.duration}>Duration: 20 mins</Text>
+                    {
+                      item.videoDuration ?
+                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                      : null
+                    }
                   </View>
                 </TouchableOpacity>
               :
@@ -132,12 +136,16 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                         {item.lessonDescription}
                       </Text>
                     </View>
-                    <Text style={styles.duration}>Duration: 20 mins</Text>
+                    {
+                      item.videoDuration ?
+                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                      : null
+                    }
                   </View>
                   <Image
                     style={styles.image}
-                    // source={{ uri: item.imageFile }}
-                    source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                    source={{ uri: item.imageFile }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                 </TouchableOpacity>
               }
