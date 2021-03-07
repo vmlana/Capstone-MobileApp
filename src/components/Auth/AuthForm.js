@@ -110,15 +110,18 @@ const AuthForm = ({
           titleStyle={{ fontSize: 17 }}
           buttonStyle={{ marginHorizontal: 10 }}
           // onPress={() => onSubmit({ email, password })}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            onSubmit(email, password, navigation);
+            }}
+          // onPress={() => navigation.navigate("Home")}
         />
-        <Button
+        {/* <Button
           title={"Connect with Google"}
           titleStyle={{ fontSize: 17 }}
           buttonStyle={styles.button}
           // onPress={() => onSubmit({ email, password })}
           onPress={() => navigation.navigate("Home")}
-        />
+        /> */}
       </View>
     </View>
   );
