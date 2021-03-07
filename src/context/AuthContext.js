@@ -75,7 +75,7 @@ const signin = (dispatch) => async (email, password, navigation) => {
     console.log(error.message);
     dispatch({
       type: "add_error",
-      payload: "Something went wrong with sigh up. Please try again.",
+      payload: "Something went wrong with sign in. Please try again.",
     });
   }
 };
@@ -130,20 +130,48 @@ const tokenRefresh = (dispatch) => async (refreshToken, navigation) => {
   }
 };
 
-const signup = (dispatch) => async ({ email, password }) => {
+const signup = (dispatch) => async (email, password, companyName, employeeId, navigation) => {
   try {
-    const response = await "ADD POST MEHOD like API.post('/signup, {email, password})";
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
+    const response =       
+      await fetch(`${API_URL}/signup`, 
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+       body: `email=${email}&password=${password}&userType=user&companyName=${companyName}&employeeId=${employeeId}`,
+      })
 
-    // navigate to the Home screen after successful signin
-    // Need to use the naviagate function to navigate between pages outside of the components.
-    navigate("Home");
+    .then(result=>{
+        return result;
+      })
+      .catch(error => {throw error})
+
+    if(response.ok) {
+      
+      let releasedate = await response.json().then(async(json) => {
+        return json;
+      });
+
+      if (!releasedate.success) {
+        throw "error";
+      }
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
+      dispatch({ type: "signin", payload: releasedate });
+  
+      // navigate to the Home screen after successful signin
+      // Need to use the naviagate function to navigate between pages outside of the components.
+      navigation.navigate("Home");
+  
+    } else {
+      console.log('Network failed with response ' + result.status + ': ' + result.statusText);
+    }
   } catch (error) {
     console.log(error.message);
     dispatch({
       type: "add_error",
-      payload: "Something went wrong with sigh up. Please try again.",
+      payload: "Something went wrong with sign up. Please try again.",
     });
   }
 };
