@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useContext} from "react";
 import moment from "moment";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import {
   Container,
@@ -17,6 +17,8 @@ import {
 
 import SearchIcon from "../components/Search/SearchIcon";
 import Calendar from "../components/Profile/Calendar";
+
+import { Context as AuthContext } from "../context/AuthContext";
 
 let customDatesStyles = [];
 let startDate = moment();
@@ -61,13 +63,18 @@ for (let i = 0; i < 6; i++) {
 }
 
 const ProfileScreen = ({ navigation }) => {
+  const { signout } = useContext(AuthContext);
+
   return (
     <Container>
       <Content>
         <View style={styles.container}>
           <Calendar customStyles={customDatesStyles} />
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+        <TouchableOpacity onPress={() => {
+          signout();
+          navigation.navigate("Signin");
+          }}>
           <Text>Sign Out</Text>
         </TouchableOpacity>
       </Content>

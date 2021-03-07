@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Container,
   Header,
@@ -28,12 +28,19 @@ import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
 
+import { Context as AuthContext } from "../context/AuthContext";
+
 const programId = 1;
 
 const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
+  const { state } = useContext(AuthContext);
+
+  if(state.userInfo){
+    console.log("Home_authId:", state.userInfo.authId);
+  }
 
   useEffect(() => {
     const getProgramArr = async () => {

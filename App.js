@@ -168,10 +168,10 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default () => {
 	return (
-		// <AuthProvider>
+		<AuthProvider>
 			<SearchProvider>
 				<AppContainer ref={(navigation) => setNavigator(navigator)} />
 			</SearchProvider>
-		// </AuthProvider>
+		</AuthProvider>
 	);
 };
