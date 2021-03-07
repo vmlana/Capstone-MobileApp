@@ -18,10 +18,10 @@ const AuthForm = ({
   navigation,
   routeName,
 }) => {
-  const [email, setEmail] = useState("tomo@walmart.ca");
-  const [password, setPassword] = useState("123456");
-  const [companyName, setCompanyName] = useState("Walmart");
-  const [employeeId, setEmployeeId] = useState("100346604");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
 
   return (
     <View style={styles.container}>
