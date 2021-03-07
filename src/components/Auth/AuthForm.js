@@ -18,10 +18,10 @@ const AuthForm = ({
   navigation,
   routeName,
 }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [employeeNum, setEmployeeNum] = useState("");
+  const [email, setEmail] = useState("tomo@walmart.ca");
+  const [password, setPassword] = useState("123456");
+  const [companyName, setCompanyName] = useState("Walmart");
+  const [employeeId, setEmployeeId] = useState("100346604");
 
   return (
     <View style={styles.container}>
@@ -68,8 +68,8 @@ const AuthForm = ({
             <Input
               label="Company Name"
               labelStyle={{ fontSize: 12 }}
-              value={email}
-              onChangeText={setEmail}
+              value={companyName}
+              onChangeText={setCompanyName}
               autoCapitalize="none"
               autoCorrect={false}
               inputContainerStyle={{
@@ -82,11 +82,11 @@ const AuthForm = ({
             <Input
               label="Employee Number"
               labelStyle={{ fontSize: 12 }}
-              value={password}
-              onChangeText={setPassword}
+              value={employeeId}
+              onChangeText={setEmployeeId}
               autoCapitalize="none"
               autoCorrect={false}
-              secureTextEntry={true}
+              secureTextEntry={false}
               inputContainerStyle={{
                 borderWidth: 1,
                 borderRadius: 4,
@@ -111,7 +111,11 @@ const AuthForm = ({
           buttonStyle={{ marginHorizontal: 10 }}
           // onPress={() => onSubmit({ email, password })}
           onPress={() => {
-            onSubmit(email, password, navigation);
+            if(routeName === "Signup") {
+              onSubmit(email, password, companyName, employeeId, navigation);
+            } else {
+              onSubmit(email, password, navigation);
+            }
             }}
           // onPress={() => navigation.navigate("Home")}
         />

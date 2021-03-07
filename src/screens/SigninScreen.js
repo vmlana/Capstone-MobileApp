@@ -41,6 +41,7 @@ const SigninScreen = ({ navigation }) => {
     useEffect(()=>{
       if(state.errorMessage !== "") {
         alert(state.errorMessage);
+        clearErrMsg();
       }
     }, [state])
 
