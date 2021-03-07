@@ -20,35 +20,32 @@ import TrainerName from "../Trainer/TrainerName";
 import { getCategories } from "../../data/api";
 
 const ContentContainer = ({ navigation, result, type }) => {
-
+  type !== "cat" && type !== "playlists"
+    ? console.log("program list", result)
+    : null;
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           {
-            type === "playlists" ?
-              navigation.navigate("PlayList", {
-                singleVideoData: result.lessons,
-                playListData: result,
-              })
-            : type === "cat" ?
-            navigation.navigate("Category", {
-                category: result,
-              })
-            :
-            navigation.navigate("Program", {
-                program: result,
-              })
-            }
+            type === "playlists"
+              ? navigation.navigate("PlayList", {
+                  singleVideoData: result.lessons,
+                  playListData: result,
+                })
+              : type === "cat"
+              ? navigation.navigate("Category", {
+                  category: result,
+                })
+              : navigation.navigate("Program", {
+                  program: result,
+                });
           }
-        }
+        }}
       >
-        <ThumbNail
-          type={type}
-          source={{ uri: "https://dummyimage.com/150x150/000/fff" }}
-        />
+        <ThumbNail type={type} source={{ uri: result.imageFile }} />
       </TouchableOpacity>
-      { type === "playlists" ? (
+      {type === "playlists" ? (
         <Text>{result.playlistName}</Text>
       ) : type === "cat" ? (
         <Text>{result.name}</Text>
@@ -66,17 +63,12 @@ const ContentContainer = ({ navigation, result, type }) => {
               color="black"
               style={{ marginRight: 5, alignItems: "center" }}
             />
-            <Text>{
-              result.lessons ?
-              result.lessons.length :
-              null
-              }</Text>
+            <Text>{result.lessons ? result.lessons.length : null}</Text>
           </View>
         </View>
       ) : null}
     </View>
   );
-
 };
 
 const styles = StyleSheet.create({
