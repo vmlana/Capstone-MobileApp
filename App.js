@@ -36,7 +36,12 @@ import ProgramScreen from './src/screens/ProgramScreen';
 // The most top will be initially renddered
 const HomeStack = createStackNavigator(
 	{
-		Home: HomeScreen,
+		Home: {
+			screen: HomeScreen,
+			navigationOptions: {
+				title: "Pivot Care",
+			},
+		},
 		PlayList: {
 			screen: PlayListScreen,
 			navigationOptions: ({ navigation }) => ({
@@ -45,7 +50,9 @@ const HomeStack = createStackNavigator(
 		},
 		SingleVideo: {
 			screen: SingleVideoScreen,
-			navigationOptions: { title: "Single Video" },
+			navigationOptions: ({ navigation }) => ({
+				title: `${navigation.state.params.lessonName}`,
+			}),
 		},
 		SetSchedule: {
 			screen: SetScheduleScreen,
@@ -81,6 +88,16 @@ const HomeStack = createStackNavigator(
 		defaultNavigationOptions: {
 			headerRight: () => <SearchIcon />,
 			headerBackTitle: " ",
+			headerTitleStyle: {
+				fontWeight: 'normal',
+				textAlign: 'center',
+				color: '#7561A4',
+				fontSize: 28
+			},
+			// headerBackTitleStyle: {
+			// 	color: '#7561A4',
+			// 	fontSize: 28
+			// }
 		},
 	}
 );
@@ -146,12 +163,28 @@ const TabNavigator = createBottomTabNavigator(
 				}
 
 				// You can return any component that you like here
-				return <IconComponent name={iconName} size={25} color={tintColor} />;
+				return <IconComponent name={iconName} size={24} color={tintColor} style={{ paddingTop: 5 }} />;
 			},
 		}),
 		tabBarOptions: {
-			activeTintColor: "blue",
-			inactiveTintColor: "gray",
+			activeTintColor: "#FFFFFF",
+			inactiveTintColor: "#FFFFFF",
+			activeBackgroundColor: '#A296BE',
+			inactiveBackgroundColor: '#7561A4',
+			tabStyle: {
+				borderRightColor: '#A296BE',
+				borderRightWidth: 0.2,
+				borderLeftColor: '#A296BE',
+				borderLeftWidth: 0.2
+			},
+			style: {
+				height: 55,
+			},
+			labelStyle: {
+				fontSize: 12,
+				paddingBottom: 2
+			},
+			labelPosition: 'below-icon',
 		},
 	}
 );

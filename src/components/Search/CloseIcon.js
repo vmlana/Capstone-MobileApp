@@ -7,7 +7,7 @@ import { useSearchContext } from '../../../src/context/searchContext';
 
 
 const CloseIcon = ({ navigation }) => {
-  const {searchString, setSearchString} = useSearchContext();
+  const { searchString, setSearchString } = useSearchContext();
 
   const deleteInput = () => {
     navigation.goBack();
@@ -19,8 +19,8 @@ const CloseIcon = ({ navigation }) => {
 const styles = StyleSheet.create({
   icon: {
     marginRight: 30,
-    fontSize: 20,
-    color: "grey",
+    fontSize: 30,
+    color: "#7561A4",
   },
 });
 

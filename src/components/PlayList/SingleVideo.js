@@ -50,7 +50,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
       />
 
       <View style={styles.videoHeader}>
-        <Text h3>{data.lessonName}</Text>
+        <Text style={styles.lessonTitle}>{data.lessonName}</Text>
         <TrainerName data={playListData} navigation={navigation} />
       </View>
       <View style={styles.videoInfo}>
@@ -75,6 +75,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginVertical: 10,
     marginHorizontal: 25,
+  },
+  lessonTitle: {
+    fontSize: 23,
+    lineHeight: 28,
+    color: '#707070'
   },
   desc: {
     marginHorizontal: 25,
