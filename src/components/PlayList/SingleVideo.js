@@ -17,6 +17,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const SingleVideo = ({ navigation, data, playListData }) => {
+  console.log("playListData", playListData);
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   lessonTitle: {
     fontSize: 23,
     lineHeight: 28,
-    color: '#707070'
+    color: "#707070",
   },
   desc: {
     marginHorizontal: 25,

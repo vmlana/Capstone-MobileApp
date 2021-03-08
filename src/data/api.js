@@ -19,6 +19,7 @@ export const getInstructorInfo = async (instructoId) => {
   )
     .then((response) => response.json())
     .catch((error) => console.error(error));
+  console.log("instructor info in the api call", instructor);
   return instructor;
 };
 
