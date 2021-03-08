@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from 'react'
 import { View, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import { Thumbnail } from "native-base";
 
+import { getInstructorInfo } from '../../data/api'
+
 const TrainerName = ({ navigation, data }) => {
+
+	console.log(data.imageFile)
+
+	const [instructorInfo, setinstructorInfo] = useState([]);
+
+	useEffect(() => {
+		getInstructorInfo(data.instructorID).then(
+			instructors => {
+				instructors.map(instructor => {
+					setinstructorInfo(instructor)
+				})
+			}
+		)
+	}, [])
+
 	return (
 		<TouchableOpacity
 			style={styles.trainerInfo}
@@ -12,13 +29,12 @@ const TrainerName = ({ navigation, data }) => {
 			<Thumbnail
 				small
 				source={{
-					uri:
-						"https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png",
+					uri: instructorInfo.imageFile,
 				}}
 				style={styles.thumbNail}
 			/>
-			<Text style={{ marginLeft: 5 }}>
-				{data.instructorName ? data.instructorName :data.trainerName}
+			<Text style={styles.trainerName}>
+				{data.instructorName ? data.instructorName : data.trainerName}
 			</Text>
 		</TouchableOpacity>
 	);
@@ -28,11 +44,19 @@ const styles = StyleSheet.create({
 	trainerInfo: {
 		flexDirection: "row",
 		alignItems: "center",
+		marginTop: 7,
 	},
 	thumbNail: {
-		width: 20,
-		height: 20,
+		width: 24,
+		height: 24,
+		marginRight: 5,
 	},
+
+	trainerName: {
+		fontSize: 13,
+		lineHeight: 13,
+		color: '#707070'
+	}
 });
 
 export default TrainerName;

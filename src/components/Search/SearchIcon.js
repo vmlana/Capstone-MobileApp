@@ -13,8 +13,8 @@ const SearchIcon = ({ navigation }) => {
 const styles = StyleSheet.create({
   icon: {
     marginRight: 30,
-    fontSize: 20,
-    color: "grey",
+    fontSize: 24,
+    color: "#7561A4",
   },
 });
 

@@ -17,14 +17,14 @@ const PlayListScreen = ({ navigation, playlistId }) => {
     setPlayList(playList);
     // console.log("***********")
     // console.log(playList);
-    if(playList && !data) {
-      (async()=>{
-      setIsLoading(true);
-      const playlistData = await getPlaylistByPlaylistId(playList.playlistId);
-      setIsLoading(false);
-      // console.log("***********")
-      // console.log(playlistData[0].lessons);
-      setSingleVideos(playlistData[0].lessons);
+    if (playList && !data) {
+      (async () => {
+        setIsLoading(true);
+        const playlistData = await getPlaylistByPlaylistId(playList.playlistId);
+        setIsLoading(false);
+        // console.log("***********")
+        // console.log(playlistData[0].lessons);
+        setSingleVideos(playlistData[0].lessons);
       })();
     }
   }, []);
@@ -32,16 +32,16 @@ const PlayListScreen = ({ navigation, playlistId }) => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-          <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
   if (!data && !playList) {
     return (
-        <View style={styles.centered}>
-            <Text>No lessons found.</Text>
-        </View>
+      <View style={styles.centered}>
+        <Text>No lessons found.</Text>
+      </View>
     );
   }
 
@@ -67,112 +67,114 @@ const PlayListScreen = ({ navigation, playlistId }) => {
             </View>
           ))
         : null} */}
-        <FlatList
-          style={styles.flatList}
-          data={singleVideos}
-          keyExtractor={(item)=> item.lessonId.toString()}
-          renderItem={({item, index}) => {
-            return (
+      <FlatList
+        style={styles.flatList}
+        data={singleVideos}
+        keyExtractor={(item) => item.lessonId.toString()}
+        renderItem={({ item, index }) => {
+          return (
             <View>
               {
                 index % 2 === 0
-                ?
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("SingleVideo", {
-                      //   passing the parameter to the single video screen
-                      videoData: item,
-                      playListData,
-                    })
-                  }
-                  style={styles.lessonContainer}
-                >
-                  <Image
-                    style={styles.image}
-                    source={{ uri: item.imageFile }}
-                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
-                  />
-                  <View style={styles.nameAndDesView}>
-                    <Text 
-                      style={styles.lessonName}
-                    >
-                      {item.lessonName}
-                    </Text>
-                    <View>
-                      <Text 
-                        style={styles.lessonDescription}
-                      >
-                        {item.lessonDescription}
-                      </Text>
-                    </View>
-                    {
-                      item.videoDuration ?
-                      <Text style={styles.duration}>{item.videoDuration}</Text>
-                      : null
+                  ?
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("SingleVideo", {
+                        //   passing the parameter to the single video screen
+                        videoData: item,
+                        playListData,
+                        lessonName: item.lessonName
+                      })
                     }
-                  </View>
-                </TouchableOpacity>
-              :
-              <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("SingleVideo", {
-                      //   passing the parameter to the single video screen
-                      videoData: item,
-                      playListData,
-                    })
-                  }
-                  style={styles.lessonContainer}
-                >
-                  <View style={styles.nameAndDesViewLeft}>
-                    <Text 
-                      style={styles.lessonName}
-                    >
-                      {item.lessonName}
-                    </Text>
-                    <View>
-                      <Text 
-                        style={styles.lessonDescription}
-                      >
-                        {item.lessonDescription}
-                      </Text>
-                    </View>
-                    {
-                      item.videoDuration ?
-                      <Text style={styles.duration}>{item.videoDuration}</Text>
-                      : null
-                    }
-                  </View>
-                  <Image
-                    style={styles.image}
-                    source={{ uri: item.imageFile }}
+                    style={styles.lessonContainer}
+                  >
+                    <Image
+                      style={styles.image}
+                      source={{ uri: item.imageFile }}
                     // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
-                  />
-                </TouchableOpacity>
+                    />
+                    <View style={styles.nameAndDesView}>
+                      <Text
+                        style={styles.lessonName}
+                      >
+                        {item.lessonName}
+                      </Text>
+                      <View>
+                        <Text
+                          style={styles.lessonDescription}
+                        >
+                          {item.lessonDescription}
+                        </Text>
+                      </View>
+                      {
+                        item.videoDuration ?
+                          <Text style={styles.duration}>{item.videoDuration}</Text>
+                          : null
+                      }
+                    </View>
+                  </TouchableOpacity>
+                  :
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("SingleVideo", {
+                        //   passing the parameter to the single video screen
+                        videoData: item,
+                        playListData,
+                      })
+                    }
+                    style={styles.lessonContainer}
+                  >
+                    <View style={styles.nameAndDesViewLeft}>
+                      <Text
+                        style={styles.lessonName}
+                      >
+                        {item.lessonName}
+                      </Text>
+                      <View>
+                        <Text
+                          style={styles.lessonDescription}
+                        >
+                          {item.lessonDescription}
+                        </Text>
+                      </View>
+                      {
+                        item.videoDuration ?
+                          <Text style={styles.duration}>{item.videoDuration}</Text>
+                          : null
+                      }
+                    </View>
+                    <Image
+                      style={styles.image}
+                      source={{ uri: item.imageFile }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                    />
+                  </TouchableOpacity>
               }
             </View>
-            )}
-          }
-        />
+          )
+        }
+        }
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      // padding: 33,
+    flex: 1,
+
   },
   flatList: {
-    padding: 33,
+    padding: 25
   },
   centered: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   lessonContainer: {
-    flexDirection:'row',
-    marginBottom: 23
+    flexDirection: 'row',
+    marginBottom: 25
   },
   image: {
     width: 135,
@@ -196,16 +198,19 @@ const styles = StyleSheet.create({
   lessonName: {
     fontSize: 19,
     marginBottom: 11,
-    color: "#707070"
+    color: "#707070",
+    lineHeight: 23
   },
   lessonDescription: {
     fontSize: 13,
+    lineHeight: 15,
     fontWeight: "300",
     marginBottom: 11,
     color: "#707070"
   },
   duration: {
     fontSize: 13,
+    lineHeight: 15,
     fontWeight: "300",
     color: "#707070"
   }
