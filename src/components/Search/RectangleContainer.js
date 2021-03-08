@@ -34,7 +34,7 @@ const RectangleContainer = ({ navigation, result, type }) => {
         <View style={styles.thumbNailContainer}>
             <ThumbNail
                 source={{ uri: 
-                result.blogImage ? result.blogImage : "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1994&q=80" }}
+                result.blogImageFile ? result.blogImageFile : "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1994&q=80" }}
             />
             <Text style={styles.blogTitle}>{result.blogName}</Text>
         </View>
