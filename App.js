@@ -94,10 +94,6 @@ const HomeStack = createStackNavigator(
 				color: '#7561A4',
 				fontSize: 28
 			},
-			// headerBackTitleStyle: {
-			// 	color: '#7561A4',
-			// 	fontSize: 28
-			// }
 		},
 	}
 );
@@ -116,6 +112,12 @@ const BlogStack = createStackNavigator(
 		defaultNavigationOptions: {
 			headerRight: () => <SearchIcon />,
 			headerBackTitle: " ",
+			headerTitleStyle: {
+				fontWeight: 'normal',
+				textAlign: 'center',
+				color: '#7561A4',
+				fontSize: 28
+			},
 		},
 	}
 );
@@ -135,6 +137,12 @@ const ProfileStack = createStackNavigator(
 		defaultNavigationOptions: {
 			headerRight: () => <SearchIcon />,
 			headerBackTitle: " ",
+			headerTitleStyle: {
+				fontWeight: 'normal',
+				textAlign: 'center',
+				color: '#7561A4',
+				fontSize: 28
+			},
 		},
 	}
 );

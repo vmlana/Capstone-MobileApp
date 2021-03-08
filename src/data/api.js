@@ -88,3 +88,16 @@ export const getProgramByProgramId = async (programId) => {
     .catch((error) => console.error(error));
   return result;
 };
+
+export const getUserDashboard = async (userId) => {
+  const result = await fetch(`${API_URL}/dashboard?userId=${userId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};

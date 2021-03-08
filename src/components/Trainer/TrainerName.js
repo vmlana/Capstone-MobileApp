@@ -7,8 +7,6 @@ import { getInstructorInfo } from '../../data/api'
 
 const TrainerName = ({ navigation, data }) => {
 
-	console.log(data.imageFile)
-
 	const [instructorInfo, setinstructorInfo] = useState([]);
 
 	useEffect(() => {

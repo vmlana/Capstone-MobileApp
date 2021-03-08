@@ -17,6 +17,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const SingleVideo = ({ navigation, data, playListData }) => {
+  // console.log(playListData)
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
