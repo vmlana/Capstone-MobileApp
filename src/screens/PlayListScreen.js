@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image, ActivityIndicator } from "react-native";
-import { getPlaylistByPlaylistId } from '../data/api';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import { getPlaylistByPlaylistId } from "../data/api";
 
 const PlayListScreen = ({ navigation, playlistId }) => {
   // data and playList contain info of single videos and playlist respectively passed to the parameter from the ContentContainer component.
@@ -46,9 +54,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
   }
 
   return (
-    <View
-      style={styles.container}
-    >
+    <View style={styles.container}>
       {/* {singleVideos
         ? singleVideos.map((singleVideo, index) => (
             <View key={index}>
@@ -74,86 +80,68 @@ const PlayListScreen = ({ navigation, playlistId }) => {
         renderItem={({ item, index }) => {
           return (
             <View>
-              {
-                index % 2 === 0
-                  ?
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("SingleVideo", {
-                        //   passing the parameter to the single video screen
-                        videoData: item,
-                        playListData,
-                        lessonName: item.lessonName
-                      })
-                    }
-                    style={styles.lessonContainer}
-                  >
-                    <Image
-                      style={styles.image}
-                      source={{ uri: item.imageFile }}
+              {index % 2 === 0 ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("SingleVideo", {
+                      //   passing the parameter to the single video screen
+                      videoData: item,
+                      playListData,
+                      lessonName: item.lessonName,
+                    })
+                  }
+                  style={styles.lessonContainer}
+                >
+                  <Image
+                    style={styles.image}
+                    source={{ uri: item.imageFile }}
                     // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
-                    />
-                    <View style={styles.nameAndDesView}>
-                      <Text
-                        style={styles.lessonName}
-                      >
-                        {item.lessonName}
+                  />
+                  <View style={styles.nameAndDesView}>
+                    <Text style={styles.lessonName}>{item.lessonName}</Text>
+                    <View>
+                      <Text style={styles.lessonDescription}>
+                        {item.lessonDescription}
                       </Text>
-                      <View>
-                        <Text
-                          style={styles.lessonDescription}
-                        >
-                          {item.lessonDescription}
-                        </Text>
-                      </View>
-                      {
-                        item.videoDuration ?
-                          <Text style={styles.duration}>{item.videoDuration}</Text>
-                          : null
-                      }
                     </View>
-                  </TouchableOpacity>
-                  :
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("SingleVideo", {
-                        //   passing the parameter to the single video screen
-                        videoData: item,
-                        playListData,
-                      })
-                    }
-                    style={styles.lessonContainer}
-                  >
-                    <View style={styles.nameAndDesViewLeft}>
-                      <Text
-                        style={styles.lessonName}
-                      >
-                        {item.lessonName}
+                    {item.videoDuration ? (
+                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                    ) : null}
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("SingleVideo", {
+                      //   passing the parameter to the single video screen
+                      videoData: item,
+                      playListData,
+                      lessonName: item.lessonName,
+                    })
+                  }
+                  style={styles.lessonContainer}
+                >
+                  <View style={styles.nameAndDesViewLeft}>
+                    <Text style={styles.lessonName}>{item.lessonName}</Text>
+                    <View>
+                      <Text style={styles.lessonDescription}>
+                        {item.lessonDescription}
                       </Text>
-                      <View>
-                        <Text
-                          style={styles.lessonDescription}
-                        >
-                          {item.lessonDescription}
-                        </Text>
-                      </View>
-                      {
-                        item.videoDuration ?
-                          <Text style={styles.duration}>{item.videoDuration}</Text>
-                          : null
-                      }
                     </View>
-                    <Image
-                      style={styles.image}
-                      source={{ uri: item.imageFile }}
+                    {item.videoDuration ? (
+                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                    ) : null}
+                  </View>
+                  <Image
+                    style={styles.image}
+                    source={{ uri: item.imageFile }}
                     // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
-                    />
-                  </TouchableOpacity>
-              }
+                  />
+                </TouchableOpacity>
+              )}
             </View>
-          )
-        }
-        }
+          );
+        }}
       />
     </View>
   );
@@ -162,10 +150,9 @@ const PlayListScreen = ({ navigation, playlistId }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
   flatList: {
-    padding: 25
+    padding: 25,
   },
   centered: {
     flex: 1,
@@ -173,14 +160,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   lessonContainer: {
-    flexDirection:'row',
+    flexDirection: "row",
     marginBottom: 25,
-    alignItems: "center"
+    alignItems: "center",
   },
   image: {
     width: 135,
     height: 142,
-    borderRadius: 5
+    borderRadius: 5,
   },
   nameAndDesView: {
     paddingTop: 26,
@@ -200,21 +187,21 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginBottom: 11,
     color: "#707070",
-    lineHeight: 23
+    lineHeight: 23,
   },
   lessonDescription: {
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",
     marginBottom: 11,
-    color: "#707070"
+    color: "#707070",
   },
   duration: {
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",
-    color: "#707070"
-  }
+    color: "#707070",
+  },
 });
 
 export default PlayListScreen;

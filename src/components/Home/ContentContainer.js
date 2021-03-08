@@ -24,7 +24,6 @@ const ContentContainer = ({ navigation, result, type }) => {
   //   ? console.log("program list", result)
   //   : null;
 
-  console.log("result", result);
   return (
     <View style={styles.container}>
       <TouchableOpacity
