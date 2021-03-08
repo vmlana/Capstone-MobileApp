@@ -1,15 +1,15 @@
 import React from "react";
 // Redux
 import { Provider as AuthProvider } from "./src/context/AuthContext";
-import { SearchProvider } from './src/context/searchContext';
+import { SearchProvider } from "./src/context/searchContext";
 import { setNavigator } from "./src/navigationRef";
 
 import { View, Button, StyleSheet, Text } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
-	createBottomTabNavigator,
-	createTabNavigator,
+  createBottomTabNavigator,
+  createTabNavigator,
 } from "react-navigation-tabs";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -28,9 +28,9 @@ import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 import CloseIcon from "./src/components/Search/CloseIcon";
-import TrainerScreen from './src/screens/TrainerScreen';
-import CategoryScreen from './src/screens/CategoryScreen';
-import ProgramScreen from './src/screens/ProgramScreen';
+import TrainerScreen from "./src/screens/TrainerScreen";
+import CategoryScreen from "./src/screens/CategoryScreen";
+import ProgramScreen from "./src/screens/ProgramScreen";
 // =====================================================
 
 // The most top will be initially renddered
@@ -122,16 +122,17 @@ const BlogStack = createStackNavigator(
 	}
 );
 const ProfileStack = createStackNavigator(
-	{
-		Profile: ProfileScreen,
-		Search: {
-			screen: SearchScreen,
-			navigationOptions: {
-				title: "Search",
-				headerRight: () => <CloseIcon />,
-			},
-		},
-	},
+  {
+    Profile: ProfileScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        title: "Search",
+        headerRight: () => <CloseIcon />,
+      },
+    },
+  },
+
 
 	{
 		defaultNavigationOptions: {
@@ -145,74 +146,82 @@ const ProfileStack = createStackNavigator(
 			},
 		},
 	}
+
 );
 
 const TabNavigator = createBottomTabNavigator(
-	{
-		Home: HomeStack,
-		Blog: BlogStack,
-		Profile: ProfileStack,
-	},
-	{
-		defaultNavigationOptions: ({ navigation }) => ({
-			tabBarIcon: ({ focused, horizontal, tintColor }) => {
-				const { routeName } = navigation.state;
-				let IconComponent = Ionicons;
-				let iconName;
-				if (routeName === "Home") {
-					iconName = focused ? "ios-home" : "ios-home-outline";
-					// Sometimes we want to add badges to some icons.
-					// You can check the implementation below.
-					//   IconComponent = HomeIconWithBadge;
-				} else if (routeName === "Blog") {
-					iconName = focused ? "ios-book" : "ios-book-outline";
-				} else if (routeName === "Profile") {
-					iconName = focused ? "ios-person" : "ios-person-outline";
-				}
+  {
+    Home: HomeStack,
+    Blog: BlogStack,
+    Profile: ProfileStack,
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let IconComponent = Ionicons;
+        let iconName;
+        if (routeName === "Home") {
+          iconName = focused ? "ios-home" : "ios-home-outline";
+          // Sometimes we want to add badges to some icons.
+          // You can check the implementation below.
+          //   IconComponent = HomeIconWithBadge;
+        } else if (routeName === "Blog") {
+          iconName = focused ? "ios-book" : "ios-book-outline";
+        } else if (routeName === "Profile") {
+          iconName = focused ? "ios-person" : "ios-person-outline";
+        }
 
-				// You can return any component that you like here
-				return <IconComponent name={iconName} size={24} color={tintColor} style={{ paddingTop: 5 }} />;
-			},
-		}),
-		tabBarOptions: {
-			activeTintColor: "#FFFFFF",
-			inactiveTintColor: "#FFFFFF",
-			activeBackgroundColor: '#A296BE',
-			inactiveBackgroundColor: '#7561A4',
-			tabStyle: {
-				borderRightColor: '#A296BE',
-				borderRightWidth: 0.2,
-				borderLeftColor: '#A296BE',
-				borderLeftWidth: 0.2
-			},
-			style: {
-				height: 55,
-			},
-			labelStyle: {
-				fontSize: 12,
-				paddingBottom: 2
-			},
-			labelPosition: 'below-icon',
-		},
-	}
+        // You can return any component that you like here
+        return (
+          <IconComponent
+            name={iconName}
+            size={24}
+            color={tintColor}
+            style={{ paddingTop: 5 }}
+          />
+        );
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: "#FFFFFF",
+      inactiveTintColor: "#FFFFFF",
+      activeBackgroundColor: "#A296BE",
+      inactiveBackgroundColor: "#7561A4",
+      tabStyle: {
+        borderRightColor: "#A296BE",
+        borderRightWidth: 0.2,
+        borderLeftColor: "#A296BE",
+        borderLeftWidth: 0.2,
+      },
+      style: {
+        height: 55,
+      },
+      labelStyle: {
+        fontSize: 12,
+        paddingBottom: 2,
+      },
+      labelPosition: "below-icon",
+    },
+  }
 );
 
 const AppNavigator = createSwitchNavigator({
-	Auth: createStackNavigator({
-		Signin: SigninScreen,
-		Signup: SignupScreen,
-	}),
-	Home: TabNavigator,
+  Auth: createStackNavigator({
+    Signin: SigninScreen,
+    Signup: SignupScreen,
+  }),
+  Home: TabNavigator,
 });
 
 const AppContainer = createAppContainer(AppNavigator);
 
 export default () => {
-	return (
-		<AuthProvider>
-			<SearchProvider>
-				<AppContainer ref={(navigation) => setNavigator(navigator)} />
-			</SearchProvider>
-		</AuthProvider>
-	);
+  return (
+    <AuthProvider>
+      <SearchProvider>
+        <AppContainer ref={(navigation) => setNavigator(navigator)} />
+      </SearchProvider>
+    </AuthProvider>
+  );
 };

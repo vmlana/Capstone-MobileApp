@@ -41,10 +41,11 @@ const SingleVideo = ({ navigation, data, playListData }) => {
         rate={1.0}
         volume={1.0}
         isMuted={false}
+        isLooping
         useNativeControls
         resizeMode="contain"
         onFullscreenUpdate={onFullscreenUpdate}
-        style={{ width: windowWidth, height: 250 }}
+        style={{ width: windowWidth, height: 235 }}
         onPlaybackStatusUpdate={(playbackStatus) =>
           playbackStatus.didJustFinish ? console.log("done") : null
         }
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   lessonTitle: {
     fontSize: 23,
     lineHeight: 28,
-    color: '#707070'
+    color: "#707070",
   },
   desc: {
     marginHorizontal: 25,
