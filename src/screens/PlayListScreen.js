@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
   },
   lessonContainer: {
     flexDirection:'row',
-    marginBottom: 23
+    marginBottom: 23,
+    alignItems: "center"
   },
   image: {
     width: 135,
