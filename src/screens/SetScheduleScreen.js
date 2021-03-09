@@ -14,7 +14,7 @@ import { Directions } from "react-native-gesture-handler";
 const today = new Date();
 const todaysDate = today.toISOString().slice(0, 10);
 
-const SetScheduleScreen = () => {
+const SetScheduleScreen = ({ navigation }) => {
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [pressedDay, setPressedDay] = useState("");
   const [bookedDateArr, setBookedDateArr] = useState([]);
@@ -24,6 +24,9 @@ const SetScheduleScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [timeData, setTimeData] = useState("");
   const [reminderVisible, setReminderVisible] = useState(false);
+  const [pickedDateTimeArr, setPickedDateTimeArr] = useState([]);
+
+  const data = navigation.getParam("videoData");
 
   const showTimePicker = (day) => {
     setTimePickerVisibility(true);
@@ -40,12 +43,16 @@ const SetScheduleScreen = () => {
   };
 
   const handleConfirm = (time) => {
-    const dateGot = time.toISOString().split("T")[0];
-    const pickedDateTime = time.toISOString().replace(dateGot, pressedDay);
+    const utcTime = new Date(time.getTime() - time.getTimezoneOffset() * 60000);
+    const dateGot = utcTime.toISOString().split("T")[0];
+    const pickedDateTime = utcTime.toISOString().replace(dateGot, pressedDay);
+
     const readableDateTime = moment
       .utc(pickedDateTime)
       .format("MMM Do, h:mm a");
 
+    const testTime = new Date(pickedDateTime);
+    setPickedDateTimeArr([...pickedDateTimeArr, testTime.getTime()]);
     setBookedDateArr([...bookedDateArr, pressedDay]);
     setFormatedDateTimeArr([...formatedDateTimeArr, readableDateTime]);
     setIsoDateTimeArr([...isoDateTimeArr, pickedDateTime]);
@@ -114,7 +121,12 @@ const SetScheduleScreen = () => {
                   reminderSwitch;
                 }}
               >
-                <Reminder onPress={reminderSwitch} dateTime={timeData} />
+                <Reminder
+                  onPress={reminderSwitch}
+                  videoData={data}
+                  milSec={pickedDateTimeArr[index]}
+                  dateTime={dateTime}
+                />
               </Modal>
             </View>
           ))}
