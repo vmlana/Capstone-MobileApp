@@ -7,6 +7,8 @@ import { abs } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
 
+import moment from "moment";
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -15,7 +17,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Reminder = ({ onPress, dateTime }) => {
+const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -23,17 +25,25 @@ const Reminder = ({ onPress, dateTime }) => {
   const [min, setMin] = useState(0);
 
   const setMinTime = (val) => {
-    setMin(val);
+    const minToMilSec = val * 60000;
+    setMin(minToMilSec);
   };
 
+  const now = new Date();
+  const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  const currentTime = new Date(utcTime.toISOString());
+  const currentMil = currentTime.getTime();
+
   const schedulePushNotification = async (time) => {
+    // console.log("notification time", milSec - min - currentMil);
+    onPress();
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got mail! 📬",
-        body: "Here is the notification body",
+        title: "It's about time to move your body! 📬",
+        body: videoData.lessonName,
         data: { data: "goes here" },
       },
-      trigger: { seconds: time },
+      trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
   };
 
@@ -165,7 +175,7 @@ const Reminder = ({ onPress, dateTime }) => {
         <Button
           title="Done"
           onPress={async () => {
-            await schedulePushNotification(min, onPress);
+            await schedulePushNotification(min);
           }}
           buttonStyle={styles.reminderSetBtn}
           titleStyle={{ color: "#624A99" }}
