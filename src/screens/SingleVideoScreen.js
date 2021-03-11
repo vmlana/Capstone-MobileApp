@@ -18,17 +18,26 @@ const SingleVideoScreen = ({ navigation }) => {
   useEffect(() => {
     setPlayList(playList);
   }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        <SingleVideo data={data} playListData={playListData} navigation={navigation} />
+        <SingleVideo
+          data={data}
+          playListData={playListData}
+          navigation={navigation}
+        />
         <Blogs data={blogData} />
       </ScrollView>
       <View style={styles.bottom}>
         <Button
           title="Schedule a Session"
           buttonStyle={styles.button}
-          onPress={() => navigation.navigate("SetSchedule")}
+          onPress={() =>
+            navigation.navigate("SetSchedule", {
+              videoData: data,
+            })
+          }
         />
       </View>
     </View>
