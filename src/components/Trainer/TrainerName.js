@@ -5,7 +5,7 @@ import { Thumbnail } from "native-base";
 
 import { getInstructorInfo } from '../../data/api'
 
-const TrainerName = ({ navigation, data }) => {
+const TrainerName = ({ navigation, data, blog }) => {
 
 	console.log(data.imageFile)
 
@@ -23,13 +23,17 @@ const TrainerName = ({ navigation, data }) => {
 
 	return (
 		<TouchableOpacity
-			style={styles.trainerInfo}
+			style={
+				!blog?
+				styles.trainerInfo:
+				styles.trainerInfoForBlog
+				}
 			onPress={() => navigation.navigate("TrainerDetails", { instructorName: data.instructorName, instructorID: data.instructorID })}
 		>
 			<Thumbnail
 				small
 				source={{
-					uri: instructorInfo.imageFile,
+					uri: data.instructorImage,
 				}}
 				style={styles.thumbNail}
 			/>
@@ -56,7 +60,12 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		lineHeight: 13,
 		color: '#707070'
-	}
+	},
+	trainerInfoForBlog: {
+		flexDirection: "row",
+		alignItems: "center",
+		// marginTop: 7,
+	},
 });
 
 export default TrainerName;

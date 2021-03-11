@@ -64,9 +64,12 @@ export const getSearchResult = async (userId, keyword) => {
 };
 
 export const getPlaylistByPlaylistId = async (playlistId) => {
+  // console.log(4.5, playlistId)
   const result = await fetch(`${API_URL}/playlists?playlistId=${playlistId}`)
     .then((response) => {
+      // console.log(response);
       if (response.status != 404) {
+        // console.log(5, response)
         return response.json();
       } else {
         return null;
@@ -87,4 +90,19 @@ export const getProgramByProgramId = async (programId) => {
     })
     .catch((error) => console.error(error));
   return result;
+};
+
+export const getBlogs = async (blogId) => {
+  const qry = blogId ? `?blogId=${blogId}` : "";
+
+  const blogs = await fetch(`${API_URL}/blogs${qry}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return blogs;
 };

@@ -15,7 +15,7 @@ import { Text } from "react-native-elements";
 
 import RectangleContainer from "./RectangleContainer";
 
-const RectangleListContainer = ({ title, dataList, navigation }) => {
+const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) => {
   return (
     <View>
       <Text h4>{title}</Text>
@@ -32,6 +32,7 @@ const RectangleListContainer = ({ title, dataList, navigation }) => {
             <RectangleContainer
               result={item}
               navigation={navigation}
+              onPressScroll={onPressScroll}
             />
           )}
         />
