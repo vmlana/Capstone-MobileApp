@@ -22,7 +22,7 @@ import {getBlogs} from '../../data/api';
 const RectangleContainer = ({ navigation, result, type, onPressScroll }) => {
   const [blog, setBlog] = useState();
 
-  console.log("result", result)
+  // console.log("result", result)
 
   useEffect(()=>{
     (async()=>{

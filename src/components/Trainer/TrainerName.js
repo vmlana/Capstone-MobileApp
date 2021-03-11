@@ -5,7 +5,7 @@ import { Thumbnail } from "native-base";
 
 import { getInstructorInfo } from "../../data/api";
 
-const TrainerName = ({ navigation, data }) => {
+const TrainerName = ({ navigation, data, blog }) => {
   const [instructorInfo, setinstructorInfo] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const TrainerName = ({ navigation, data }) => {
 
   return (
     <TouchableOpacity
-      style={styles.trainerInfo}
+      style={blog ? styles.trainerInfoForBlog : styles.trainerInfo}
       onPress={() =>
         navigation.navigate("TrainerDetails", {
           instructorName: data.instructorName,
@@ -28,9 +28,11 @@ const TrainerName = ({ navigation, data }) => {
     >
       <Thumbnail
         small
-        source={{
-          uri: instructorInfo.imageFile,
-        }}
+        source={
+			data.imageFile ?
+			{uri: data.imageFile} :
+			{uri: data.instructorImage}
+		}
         style={styles.thumbNail}
       />
       <Text style={styles.trainerName}>
@@ -51,11 +53,14 @@ const styles = StyleSheet.create({
     height: 24,
     marginRight: 5,
   },
-
   trainerName: {
     fontSize: 13,
     lineHeight: 13,
     color: "#707070",
+  },
+  trainerInfoForBlog: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
