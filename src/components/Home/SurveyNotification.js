@@ -15,11 +15,11 @@ const SurveyNotification = ({ close, navigation }) => {
           style={styles.Button}
           onPress={() => navigation.navigate("Survey")}
         >
-          <Text style={{ color: "#FF9D5A" }}>Start Survey</Text>
+          <Text style={{ color: "#FF9D5A", fontSize: 16 }}>Start Survey</Text>
         </TouchableOpacity>
       </View>
       <View>
-        <Icon name={"close"} size={24} color={"white"} onPress={close} />
+        <Icon name={"close"} size={18} color={"white"} onPress={close} />
       </View>
     </View>
   );
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });
