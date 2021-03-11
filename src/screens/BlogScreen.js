@@ -56,7 +56,7 @@ const BlogScreen = ({ navigation }) => {
             animated: false,
         }); }}
           /> : null
-
+          
           : null
         }
       </Content>
