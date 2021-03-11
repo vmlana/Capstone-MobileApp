@@ -31,95 +31,102 @@ import CloseIcon from "./src/components/Search/CloseIcon";
 import TrainerScreen from "./src/screens/TrainerScreen";
 import CategoryScreen from "./src/screens/CategoryScreen";
 import ProgramScreen from "./src/screens/ProgramScreen";
+import SurveyScreen from "./src/screens/SurveyScreen";
 // =====================================================
 
 // The most top will be initially renddered
 const HomeStack = createStackNavigator(
-	{
-		Home: {
-			screen: HomeScreen,
-			navigationOptions: {
-				title: "Pivot Care",
-			},
-		},
-		PlayList: {
-			screen: PlayListScreen,
-			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.playListData.playlistName}`,
-			}),
-		},
-		SingleVideo: {
-			screen: SingleVideoScreen,
-			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.lessonName}`,
-			}),
-		},
-		SetSchedule: {
-			screen: SetScheduleScreen,
-			navigationOptions: { title: "Schedule a Session" },
-		},
-		Search: {
-			screen: SearchScreen,
-			navigationOptions: {
-				title: "Search",
-				headerRight: () => <CloseIcon />,
-			},
-		},
-		TrainerDetails: {
-			screen: TrainerScreen,
-			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.instructorName}`,
-			}),
-		},
-		Category: {
-			screen: CategoryScreen,
-			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.category.name}`,
-			}),
-		},
-		Program: {
-			screen: ProgramScreen,
-			navigationOptions: ({ navigation }) => ({
-				title: `${navigation.state.params.program.programName}`
-			}),
-		},
-	},
-	{
-		defaultNavigationOptions: {
-			headerRight: () => <SearchIcon />,
-			headerBackTitle: " ",
-			headerTitleStyle: {
-				fontWeight: 'normal',
-				textAlign: 'center',
-				color: '#7561A4',
-				fontSize: 28
-			},
-		},
-	}
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: "Pivot Care",
+      },
+    },
+    PlayList: {
+      screen: PlayListScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: `${navigation.state.params.playListData.playlistName}`,
+      }),
+    },
+    SingleVideo: {
+      screen: SingleVideoScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: `${navigation.state.params.lessonName}`,
+      }),
+    },
+    SetSchedule: {
+      screen: SetScheduleScreen,
+      navigationOptions: { title: "Schedule a Session" },
+    },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        title: "Search",
+        headerRight: () => <CloseIcon />,
+      },
+    },
+    TrainerDetails: {
+      screen: TrainerScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: `${navigation.state.params.instructorName}`,
+      }),
+    },
+    Category: {
+      screen: CategoryScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: `${navigation.state.params.category.name}`,
+      }),
+    },
+    Program: {
+      screen: ProgramScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: `${navigation.state.params.program.programName}`,
+      }),
+    },
+    Survey: {
+      screen: SurveyScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Pivot Care",
+      }),
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+      headerTitleStyle: {
+        fontWeight: "normal",
+        textAlign: "center",
+        color: "#7561A4",
+        fontSize: 28,
+      },
+    },
+  }
 );
 const BlogStack = createStackNavigator(
-	{
-		Blog: BlogScreen,
-		Search: {
-			screen: SearchScreen,
-			navigationOptions: {
-				title: "Search",
-				headerRight: () => <CloseIcon />,
-			},
-		},
-	},
-	{
-		defaultNavigationOptions: {
-			headerRight: () => <SearchIcon />,
-			headerBackTitle: " ",
-			headerTitleStyle: {
-				fontWeight: 'normal',
-				textAlign: 'center',
-				color: '#7561A4',
-				fontSize: 28
-			},
-		},
-	}
+  {
+    Blog: BlogScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        title: "Search",
+        headerRight: () => <CloseIcon />,
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+      headerTitleStyle: {
+        fontWeight: "normal",
+        textAlign: "center",
+        color: "#7561A4",
+        fontSize: 28,
+      },
+    },
+  }
 );
 const ProfileStack = createStackNavigator(
   {
@@ -133,20 +140,18 @@ const ProfileStack = createStackNavigator(
     },
   },
 
-
-	{
-		defaultNavigationOptions: {
-			headerRight: () => <SearchIcon />,
-			headerBackTitle: " ",
-			headerTitleStyle: {
-				fontWeight: 'normal',
-				textAlign: 'center',
-				color: '#7561A4',
-				fontSize: 28
-			},
-		},
-	}
-
+  {
+    defaultNavigationOptions: {
+      headerRight: () => <SearchIcon />,
+      headerBackTitle: " ",
+      headerTitleStyle: {
+        fontWeight: "normal",
+        textAlign: "center",
+        color: "#7561A4",
+        fontSize: 28,
+      },
+    },
+  }
 );
 
 const TabNavigator = createBottomTabNavigator(

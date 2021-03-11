@@ -13,7 +13,7 @@ import {
   Text,
 } from "native-base";
 
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 import {
   categoryPlayList as catPlays,
@@ -27,6 +27,7 @@ import { getPrograms, getPlayLists, getCategories } from "../data/api";
 import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
+import SurveyNotification from "../components/Home/SurveyNotification";
 
 import { Context as AuthContext } from "../context/AuthContext";
 
@@ -36,11 +37,16 @@ const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [showSurvey, setShowSurvey] = useState(true);
   const { state } = useContext(AuthContext);
 
   if (state.userInfo) {
     // console.log("Home_authId:", state.userInfo.authId);
   }
+
+  const surveySwitch = () => {
+    setShowSurvey(!showSurvey);
+  };
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -67,8 +73,8 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Container>
-      <Content>
+    <View style={{ flex: 1 }}>
+      <ScrollView>
         <Update />
         <View style={styles.container}>
           <ContentListContainer
@@ -92,7 +98,6 @@ const HomeScreen = ({ navigation }) => {
               navigation={navigation}
             />
           ) : null}
-
           {programs.length !== 0 ? (
             <ContentListContainer
               title={"Workout Playlists"}
@@ -102,14 +107,25 @@ const HomeScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
-      </Content>
-    </Container>
+      </ScrollView>
+      {showSurvey ? (
+        <View style={styles.bottom}>
+          <SurveyNotification navigation={navigation} close={surveySwitch} />
+        </View>
+      ) : null}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginLeft: 25,
+  },
+  bottom: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 
