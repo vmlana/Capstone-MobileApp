@@ -106,8 +106,16 @@ export const getUserDashboard = async (userId) => {
   return result;
 };
 
-export const getBlogs = async (blogId) => {
-  const qry = blogId ? `?blogId=${blogId}` : "";
+export const getBlogs = async (blogId, userId) => {
+  let qry = "";
+
+  if(blogId) {
+    qry = blogId != null ? `?blogId=${blogId}` : "";
+  } else if(userId) {
+    qry = userId != null ? `?userId=${userId}` : "";
+  }
+
+  // console.log(qry)
 
   const blogs = await fetch(`${API_URL}/blogs${qry}`)
     .then((response) => {

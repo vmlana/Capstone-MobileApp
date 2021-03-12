@@ -10,7 +10,7 @@ import {
   Icon,
 } from "native-base";
 
-import { View, FlatList } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 
 import RectangleContainer from "./RectangleContainer";
@@ -18,7 +18,7 @@ import RectangleContainer from "./RectangleContainer";
 const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) => {
   return (
     <View>
-      <Text h4>{title}</Text>
+      <Text style={styles.label}>{title}</Text>
 
         <FlatList
           style={{ marginBottom: 20 }}
@@ -39,5 +39,14 @@ const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) 
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#707070",
+    // letterSpacing: .2
+  }
+})
 
 export default RectangleListContainer;
