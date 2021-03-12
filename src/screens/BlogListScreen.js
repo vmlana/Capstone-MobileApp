@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import SearchIcon from "../components/Search/SearchIcon";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import {
@@ -15,21 +15,32 @@ import {
 } from "native-base";
 
 import RectangleListContainer from "../components/Search/RectangleListContainer";
+import { Context as AuthContext } from "../context/AuthContext";
 
 import { getBlogs } from '../data/api';
 
 const BlogListScreen = ({ navigation }) => {
   const [blogs, setBlogs] = useState({
     everydayReads: [],
-    aboutSomething: []
+    about: []
   })
+  const { state } = useContext(AuthContext);
+
+  // console.log("***************")
+  // console.log(state.userInfo.authId)
 
   useEffect(()=>{
     (async()=>{
-      const blogs = await getBlogs();
+      const everydayReads = await getBlogs(null, null);
+      const about = await getBlogs( null, state.userInfo.authId);
+      // const about = await getBlogs( null, 60);
+
+      // console.log(about)
+
       setBlogs(prev=>({
         ...prev,
-        everydayReads: blogs
+        everydayReads: everydayReads,
+        about: about
       }))
     })()
   }, [])
@@ -48,10 +59,11 @@ const BlogListScreen = ({ navigation }) => {
         }
         {/* Everyday Reads **********************/}
         {
-          blogs.everydayReads.length !== 0?
+          blogs.about != null?
           <RectangleListContainer
-            title="About body stiffness"
-            dataList={blogs.everydayReads}
+            // title="About body stiffness"
+            title="You May Like"
+            dataList={blogs.about}
             navigation={navigation}
           /> : null
         }

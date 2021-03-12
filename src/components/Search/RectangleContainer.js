@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   date: {
-    color: "#444",
+    fontSize: 14,
+    color: "#707070",
     marginRight: 2,
   }
 });

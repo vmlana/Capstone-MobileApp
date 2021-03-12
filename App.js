@@ -108,7 +108,12 @@ const HomeStack = createStackNavigator(
 
 const BlogStack = createStackNavigator(
 	{
-		BlogList: BlogListScreen,
+		BlogList: {
+			screen: BlogListScreen,
+			navigationOptions: {
+				title: "Blog",
+			},		
+		},
 		Blog: BlogScreen,
 		Search: {
 			screen: SearchScreen,
