@@ -3,15 +3,6 @@ import { Text } from "react-native-elements";
 import { onChange } from "react-native-reanimated";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
 
-const wheelPickerData = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-];
-
 const Picker = ({ onChange }) => {
   return (
     <>

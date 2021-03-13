@@ -9,6 +9,8 @@ import Picker from "./Picker";
 
 import moment from "moment";
 
+import { createSchedule } from "../../data/api";
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -17,27 +19,45 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Reminder = ({ onPress, videoData, playListId, milSec, dateTime }) => {
+const Reminder = ({
+  onPress,
+  userId,
+  videoData,
+  playListId,
+  milSec,
+  dateTime,
+}) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [min, setMin] = useState(0);
+  const [minutes, setMinutes] = useState(0);
 
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
+    setMinutes(val);
   };
-
-  console.log("id", playListId);
 
   const now = new Date();
   const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
   const currentTime = new Date(utcTime.toISOString());
   const currentMil = currentTime.getTime();
 
+  const scheduleDate = new Date(milSec).toISOString();
+
   const schedulePushNotification = async (time) => {
     // console.log("notification time", milSec - min - currentMil);
+
+    const reminderData = {
+      userId: userId,
+      programId: null,
+      playListId: playListId,
+      scheduleDate: scheduleDate,
+      reminderMinutes: minutes,
+    };
+
     onPress();
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -47,6 +67,8 @@ const Reminder = ({ onPress, videoData, playListId, milSec, dateTime }) => {
       },
       trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
+
+    createSchedule(reminderData);
   };
 
   const registerForPushNotificationsAsync = async () => {
@@ -104,6 +126,8 @@ const Reminder = ({ onPress, videoData, playListId, milSec, dateTime }) => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
+
+  console.log("dateTime", dateTime);
 
   return (
     <View style={styles.centeredView}>

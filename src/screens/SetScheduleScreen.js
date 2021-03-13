@@ -31,15 +31,8 @@ const SetScheduleScreen = ({ navigation }) => {
   const [pickedDateTimeArr, setPickedDateTimeArr] = useState([]);
   const { state } = useContext(AuthContext);
 
-  //   if (state.userInfo) {
-  //     console.log("Schedule_authId:", state.userInfo.authId);
-  //   }
-
   const data = navigation.getParam("videoData");
   const playListData = navigation.getParam("playListData");
-
-  //   pass playListData.playlistId with playListId property to the server when schedule session
-  //   console.log("playlistData", playListData);
 
   const showTimePicker = (day) => {
     setTimePickerVisibility(true);
@@ -59,8 +52,6 @@ const SetScheduleScreen = ({ navigation }) => {
     const utcTime = new Date(time.getTime() - time.getTimezoneOffset() * 60000);
     const dateGot = utcTime.toISOString().split("T")[0];
     const pickedDateTime = utcTime.toISOString().replace(dateGot, pressedDay);
-    // Here PickedDateTime to send to server with scheduleDate property
-    console.log("scheduleDate", pickedDateTime);
 
     const readableDateTime = moment
       .utc(pickedDateTime)
@@ -150,6 +141,7 @@ const SetScheduleScreen = ({ navigation }) => {
               >
                 <Reminder
                   onPress={reminderSwitch}
+                  userId={state.userInfo.authId}
                   videoData={data}
                   playListId={playListData.playlistId}
                   milSec={pickedDateTimeArr[index]}
