@@ -27,7 +27,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
 
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
-  }: VideoFullscreenUpdateEvent) => {
+  }, VideoFullscreenUpdateEvent) => {
     switch (fullscreenUpdate) {
       case Video.FULLSCREEN_UPDATE_PLAYER_DID_PRESENT:
         await ScreenOrientation.unlockAsync(); // only on Android required
