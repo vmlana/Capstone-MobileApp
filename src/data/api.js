@@ -107,35 +107,38 @@ export const getUserDashboard = async (userId) => {
   return result;
 };
 
-
-export const setActivityLog = async (userId, programId, playlistId, lessonId) => {
-
+export const setActivityLog = async (
+  userId,
+  programId,
+  playlistId,
+  lessonId
+) => {
   //console.log('Register Log: ' + userId + '  ' + programId + '  ' + playlistId + '  ' + lessonId);
-  
+
   const result = await fetch(`${API_URL}/activitylog`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+
     body: JSON.stringify({
       userId: userId,
       programId: programId,
       playlistId: playlistId,
-      lessonId: lessonId
-    })
+      lessonId: lessonId,
+    }),
   })
     .then((response) => response.json())
     .catch((error) => console.error(error));
   return result;
 };
 
-
 export const getBlogs = async (blogId, userId) => {
   let qry = "";
 
-  if(blogId) {
+  if (blogId) {
     qry = blogId != null ? `?blogId=${blogId}` : "";
-  } else if(userId) {
+  } else if (userId) {
     qry = userId != null ? `?userId=${userId}` : "";
   }
 
@@ -153,3 +156,18 @@ export const getBlogs = async (blogId, userId) => {
   return blogs;
 };
 
+export const createSchedule = async (scheduleData) => {
+  //   return JSON.stringify(scheduleData);
+
+  const newSchedule = await fetch(`${API_URL}/schedules`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(scheduleData),
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+
+  return newSchedule;
+};

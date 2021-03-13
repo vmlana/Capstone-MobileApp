@@ -17,7 +17,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
+const Reminder = ({ onPress, videoData, playListId, milSec, dateTime }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -28,6 +28,8 @@ const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
   };
+
+  console.log("id", playListId);
 
   const now = new Date();
   const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
