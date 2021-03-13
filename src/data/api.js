@@ -1,4 +1,5 @@
 import { API_URL } from "../GLOBAL";
+
 export const getPrograms = async () => {
   const programs = await fetch(`${API_URL}/programs?userId=3&programId=`)
     .then((response) => response.json())
@@ -102,3 +103,26 @@ export const getUserDashboard = async (userId) => {
     .catch((error) => console.error(error));
   return result;
 };
+
+
+export const setActivityLog = async (userId, programId, playlistId, lessonId) => {
+
+  //console.log('Register Log: ' + userId + '  ' + programId + '  ' + playlistId + '  ' + lessonId);
+  
+  const result = await fetch(`${API_URL}/activitylog`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: userId,
+      programId: programId,
+      playlistId: playlistId,
+      lessonId: lessonId
+    })
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+  return result;
+};
+
