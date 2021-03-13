@@ -20,6 +20,7 @@ const Picker = ({ onChange }) => {
         highlightColor={"#624A99"}
         itemTextStyle={{ fontSize: 0.5, color: "white" }}
         activeItemTextStyle={{ color: "black" }}
+        highlightWidth={1}
       />
     </>
   );

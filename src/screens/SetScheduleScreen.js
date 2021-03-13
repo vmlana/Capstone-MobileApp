@@ -17,6 +17,7 @@ import { createSchedule } from "../data/api";
 
 const today = new Date();
 const todaysDate = today.toISOString().slice(0, 10);
+const currentMil = moment().valueOf();
 
 const SetScheduleScreen = ({ navigation }) => {
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -143,7 +144,7 @@ const SetScheduleScreen = ({ navigation }) => {
                   onPress={reminderSwitch}
                   userId={state.userInfo.authId}
                   videoData={data}
-                  playListId={playListData.playlistId}
+                  playListData={playListData}
                   milSec={pickedDateTimeArr[index]}
                   dateTime={dateTime}
                 />
