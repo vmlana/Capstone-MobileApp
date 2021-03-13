@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Video } from "expo-av";
 import {
   View,
@@ -13,11 +13,18 @@ import * as ScreenOrientation from "expo-screen-orientation";
 
 import TrainerName from "../Trainer/TrainerName";
 
+import { setActivityLog } from "../../data/api";
+import { Context as AuthContext } from "../../context/AuthContext";
+
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const SingleVideo = ({ navigation, data, playListData }) => {
-  // console.log(playListData)
+
+  //console.log(playListData)
+  const { state } = useContext(AuthContext)
+
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
@@ -46,9 +53,11 @@ const SingleVideo = ({ navigation, data, playListData }) => {
         resizeMode="contain"
         onFullscreenUpdate={onFullscreenUpdate}
         style={{ width: windowWidth, height: 235 }}
-        onPlaybackStatusUpdate={(playbackStatus) =>
-          playbackStatus.didJustFinish ? console.log("done") : null
-        }
+        onPlaybackStatusUpdate={(playbackStatus) => {
+          if (playbackStatus.didJustFinish) {
+            const log = setActivityLog(state.userInfo.authId, null, playListData.playlistId, data.lessonId)
+          }
+        }}
       />
 
       <View style={styles.videoHeader}>
