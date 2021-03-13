@@ -28,11 +28,12 @@ import SingleVideoScreen from "./src/screens/SingleVideoScreen";
 import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 import CloseIcon from "./src/components/Search/CloseIcon";
-import TrainerScreen from "./src/screens/TrainerScreen";
-import CategoryScreen from "./src/screens/CategoryScreen";
-import ProgramScreen from "./src/screens/ProgramScreen";
+
+import TrainerScreen from './src/screens/TrainerScreen';
+import CategoryScreen from './src/screens/CategoryScreen';
+import ProgramScreen from './src/screens/ProgramScreen';
+import BlogListScreen from './src/screens/BlogListScreen';
 import SurveyScreen from "./src/screens/SurveyScreen";
-// =====================================================
 
 // The most top will be initially renddered
 const HomeStack = createStackNavigator(
@@ -104,17 +105,24 @@ const HomeStack = createStackNavigator(
     },
   }
 );
+
 const BlogStack = createStackNavigator(
-  {
-    Blog: BlogScreen,
-    Search: {
-      screen: SearchScreen,
-      navigationOptions: {
-        title: "Search",
-        headerRight: () => <CloseIcon />,
-      },
-    },
-  },
+	{
+		BlogList: {
+			screen: BlogListScreen,
+			navigationOptions: {
+				title: "Blog",
+			},		
+		},
+		Blog: BlogScreen,
+		Search: {
+			screen: SearchScreen,
+			navigationOptions: {
+				title: "Search",
+				headerRight: () => <CloseIcon />,
+			},
+		},
+	},
   {
     defaultNavigationOptions: {
       headerRight: () => <SearchIcon />,
