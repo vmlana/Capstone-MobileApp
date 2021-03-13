@@ -60,7 +60,7 @@ const SetScheduleScreen = ({ navigation }) => {
     const dateGot = utcTime.toISOString().split("T")[0];
     const pickedDateTime = utcTime.toISOString().replace(dateGot, pressedDay);
     // Here PickedDateTime to send to server with scheduleDate property
-    // console.log("scheduleDate", pickedDateTime);
+    console.log("scheduleDate", pickedDateTime);
 
     const readableDateTime = moment
       .utc(pickedDateTime)
