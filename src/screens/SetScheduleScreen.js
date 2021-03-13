@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Modal, TouchableOpacity } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Text, Button } from "react-native-elements";
@@ -10,6 +10,10 @@ import Reminder from "../components/Schedule/Reminder";
 import moment from "moment";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Directions } from "react-native-gesture-handler";
+
+import { Context as AuthContext } from "../context/AuthContext";
+import { playList } from "../demoData";
+import { createSchedule } from "../data/api";
 
 const today = new Date();
 const todaysDate = today.toISOString().slice(0, 10);
@@ -25,8 +29,17 @@ const SetScheduleScreen = ({ navigation }) => {
   const [timeData, setTimeData] = useState("");
   const [reminderVisible, setReminderVisible] = useState(false);
   const [pickedDateTimeArr, setPickedDateTimeArr] = useState([]);
+  const { state } = useContext(AuthContext);
+
+  //   if (state.userInfo) {
+  //     console.log("Schedule_authId:", state.userInfo.authId);
+  //   }
 
   const data = navigation.getParam("videoData");
+  const playListData = navigation.getParam("playListData");
+
+  //   pass playListData.playlistId with playListId property to the server when schedule session
+  //   console.log("playlistData", playListData);
 
   const showTimePicker = (day) => {
     setTimePickerVisibility(true);
@@ -46,17 +59,29 @@ const SetScheduleScreen = ({ navigation }) => {
     const utcTime = new Date(time.getTime() - time.getTimezoneOffset() * 60000);
     const dateGot = utcTime.toISOString().split("T")[0];
     const pickedDateTime = utcTime.toISOString().replace(dateGot, pressedDay);
+    // Here PickedDateTime to send to server with scheduleDate property
+    // console.log("scheduleDate", pickedDateTime);
 
     const readableDateTime = moment
       .utc(pickedDateTime)
       .format("MMM Do, h:mm a");
 
     const testTime = new Date(pickedDateTime);
+
+    const scheduleData = {
+      userId: state.userInfo.authId,
+      programId: null,
+      playListId: playListData.playlistId,
+      scheduleData: pickedDateTime,
+      reminderMinutes: 0,
+    };
+
     setPickedDateTimeArr([...pickedDateTimeArr, testTime.getTime()]);
     setBookedDateArr([...bookedDateArr, pressedDay]);
     setFormatedDateTimeArr([...formatedDateTimeArr, readableDateTime]);
     setIsoDateTimeArr([...isoDateTimeArr, pickedDateTime]);
     setTimePickerVisibility(false);
+    createSchedule(scheduleData);
   };
 
   const getMarkedDate = () => {
@@ -74,6 +99,7 @@ const SetScheduleScreen = ({ navigation }) => {
     return formatedDateTimeArr.map((a, b) => a - b);
   };
 
+  //   fetch booked playlist info by playlistId everytime session booked.
   useEffect(() => {
     const today = new Date();
     setPressedDay(today.toISOString().slice(0, 10));
@@ -101,7 +127,7 @@ const SetScheduleScreen = ({ navigation }) => {
       {formatedDateTimeArr.length === 0 ? null : (
         <>
           <View style={styles.bookTitle}>
-            <Text h4>Session Booked</Text>
+            <Text h4>{playListData.playlistName} Booked</Text>
           </View>
           {formatedDateTimeArr.map((dateTime, index) => (
             <View key={index} style={styles.bookList}>
@@ -111,6 +137,7 @@ const SetScheduleScreen = ({ navigation }) => {
               </View>
               <Icon
                 name={"bell"}
+                color={"#624A99"}
                 size={20}
                 onPress={() => reminderSwitch(index)}
               />
@@ -124,6 +151,7 @@ const SetScheduleScreen = ({ navigation }) => {
                 <Reminder
                   onPress={reminderSwitch}
                   videoData={data}
+                  playListId={playListData.playlistId}
                   milSec={pickedDateTimeArr[index]}
                   dateTime={dateTime}
                 />
@@ -150,6 +178,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginHorizontal: 25,
     marginVertical: 10,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E8E8E8",
   },
   bookInfo: {
     flexDirection: "row",

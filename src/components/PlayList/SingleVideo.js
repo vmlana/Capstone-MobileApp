@@ -17,7 +17,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const SingleVideo = ({ navigation, data, playListData }) => {
-  // console.log(playListData)
   const onFullscreenUpdate = async ({
     fullscreenUpdate,
   }: VideoFullscreenUpdateEvent) => {
@@ -41,7 +40,6 @@ const SingleVideo = ({ navigation, data, playListData }) => {
         rate={1.0}
         volume={1.0}
         isMuted={false}
-        isLooping
         useNativeControls
         resizeMode="contain"
         onFullscreenUpdate={onFullscreenUpdate}

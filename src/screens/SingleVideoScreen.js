@@ -36,6 +36,7 @@ const SingleVideoScreen = ({ navigation }) => {
           onPress={() =>
             navigation.navigate("SetSchedule", {
               videoData: data,
+              playListData: playList,
             })
           }
         />

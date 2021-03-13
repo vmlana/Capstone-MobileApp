@@ -102,3 +102,19 @@ export const getUserDashboard = async (userId) => {
     .catch((error) => console.error(error));
   return result;
 };
+
+export const createSchedule = async (scheduleData) => {
+  //   return JSON.stringify(scheduleData);
+
+  const newSchedule = await fetch(`${API_URL}/schedules`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(scheduleData),
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+
+  return newSchedule;
+};
