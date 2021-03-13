@@ -23,7 +23,7 @@ const Reminder = ({
   onPress,
   userId,
   videoData,
-  playListId,
+  playListData,
   milSec,
   dateTime,
 }) => {
@@ -47,13 +47,28 @@ const Reminder = ({
 
   const scheduleDate = new Date(milSec).toISOString();
 
+  const cancel = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    console.log("cancel called");
+  };
+
+  //   async function scheduleAndCancel() {
+  //     const identifier = await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title: "Hey!",
+  //       },
+  //       trigger: { seconds: 5, repeats: true },
+  //     });
+  //     await Notifications.cancelScheduledNotificationAsync(identifier);
+  //   }
+
   const schedulePushNotification = async (time) => {
     // console.log("notification time", milSec - min - currentMil);
 
     const reminderData = {
       userId: userId,
       programId: null,
-      playListId: playListId,
+      playListId: playListData.playlistId,
       scheduleDate: scheduleDate,
       reminderMinutes: minutes,
     };
@@ -62,7 +77,7 @@ const Reminder = ({
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "It's about time to move your body! 📬",
-        body: videoData.lessonName,
+        body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
       trigger: { seconds: (milSec - min - currentMil) / 1000 },
@@ -126,8 +141,6 @@ const Reminder = ({
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-
-  console.log("dateTime", dateTime);
 
   return (
     <View style={styles.centeredView}>
@@ -197,6 +210,7 @@ const Reminder = ({
             <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
           </View>
         </View>
+        <Button title="Cancel" onPress={() => cancel()} />
 
         <Button
           title="Done"
