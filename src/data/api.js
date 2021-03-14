@@ -180,6 +180,7 @@ export const getBlogs = async (blogId, userId) => {
   return blogs;
 };
 
+
 export const getUserScheduleData = async (userId, playlistId) => {
   console.log("test in api for schedule", userId, playlistId);
   const result = await fetch(
@@ -194,6 +195,19 @@ export const getUserScheduleData = async (userId, playlistId) => {
     })
     .catch((error) => console.error(error));
   return result;
+};
+
+export const getDashboardData = async (userId, initialDate, finalDate) => {
+  const dashboardData = await fetch(`${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return dashboardData;
 };
 
 export const getAllUserScheduleData = async (userId) => {

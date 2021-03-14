@@ -10,9 +10,9 @@ const TrainerName = ({ navigation, data, blog }) => {
 
   useEffect(() => {
     getInstructorInfo(data.instructorID).then((instructors) => {
-      instructors.map((instructor) => {
-        setinstructorInfo(instructor);
-      });
+      // instructors.map((instructor) => {
+      setinstructorInfo(instructors);
+      // });
     });
   }, [data]);
 
@@ -29,10 +29,10 @@ const TrainerName = ({ navigation, data, blog }) => {
       <Thumbnail
         small
         source={
-			data.imageFile ?
-			{uri: data.imageFile} :
-			{uri: data.instructorImage}
-		}
+          data.imageFile ?
+            { uri: data.imageFile } :
+            { uri: data.instructorImage }
+        }
         style={styles.thumbNail}
       />
       <Text style={styles.trainerName}>

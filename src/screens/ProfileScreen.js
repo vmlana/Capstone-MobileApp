@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native";
-import CalendarStrip from "react-native-calendar-strip";
 import {
   Container,
   Header,
@@ -24,48 +23,6 @@ import UserInfo from "../components/Profile/UserInfo";
 import Reminder from "../components/Profile/Reminder";
 import Contact from "../components/Profile/Contact";
 
-let customDatesStyles = [];
-let startDate = moment();
-for (let i = 0; i < 6; i++) {
-  customDatesStyles.push({
-    startDate: startDate.clone().add(i, "days"), // Single date since no endDate provided
-    // dateNameStyle: styles.dateNameStyle,
-    // dateNumberStyle: { color: "purple" },
-    // Random color...
-    dateContainerStyle: {
-      borderTopWidth: 0,
-      borderBottomWidth: 1,
-      borderLeftWidth: 0,
-      borderWidth: 1,
-    },
-  });
-}
-
-{
-  /* <CalendarStrip
-			scrollable
-			onDateSelected={(date) => (
-			  showTimePicker(),
-			  setSelectedDate(date.toISOString().substring(0, 10))
-			)}
-			style={{
-			  paddingTop: 40,
-			  paddingBottom: 10,
-			  height: 200,
-			  marginHorizontal: 25,
-			}}
-			calendarHeaderStyle={{ color: "gray", fontSize: 18 }}
-			dateNumberStyle={{ color: "#B7B7B7", fontSize: 24 }}
-			dateNameStyle={{ color: "#B7B7B7" }}
-			styleWeekend={false}
-			highlightDateNumberStyle={{ color: "blue", fontSize: 24 }}
-			highlightDateNameStyle={{ color: "blue" }}
-			disabledDateNameStyle={{ color: "grey" }}
-			disabledDateNumberStyle={{ color: "grey" }}
-			iconStyle={{ display: "none" }}
-		  /> */
-}
-
 const ProfileScreen = ({ navigation }) => {
   const [dashboard, setDashboard] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,32 +44,28 @@ const ProfileScreen = ({ navigation }) => {
     })();
   }, []);
 
-  return (
-    <Container>
-      <Content style={styles.container}>
-        <UserInfo
-          imageFile={dashboard.imageFile}
-          userName={dashboard.userName}
-          department={dashboard.department}
-          userId={dashboard.userId}
-        />
-        <View style={styles.workoutProgress}>
-          <Calendar customStyles={customDatesStyles} />
-          {dashboard.workInDay != null || dashboard.workInDay > 0 ? (
-            <View>
-              <Text style={styles.progressGreet}>Congratulations!</Text>
-              <Text style={styles.completedClasses}>
-                You completed {dashboard.workInDay} classes today!
-              </Text>
-            </View>
-          ) : (
-            <View>
-              <Text style={styles.progressMessage}>Start workout!</Text>
-              <Text style={styles.completedClasses}>
-                You completed {0} classes today!
-              </Text>
-            </View>
-          )}
+	return (
+		<Container>
+			<Content style={styles.container}>
+				<UserInfo imageFile={dashboard.imageFile} userName={dashboard.userName} department={dashboard.department} userId={dashboard.userId} />
+				<View style={styles.workoutProgress}>
+					<Calendar userId={state.userInfo.authId} />
+					{
+						(dashboard.workInDay != null || dashboard.workInDay > 0) ?
+							(
+								<View>
+									<Text style={styles.progressGreet}>Congratulations!</Text>
+									<Text style={styles.completedClasses}>You completed {dashboard.workInDay} classes today!</Text>
+								</View>
+							) :
+							(
+								<View>
+									<Text style={styles.progressMessage}>Start workout!</Text>
+									<Text style={styles.completedClasses}>You completed {0} classes today!</Text>
+								</View>
+							)
+          }
+
 
           <View style={styles.levelStreak}>
             <Text style={styles.userLevel}>Mid-level</Text>
