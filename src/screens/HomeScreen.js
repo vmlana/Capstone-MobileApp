@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
   const { state } = useContext(AuthContext);
 
   if (state.userInfo) {
-    // console.log("Home_authId:", state.userInfo.authId);
+    console.log("Home_authId:", state.userInfo.authId);
   }
 
   const surveySwitch = () => {
