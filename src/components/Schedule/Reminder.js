@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
@@ -8,6 +8,10 @@ import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
 
 import moment from "moment";
+
+import { createSchedule } from "../../data/api";
+
+import { Context as AuthContext } from "../../context/AuthContext";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -17,34 +21,75 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
+const Reminder = ({
+  onPress,
+  userId,
+  videoData,
+  playListData,
+  milSec,
+  dateTime,
+  bookedDateTime,
+}) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [min, setMin] = useState(0);
+  const [minutes, setMinutes] = useState(10);
+
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
+    setMinutes(val);
   };
 
   const now = new Date();
-  const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-  const currentTime = new Date(utcTime.toISOString());
-  const currentMil = currentTime.getTime();
+  const currentMil = now.getTime();
+
+  const cancel = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    console.log("cancel called");
+  };
+
+  //   async function scheduleAndCancel() {
+  //     const identifier = await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title: "Hey!",
+  //       },
+  //       trigger: { seconds: 5, repeats: true },
+  //     });
+  //     await Notifications.cancelScheduledNotificationAsync(identifier);
+  //   }
 
   const schedulePushNotification = async (time) => {
     // console.log("notification time", milSec - min - currentMil);
+
+    const reminderData = {
+      userId: userId,
+      programId: null,
+      playlistId: playListData.playlistId,
+      scheduleDate: bookedDateTime,
+      reminderMinutes: minutes,
+    };
+
     onPress();
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "It's about time to move your body! 📬",
-        body: videoData.lessonName,
+        body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
       trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
+
+    async function newList() {
+      await createSchedule(reminderData);
+
+      scheduleAdded(state.scheduleSwitch);
+    }
+    newList();
   };
 
   const registerForPushNotificationsAsync = async () => {
@@ -129,7 +174,7 @@ const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
                 color: "white",
               }}
             >
-              Session Name
+              {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
               <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
@@ -171,6 +216,7 @@ const Reminder = ({ onPress, videoData, milSec, dateTime }) => {
             <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
           </View>
         </View>
+        <Button title="Cancel" onPress={() => cancel()} />
 
         <Button
           title="Done"

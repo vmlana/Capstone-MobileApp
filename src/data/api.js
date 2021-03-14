@@ -1,5 +1,29 @@
 import { API_URL } from "../GLOBAL";
 
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
+
+export async function registerForPushNotificationsAsync(userId: string) {
+  let experienceId = undefined;
+  if (!Constants.manifest) {
+    // Absence of the manifest means we're in bare workflow
+    experienceId = "@username/example";
+  }
+  const expoPushToken = await Notifications.getExpoPushTokenAsync({
+    experienceId,
+  });
+  await fetch("https://example.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      expoPushToken,
+    }),
+  });
+}
+
 export const getPrograms = async () => {
   const programs = await fetch(`${API_URL}/programs?userId=3&programId=`)
     .then((response) => response.json())
@@ -107,9 +131,12 @@ export const getUserDashboard = async (userId) => {
   return result;
 };
 
-
-export const setActivityLog = async (userId, programId, playlistId, lessonId) => {
-
+export const setActivityLog = async (
+  userId,
+  programId,
+  playlistId,
+  lessonId
+) => {
   //console.log('Register Log: ' + userId + '  ' + programId + '  ' + playlistId + '  ' + lessonId);
 
   const result = await fetch(`${API_URL}/activitylog`, {
@@ -117,18 +144,18 @@ export const setActivityLog = async (userId, programId, playlistId, lessonId) =>
     headers: {
       "Content-Type": "application/json",
     },
+
     body: JSON.stringify({
       userId: userId,
       programId: programId,
       playlistId: playlistId,
-      lessonId: lessonId
-    })
+      lessonId: lessonId,
+    }),
   })
     .then((response) => response.json())
     .catch((error) => console.error(error));
   return result;
 };
-
 
 export const getBlogs = async (blogId, userId) => {
   let qry = "";
@@ -153,6 +180,23 @@ export const getBlogs = async (blogId, userId) => {
   return blogs;
 };
 
+
+export const getUserScheduleData = async (userId, playlistId) => {
+  console.log("test in api for schedule", userId, playlistId);
+  const result = await fetch(
+    `${API_URL}/schedules?userId=${userId}&playlistId=${playlistId}`
+  )
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};
+
 export const getDashboardData = async (userId, initialDate, finalDate) => {
   const dashboardData = await fetch(`${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`)
     .then((response) => {
@@ -166,3 +210,29 @@ export const getDashboardData = async (userId, initialDate, finalDate) => {
   return dashboardData;
 };
 
+export const getAllUserScheduleData = async (userId) => {
+  const result = await fetch(`${API_URL}/schedules?userId=${userId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};
+
+export const createSchedule = async (scheduleData) => {
+  const newSchedule = await fetch(`${API_URL}/schedules`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(scheduleData),
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+
+  return newSchedule;
+};

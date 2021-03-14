@@ -1,6 +1,6 @@
 import { AsyncStorage } from "react-native";
 import createDataContext from "./createDataContext";
-import { API_URL } from '../GLOBAL';
+import { API_URL } from "../GLOBAL";
 
 // import a component fetching user info through API
 
@@ -17,6 +17,8 @@ const authReducer = (state, action) => {
       return { errorMessage: "", userInfo: action.payload };
     case "signout":
       return { errorMessage: "", userInfo: null };
+    case "scheduleAdded":
+      return { ...state, scheduleSwitch: action.payload };
     default:
       return state;
   }
@@ -35,24 +37,22 @@ const tryLocalSignin = (dispatch) => async () => {
 
 const signin = (dispatch) => async (email, password, navigation) => {
   try {
-    const response =       
-      await fetch(`${API_URL}/login`, 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        },
-       body: `email=${email}&password=${password}&userType=user`,
-      })
-
-    .then(result=>{
+    const response = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `email=${email}&password=${password}&userType=user`,
+    })
+      .then((result) => {
         return result;
       })
-      .catch(error => {throw error})
+      .catch((error) => {
+        throw error;
+      });
 
-    if(response.ok) {
-      
-      let releasedate = await response.json().then(async(json) => {
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
         return json;
       });
 
@@ -62,15 +62,18 @@ const signin = (dispatch) => async (email, password, navigation) => {
 
       await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
       dispatch({ type: "signin", payload: releasedate });
-  
+
       // navigate to the Home screen after successful signin
       // Need to use the naviagate function to navigate between pages outside of the components.
       navigation.navigate("Home");
-  
     } else {
-      console.log('Network failed with response ' + result.status + ': ' + result.statusText);
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
     }
-
   } catch (error) {
     console.log(error.message);
     dispatch({
@@ -81,32 +84,34 @@ const signin = (dispatch) => async (email, password, navigation) => {
 };
 
 const autoSignin = (dispatch) => async () => {
-        let userInfo = await AsyncStorage.getItem("userInfo");
-        userInfo = JSON.parse(userInfo);
-        dispatch({ type: "signin", payload: userInfo });
+  let userInfo = await AsyncStorage.getItem("userInfo");
+  userInfo = JSON.parse(userInfo);
+  dispatch({ type: "signin", payload: userInfo });
+};
+
+const scheduleAdded = (dispatch) => async (schedule) => {
+  dispatch({ type: "scheduleAdded", payload: !schedule });
 };
 
 const tokenRefresh = (dispatch) => async (refreshToken, navigation) => {
   // console.log("refresh token!!!")
   try {
-    const response =       
-      await fetch(`${API_URL}/token`, 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        },
-       body: `refreshToken=${refreshToken}`,
-      })
-
-    .then(result=>{
+    const response = await fetch(`${API_URL}/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `refreshToken=${refreshToken}`,
+    })
+      .then((result) => {
         return result;
       })
-      .catch(error => {throw error})
+      .catch((error) => {
+        throw error;
+      });
 
-    if(response.ok) {
-      
-      let releasedate = await response.json().then(async(json) => {
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
         return json;
       });
 
@@ -116,40 +121,47 @@ const tokenRefresh = (dispatch) => async (refreshToken, navigation) => {
 
       await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
       dispatch({ type: "signin", payload: releasedate });
-  
+
       // navigate to the Home screen after successful signin
       // Need to use the naviagate function to navigate between pages outside of the components.
       navigation.navigate("Home");
-  
     } else {
-      console.log('Network failed with response ' + result.status + ': ' + result.statusText);
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
     }
-
   } catch (error) {
     console.log(error.message);
   }
 };
 
-const signup = (dispatch) => async (email, password, companyName, employeeId, navigation) => {
+const signup = (dispatch) => async (
+  email,
+  password,
+  companyName,
+  employeeId,
+  navigation
+) => {
   try {
-    const response =       
-      await fetch(`${API_URL}/signup`, 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        },
-       body: `email=${email}&password=${password}&userType=user&companyName=${companyName}&employeeId=${employeeId}`,
-      })
-
-    .then(result=>{
+    const response = await fetch(`${API_URL}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `email=${email}&password=${password}&userType=user&companyName=${companyName}&employeeId=${employeeId}`,
+    })
+      .then((result) => {
         return result;
       })
-      .catch(error => {throw error})
+      .catch((error) => {
+        throw error;
+      });
 
-    if(response.ok) {
-      
-      let releasedate = await response.json().then(async(json) => {
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
         return json;
       });
 
@@ -159,13 +171,17 @@ const signup = (dispatch) => async (email, password, companyName, employeeId, na
 
       await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
       dispatch({ type: "signin", payload: releasedate });
-  
+
       // navigate to the Home screen after successful signin
       // Need to use the naviagate function to navigate between pages outside of the components.
       navigation.navigate("Home");
-  
     } else {
-      console.log('Network failed with response ' + result.status + ': ' + result.statusText);
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
     }
   } catch (error) {
     console.log(error.message);
@@ -194,7 +210,8 @@ export const { Provider, Context } = createDataContext(
     signout,
     clearErrMsg,
     tokenRefresh,
-    autoSignin
+    autoSignin,
+    scheduleAdded,
   },
-  { token: null, errorMessage: "" }
+  { token: null, errorMessage: "", scheduleSwitch: false }
 );
