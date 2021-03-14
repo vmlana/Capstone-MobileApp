@@ -33,7 +33,7 @@ const SetScheduleScreen = ({ navigation }) => {
   const [readableDateTime, setReadableDateTime] = useState(null);
   const [reminderVisible, setReminderVisible] = useState(false);
 
-  const { state } = useContext(AuthContext);
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const [scheduleDataArr, setscheduleDataArr] = useState([]);
   const [change, setChange] = useState(false);
@@ -73,6 +73,7 @@ const SetScheduleScreen = ({ navigation }) => {
     async function newList() {
       await createSchedule(scheduleData);
       setChange(!change);
+      scheduleAdded(state.scheduleSwitch);
     }
     newList();
   };
