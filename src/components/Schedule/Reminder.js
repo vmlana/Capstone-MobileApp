@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
@@ -10,6 +10,8 @@ import Picker from "./Picker";
 import moment from "moment";
 
 import { createSchedule } from "../../data/api";
+
+import { Context as AuthContext } from "../../context/AuthContext";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,6 +37,8 @@ const Reminder = ({
   const [min, setMin] = useState(0);
   const [minutes, setMinutes] = useState(10);
 
+  const { state, scheduleAdded } = useContext(AuthContext);
+
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
@@ -42,11 +46,7 @@ const Reminder = ({
   };
 
   const now = new Date();
-  //   const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-  //   const currentTime = new Date(utcTime.toISOString());
   const currentMil = now.getTime();
-
-  //   const scheduleDate = new Date(milSec).toISOString();
 
   const cancel = async () => {
     await Notifications.cancelAllScheduledNotificationsAsync();
@@ -84,7 +84,12 @@ const Reminder = ({
       trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
 
-    createSchedule(reminderData);
+    async function newList() {
+      await createSchedule(reminderData);
+
+      scheduleAdded(state.scheduleSwitch);
+    }
+    newList();
   };
 
   const registerForPushNotificationsAsync = async () => {

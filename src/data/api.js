@@ -196,9 +196,20 @@ export const getUserScheduleData = async (userId, playlistId) => {
   return result;
 };
 
-export const createSchedule = async (scheduleData) => {
-  //   return JSON.stringify(scheduleData);
+export const getAllUserScheduleData = async (userId) => {
+  const result = await fetch(`${API_URL}/schedules?userId=${userId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};
 
+export const createSchedule = async (scheduleData) => {
   const newSchedule = await fetch(`${API_URL}/schedules`, {
     method: "POST",
     headers: {

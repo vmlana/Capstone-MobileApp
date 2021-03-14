@@ -122,7 +122,7 @@ const ProfileScreen = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <Reminder />
+        <Reminder navigation={navigation} />
         <Contact />
         <TouchableOpacity
           onPress={() => {
