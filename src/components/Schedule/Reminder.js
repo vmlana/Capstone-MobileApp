@@ -26,13 +26,14 @@ const Reminder = ({
   playListData,
   milSec,
   dateTime,
+  bookedDateTime,
 }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [min, setMin] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState(10);
 
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
@@ -41,11 +42,11 @@ const Reminder = ({
   };
 
   const now = new Date();
-  const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-  const currentTime = new Date(utcTime.toISOString());
-  const currentMil = currentTime.getTime();
+  //   const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  //   const currentTime = new Date(utcTime.toISOString());
+  const currentMil = now.getTime();
 
-  const scheduleDate = new Date(milSec).toISOString();
+  //   const scheduleDate = new Date(milSec).toISOString();
 
   const cancel = async () => {
     await Notifications.cancelAllScheduledNotificationsAsync();
@@ -68,8 +69,8 @@ const Reminder = ({
     const reminderData = {
       userId: userId,
       programId: null,
-      playListId: playListData.playlistId,
-      scheduleDate: scheduleDate,
+      playlistId: playListData.playlistId,
+      scheduleDate: bookedDateTime,
       reminderMinutes: minutes,
     };
 
@@ -168,7 +169,7 @@ const Reminder = ({
                 color: "white",
               }}
             >
-              Session Name
+              {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
               <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
