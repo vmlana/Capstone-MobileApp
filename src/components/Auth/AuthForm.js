@@ -18,8 +18,8 @@ const AuthForm = ({
   navigation,
   routeName,
 }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("vini@savy.ca");
+  const [password, setPassword] = useState("123456");
   const [companyName, setCompanyName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
 
@@ -111,13 +111,13 @@ const AuthForm = ({
           buttonStyle={{ marginHorizontal: 10 }}
           // onPress={() => onSubmit({ email, password })}
           onPress={() => {
-            if(routeName === "Signup") {
+            if (routeName === "Signup") {
               onSubmit(email, password, companyName, employeeId, navigation);
             } else {
               onSubmit(email, password, navigation);
             }
-            }}
-          // onPress={() => navigation.navigate("Home")}
+          }}
+        // onPress={() => navigation.navigate("Home")}
         />
         {/* <Button
           title={"Connect with Google"}

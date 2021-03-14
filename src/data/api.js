@@ -111,7 +111,7 @@ export const getUserDashboard = async (userId) => {
 export const setActivityLog = async (userId, programId, playlistId, lessonId) => {
 
   //console.log('Register Log: ' + userId + '  ' + programId + '  ' + playlistId + '  ' + lessonId);
-  
+
   const result = await fetch(`${API_URL}/activitylog`, {
     method: "POST",
     headers: {
@@ -133,9 +133,9 @@ export const setActivityLog = async (userId, programId, playlistId, lessonId) =>
 export const getBlogs = async (blogId, userId) => {
   let qry = "";
 
-  if(blogId) {
+  if (blogId) {
     qry = blogId != null ? `?blogId=${blogId}` : "";
-  } else if(userId) {
+  } else if (userId) {
     qry = userId != null ? `?userId=${userId}` : "";
   }
 
@@ -151,5 +151,18 @@ export const getBlogs = async (blogId, userId) => {
     })
     .catch((error) => console.error(error));
   return blogs;
+};
+
+export const getDashboardData = async (userId, initialDate, finalDate) => {
+  const dashboardData = await fetch(`${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return dashboardData;
 };
 
