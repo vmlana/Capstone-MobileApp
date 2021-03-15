@@ -24,7 +24,6 @@ Notifications.setNotificationHandler({
 const Reminder = ({
   onPress,
   userId,
-  videoData,
   playListData,
   milSec,
   dateTime,
@@ -47,11 +46,6 @@ const Reminder = ({
 
   const now = new Date();
   const currentMil = now.getTime();
-
-  const cancel = async () => {
-    await Notifications.cancelAllScheduledNotificationsAsync();
-    console.log("cancel called");
-  };
 
   //   async function scheduleAndCancel() {
   //     const identifier = await Notifications.scheduleNotificationAsync({
@@ -168,7 +162,7 @@ const Reminder = ({
           <View>
             <Text
               style={{
-                marginVertical: 10,
+                marginVertical: 5,
                 fontSize: 16,
                 fontWeight: "bold",
                 color: "white",
@@ -184,7 +178,13 @@ const Reminder = ({
             </View>
           </View>
 
-          <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              alignSelf: "center",
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -216,7 +216,6 @@ const Reminder = ({
             <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
           </View>
         </View>
-        <Button title="Cancel" onPress={() => cancel()} />
 
         <Button
           title="Done"

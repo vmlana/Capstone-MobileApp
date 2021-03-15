@@ -1,32 +1,51 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Text, Button } from "react-native-elements";
 import Swipeout from "react-native-swipeout";
 
-import { getAllUserScheduleData, deleteSchedule } from "../../data/api";
+import Reminder from "../Schedule/Reminder";
+import {
+  getAllUserScheduleData,
+  deleteSchedule,
+  getPlaylistByPlaylistId,
+} from "../../data/api";
 
 import { Context as AuthContext } from "../../context/AuthContext";
 import { scheduleNotificationAsync } from "expo-notifications";
 
 import moment from "moment";
 
-const ReminderList = ({ navigation }) => {
+const ReminderList = ({ navigation, getScheduleArr }) => {
   const { state } = useContext(AuthContext);
   const [allScheduleData, setAllScheduleData] = useState([]);
-  const [basic, setBasic] = useState(true);
   const [deleteSwitcher, setDeleteSwitcher] = useState(false);
+  const [reminderVisible, setReminderVisible] = useState(false);
+  const [readableDateTime, setReadableDateTime] = useState(null);
+  const [playListData, setPlayListData] = useState({});
 
   const changeToReadable = (time) => moment(time).format("MMM Do, h:mm a");
+  const convertToMil = (time) => {
+    const testTime = new Date(time);
+    return testTime.getTime();
+  };
 
-  //   let swipeBtns = [
-  //     {
-  //       text: "Delete",
-  //       backgroundColor: "#ba0c00",
-  //       onPress: () => {
-  //         console.log("cnacel called");
-  //       },
-  //     },
-  //   ];
+  const reminderSwitch = () => {
+    setReminderVisible(!reminderVisible);
+  };
+
+  const reminderSwitchWithData = async (playlistId, dateTime) => {
+    const getPlaylist = async () => {
+      const playlistData = await getPlaylistByPlaylistId(playlistId);
+      setPlayListData(playlistData);
+    };
+    await getPlaylist();
+
+    let testDateTime = new Date(dateTime.toLocaleString());
+    let localTime = moment(testDateTime).format();
+    await setReadableDateTime(localTime);
+
+    setReminderVisible(!reminderVisible);
+  };
 
   useEffect(() => {
     const getScheduleList = async () => {
@@ -34,9 +53,12 @@ const ReminderList = ({ navigation }) => {
         state.userInfo.authId
       );
       setAllScheduleData(allUserScheduleData);
+      getScheduleArr(allUserScheduleData);
     };
     getScheduleList();
   }, [state.scheduleSwitch, deleteSwitcher]);
+
+  //   console.log("playlistdata", playListData);
 
   return (
     <View>
@@ -54,11 +76,12 @@ const ReminderList = ({ navigation }) => {
                 },
               },
             ]}
-            autoClose="true"
+            autoClose={true}
             backgroundColor="transparent"
             style={{ height: 80 }}
+            key={index}
           >
-            <View style={styles.bookList} key={index}>
+            <View style={styles.bookList}>
               <View>
                 <TouchableOpacity
                   onPress={() =>
@@ -66,7 +89,6 @@ const ReminderList = ({ navigation }) => {
                       playListData: allScheduleData[index],
                     })
                   }
-                  key={index}
                 >
                   <Text
                     style={{
@@ -89,32 +111,52 @@ const ReminderList = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
-              {data.reminderMinutes !== 0 ? (
-                <View style={styles.reminderInfo}>
-                  <View style={styles.min}>
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: 16,
-                        color: "#707070",
-                      }}
-                    >
-                      {data.reminderMinutes}
-                    </Text>
-                    <Text>mins</Text>
-                  </View>
+
+              <TouchableOpacity
+                style={styles.reminderInfo}
+                onPress={() =>
+                  reminderSwitchWithData(data.playlistId, data.scheduleDate)
+                }
+              >
+                <View style={styles.min}>
                   <Text
-                    style={{ fontSize: 12, color: "black", color: "#707070" }}
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 16,
+                      color: "#707070",
+                    }}
                   >
-                    Before session
+                    {data.reminderMinutes !== 0 ? data.reminderMinutes : 0}
                   </Text>
+                  <Text>mins</Text>
                 </View>
-              ) : null}
+                <Text
+                  style={{ fontSize: 12, color: "black", color: "#707070" }}
+                >
+                  Before session
+                </Text>
+              </TouchableOpacity>
             </View>
+            <Modal
+              transparent={true}
+              visible={reminderVisible}
+              onRequestClose={() => {
+                reminderSwitch;
+              }}
+            >
+              <Reminder
+                onPress={reminderSwitch}
+                userId={state.userInfo.authId}
+                playListData={playListData[0]}
+                milSec={convertToMil(readableDateTime)}
+                bookedDateTime={readableDateTime}
+                dateTime={changeToReadable(readableDateTime)}
+              />
+            </Modal>
           </Swipeout>
         ))
       ) : (
-        <Text>There is no session booked</Text>
+        <Text style={{ color: "#707070" }}>There is no session booked</Text>
       )}
     </View>
   );

@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Button } from "react-native-elements";
+import { createSchedule } from "../../data/api";
+import moment from "moment";
 
-const NotificationMsg = ({ onPress }) => {
+import * as Notifications from "expo-notifications";
+import { Context as AuthContext } from "../../context/AuthContext";
+
+const NotificationMsg = ({ onPress, scheduleArr }) => {
+  const { state, scheduleAdded } = useContext(AuthContext);
+
+  const notificationReset = async () => {
+    await scheduleArr.map((schedule) => {
+      let testDateTime = new Date(schedule.scheduleDate.toLocaleString());
+      let localTime = moment(testDateTime).format();
+
+      const dataToSend = {
+        userId: schedule.userId,
+        scheduleDate: localTime,
+        reminderMinutes: 0,
+        programId: null,
+        programName: null,
+        playlistId: schedule.playlistId,
+      };
+
+      createSchedule(dataToSend);
+    });
+    scheduleAdded(state.scheduleSwitch);
+  };
+  const cancel = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    console.log("cancel called");
+    await notificationReset();
+    onPress();
+  };
+
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -14,7 +46,7 @@ const NotificationMsg = ({ onPress }) => {
         <View style={styles.buttonContainer}>
           <Button
             title="Yes"
-            onPress={onPress}
+            onPress={cancel}
             buttonStyle={styles.reminderSetBtn}
             titleStyle={{ color: "#624A99" }}
           />
