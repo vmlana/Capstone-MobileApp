@@ -172,7 +172,6 @@ const SetScheduleScreen = ({ navigation }) => {
                   <Reminder
                     onPress={reminderSwitch}
                     userId={state.userInfo.authId}
-                    videoData={data}
                     playListData={playListData}
                     milSec={convertToMil(dateTime)}
                     bookedDateTime={dateTime}

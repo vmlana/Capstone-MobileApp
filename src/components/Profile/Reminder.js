@@ -8,14 +8,27 @@ import NotificationMsg from "./NotificationMsg";
 const Reminder = ({ navigation }) => {
   const [bellColor, setBellColor] = useState(true);
   const [reminderVisible, setReminderVisible] = useState(false);
+  const [scheduleArr, setScheduleArr] = useState([]);
 
   const reminderSwitch = () => {
     setReminderVisible(!reminderVisible);
   };
+
+  const getScheduleArr = (array) => {
+    setScheduleArr(array);
+  };
+
+  console.log("schedule arr in profile", scheduleArr);
+
   return (
     <View style={styles.reminderContainer}>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>Reminders</Text>
+        <View>
+          <Text style={styles.titleText}>Reminders</Text>
+          <Text style={{ color: "#707070" }}>
+            Set-up a reminder before class
+          </Text>
+        </View>
 
         <Icon
           name={"bell"}
@@ -34,6 +47,7 @@ const Reminder = ({ navigation }) => {
       >
         <NotificationMsg
           onPress={reminderSwitch}
+          scheduleArr={scheduleArr}
           //   userId={state.userInfo.authId}
           //   playListData={playListData}
           //   milSec={convertToMil(dateTime)}
@@ -41,7 +55,7 @@ const Reminder = ({ navigation }) => {
           //   dateTime={changeToReadable(readableDateTime)}
         />
       </Modal>
-      <ReminderList navigation={navigation} />
+      <ReminderList navigation={navigation} getScheduleArr={getScheduleArr} />
     </View>
   );
 };
@@ -60,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     lineHeight: 31,
     color: "#707070",
-    marginBottom: 15,
+    // marginBottom: 15,
   },
   contactText: {
     fontSize: 15,
