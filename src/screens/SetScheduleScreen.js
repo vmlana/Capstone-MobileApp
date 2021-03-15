@@ -141,14 +141,18 @@ const SetScheduleScreen = ({ navigation }) => {
       {scheduleDataArr.length === 0 ? null : (
         <>
           <View style={styles.bookTitle}>
-            <Text h4>{playListData.playlistName} Booked</Text>
+            <Text h4 style={{ color: "#707070" }}>
+              {playListData.playlistName} Booked
+            </Text>
           </View>
           <ScrollView>
             {scheduleDataArr.map((dateTime, index) => (
               <View key={index} style={styles.bookList}>
                 <View style={styles.bookInfo}>
-                  <Text>{changeToReadable(dateTime).split(",")[0]}</Text>
-                  <Text style={{ marginLeft: 20 }}>
+                  <Text style={{ color: "#707070" }}>
+                    {changeToReadable(dateTime).split(",")[0]}
+                  </Text>
+                  <Text style={{ marginLeft: 20, color: "#707070" }}>
                     {changeToReadable(dateTime).split(",")[1]}
                   </Text>
                 </View>
