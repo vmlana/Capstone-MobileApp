@@ -223,6 +223,19 @@ export const getAllUserScheduleData = async (userId) => {
   return result;
 };
 
+export const getSurveyData = async (surveyId) => {
+  const result = await fetch(`${API_URL}/survey?surveyId=${surveyId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};
+
 export const createSchedule = async (scheduleData) => {
   const newSchedule = await fetch(`${API_URL}/schedules`, {
     method: "POST",
