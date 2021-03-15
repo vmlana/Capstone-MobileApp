@@ -51,7 +51,7 @@ const SearchScreen = ({ navigation }) => {
         let searchResult = await getSearchResult(3, searchString);
         setIsLoading(false);
 
-        // console.log(searchResult);
+        console.log(searchResult.playlists);
         if(searchResult){
           setSearchResultObject(searchResult);
         }

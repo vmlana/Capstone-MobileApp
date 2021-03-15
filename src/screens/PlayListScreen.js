@@ -23,14 +23,16 @@ const PlayListScreen = ({ navigation, playlistId }) => {
   useEffect(() => {
     setSingleVideos(data);
     setPlayList(playList);
-    // console.log("***********")
+    // console.log(1)
     // console.log(playList);
     if (playList && !data) {
+      console.log(2);
       (async () => {
         setIsLoading(true);
         const playlistData = await getPlaylistByPlaylistId(playList.playlistId);
         setIsLoading(false);
-        // console.log("***********")
+        // console.log(3)
+        // console.log(playlistData);
         // console.log(playlistData[0].lessons);
         setSingleVideos(playlistData[0].lessons);
       })();
