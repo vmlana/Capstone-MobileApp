@@ -18,8 +18,6 @@ const Reminder = ({ navigation }) => {
     setScheduleArr(array);
   };
 
-  console.log("schedule arr in profile", scheduleArr);
-
   return (
     <View style={styles.reminderContainer}>
       <View style={styles.titleContainer}>
