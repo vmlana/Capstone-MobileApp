@@ -21,7 +21,12 @@ import {
   playList,
 } from "../demoData";
 
-import { getPrograms, getPlayLists, getCategories } from "../data/api";
+import {
+  getPrograms,
+  getPlayLists,
+  getCategories,
+  getSurveyData,
+} from "../data/api";
 
 // components ===============
 import Update from "../components/Home/Update";
@@ -37,11 +42,12 @@ const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [survey, setSurvey] = useState([]);
   const [showSurvey, setShowSurvey] = useState(true);
   const { state } = useContext(AuthContext);
 
   if (state.userInfo) {
-    // console.log("Home_authId:", state.userInfo.authId);
+    console.log("Home_authId:", state.userInfo.authId);
   }
 
   const surveySwitch = () => {
@@ -67,9 +73,15 @@ const HomeScreen = ({ navigation }) => {
       setCategories(categoriesArr);
     };
 
+    const getSurveyArr = async () => {
+      const surveyData = await getSurveyData(1);
+      setSurvey(surveyData);
+    };
+
     getProgramArr();
     getPlayListArr();
     getCategoriesArr();
+    getSurveyArr();
   }, []);
 
   return (
@@ -110,7 +122,11 @@ const HomeScreen = ({ navigation }) => {
       </ScrollView>
       {showSurvey ? (
         <View style={styles.bottom}>
-          <SurveyNotification navigation={navigation} close={surveySwitch} />
+          <SurveyNotification
+            navigation={navigation}
+            close={surveySwitch}
+            data={survey}
+          />
         </View>
       ) : null}
     </View>

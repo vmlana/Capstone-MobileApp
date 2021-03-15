@@ -4,7 +4,7 @@ import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { SearchProvider } from "./src/context/searchContext";
 import { setNavigator } from "./src/navigationRef";
 
-import { View, Button, StyleSheet, Text } from "react-native";
+import { View, Button, StyleSheet, Text, } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
@@ -15,6 +15,9 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { Tab } from "native-base";
+
+// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+// LogBox.ignoreAllLogs();//Ignore all log notifications
 
 // Screens ============================================
 import HomeScreen from "./src/screens/HomeScreen";
@@ -107,22 +110,22 @@ const HomeStack = createStackNavigator(
 );
 
 const BlogStack = createStackNavigator(
-	{
-		BlogList: {
-			screen: BlogListScreen,
-			navigationOptions: {
-				title: "Blog",
-			},		
-		},
-		Blog: BlogScreen,
-		Search: {
-			screen: SearchScreen,
-			navigationOptions: {
-				title: "Search",
-				headerRight: () => <CloseIcon />,
-			},
-		},
-	},
+  {
+    BlogList: {
+      screen: BlogListScreen,
+      navigationOptions: {
+        title: "Blog",
+      },
+    },
+    Blog: BlogScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        title: "Search",
+        headerRight: () => <CloseIcon />,
+      },
+    },
+  },
   {
     defaultNavigationOptions: {
       headerRight: () => <SearchIcon />,

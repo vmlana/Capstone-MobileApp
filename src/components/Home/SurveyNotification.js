@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-const SurveyNotification = ({ close, navigation }) => {
+const SurveyNotification = ({ close, navigation, data }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -13,7 +13,11 @@ const SurveyNotification = ({ close, navigation }) => {
       <View>
         <TouchableOpacity
           style={styles.Button}
-          onPress={() => navigation.navigate("Survey")}
+          onPress={() =>
+            navigation.navigate("Survey", {
+              surveyData: data,
+            })
+          }
         >
           <Text style={{ color: "#FF9D5A", fontSize: 16 }}>Start Survey</Text>
         </TouchableOpacity>

@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
@@ -10,6 +10,8 @@ import Picker from "./Picker";
 import moment from "moment";
 
 import { createSchedule } from "../../data/api";
+
+import { Context as AuthContext } from "../../context/AuthContext";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -22,17 +24,19 @@ Notifications.setNotificationHandler({
 const Reminder = ({
   onPress,
   userId,
-  videoData,
   playListData,
   milSec,
   dateTime,
+  bookedDateTime,
 }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [min, setMin] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState(10);
+
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
@@ -41,16 +45,7 @@ const Reminder = ({
   };
 
   const now = new Date();
-  const utcTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-  const currentTime = new Date(utcTime.toISOString());
-  const currentMil = currentTime.getTime();
-
-  const scheduleDate = new Date(milSec).toISOString();
-
-  const cancel = async () => {
-    await Notifications.cancelAllScheduledNotificationsAsync();
-    console.log("cancel called");
-  };
+  const currentMil = now.getTime();
 
   //   async function scheduleAndCancel() {
   //     const identifier = await Notifications.scheduleNotificationAsync({
@@ -68,8 +63,8 @@ const Reminder = ({
     const reminderData = {
       userId: userId,
       programId: null,
-      playListId: playListData.playlistId,
-      scheduleDate: scheduleDate,
+      playlistId: playListData.playlistId,
+      scheduleDate: bookedDateTime,
       reminderMinutes: minutes,
     };
 
@@ -83,7 +78,12 @@ const Reminder = ({
       trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
 
-    createSchedule(reminderData);
+    async function newList() {
+      await createSchedule(reminderData);
+
+      scheduleAdded(state.scheduleSwitch);
+    }
+    newList();
   };
 
   const registerForPushNotificationsAsync = async () => {
@@ -162,13 +162,13 @@ const Reminder = ({
           <View>
             <Text
               style={{
-                marginVertical: 10,
+                marginVertical: 5,
                 fontSize: 16,
                 fontWeight: "bold",
                 color: "white",
               }}
             >
-              Session Name
+              {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
               <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
@@ -178,7 +178,13 @@ const Reminder = ({
             </View>
           </View>
 
-          <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              alignSelf: "center",
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -210,7 +216,6 @@ const Reminder = ({
             <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
           </View>
         </View>
-        <Button title="Cancel" onPress={() => cancel()} />
 
         <Button
           title="Done"

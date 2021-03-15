@@ -6,15 +6,13 @@ import { Thumbnail } from "native-base";
 import { getInstructorInfo } from "../../data/api";
 
 const TrainerName = ({ navigation, data, blog }) => {
-  const [instructorInfo, setinstructorInfo] = useState([]);
+  // const [instructorInfo, setinstructorInfo] = useState([]);
 
-  useEffect(() => {
-    getInstructorInfo(data.instructorID).then((instructors) => {
-      instructors.map((instructor) => {
-        setinstructorInfo(instructor);
-      });
-    });
-  }, [data]);
+  // useEffect(() => {
+  //   getInstructorInfo(data.instructorID).then((instructors) => {
+  //     setinstructorInfo(instructors);
+  //   });
+  // }, [data]);
 
   return (
     <TouchableOpacity
@@ -29,10 +27,10 @@ const TrainerName = ({ navigation, data, blog }) => {
       <Thumbnail
         small
         source={
-			data.imageFile ?
-			{uri: data.imageFile} :
-			{uri: data.instructorImage}
-		}
+          data.imageFile ?
+            { uri: data.imageFile } :
+            { uri: data.instructorImage }
+        }
         style={styles.thumbNail}
       />
       <Text style={styles.trainerName}>
