@@ -180,9 +180,7 @@ export const getBlogs = async (blogId, userId) => {
   return blogs;
 };
 
-
 export const getUserScheduleData = async (userId, playlistId) => {
-  console.log("test in api for schedule", userId, playlistId);
   const result = await fetch(
     `${API_URL}/schedules?userId=${userId}&playlistId=${playlistId}`
   )
@@ -198,7 +196,9 @@ export const getUserScheduleData = async (userId, playlistId) => {
 };
 
 export const getDashboardData = async (userId, initialDate, finalDate) => {
-  const dashboardData = await fetch(`${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`)
+  const dashboardData = await fetch(
+    `${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`
+  )
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -235,4 +235,21 @@ export const createSchedule = async (scheduleData) => {
     .catch((error) => console.error(error));
 
   return newSchedule;
+};
+
+export const deleteSchedule = async (scheduleId) => {
+  const deleteSceduleData = await fetch(
+    `${API_URL}/schedules?scheduleId=${scheduleId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ scheduleId: scheduleId }),
+    }
+  )
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+
+  return deleteScheduleData;
 };

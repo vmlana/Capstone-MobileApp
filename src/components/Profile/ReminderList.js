@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Button } from "react-native-elements";
+import Swipeout from "react-native-swipeout";
 
-import { getAllUserScheduleData } from "../../data/api";
+import { getAllUserScheduleData, deleteSchedule } from "../../data/api";
 
 import { Context as AuthContext } from "../../context/AuthContext";
 import { scheduleNotificationAsync } from "expo-notifications";
@@ -12,8 +13,20 @@ import moment from "moment";
 const ReminderList = ({ navigation }) => {
   const { state } = useContext(AuthContext);
   const [allScheduleData, setAllScheduleData] = useState([]);
+  const [basic, setBasic] = useState(true);
+  const [deleteSwitcher, setDeleteSwitcher] = useState(false);
 
   const changeToReadable = (time) => moment(time).format("MMM Do, h:mm a");
+
+  //   let swipeBtns = [
+  //     {
+  //       text: "Delete",
+  //       backgroundColor: "#ba0c00",
+  //       onPress: () => {
+  //         console.log("cnacel called");
+  //       },
+  //     },
+  //   ];
 
   useEffect(() => {
     const getScheduleList = async () => {
@@ -23,63 +36,94 @@ const ReminderList = ({ navigation }) => {
       setAllScheduleData(allUserScheduleData);
     };
     getScheduleList();
+  }, [state.scheduleSwitch, deleteSwitcher]);
 
-    console.log("called");
-  }, [state.scheduleSwitch]);
   return (
     <View>
-      {allScheduleData.map((data, index) => (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("PlayList", {
-              playListData: allScheduleData[index],
-            })
-          }
-          style={styles.bookList}
-          key={index}
-        >
-          <View>
-            <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 5 }}>
-              {data.playlistName}
-            </Text>
-            <View style={styles.bookInfo}>
-              <Text>{changeToReadable(data.scheduleDate).split(",")[0]}</Text>
-              <Text style={{ marginLeft: 20 }}>
-                {changeToReadable(data.scheduleDate).split(",")[1]}
-              </Text>
-            </View>
-          </View>
-          {data.reminderMinutes !== 0 ? (
-            <View style={styles.reminderInfo}>
-              <View style={styles.min}>
-                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                  {data.reminderMinutes}
-                </Text>
-                <Text>mins</Text>
+      {allScheduleData !== null ? (
+        allScheduleData.map((data, index) => (
+          <Swipeout
+            right={[
+              {
+                text: "Delete",
+                backgroundColor: "#ba0c00",
+                onPress: () => {
+                  deleteSchedule(data.scheduleId),
+                    setDeleteSwitcher(!deleteSwitcher),
+                    console.log("delete called");
+                },
+              },
+            ]}
+            autoClose="true"
+            backgroundColor="transparent"
+            style={{ height: 80 }}
+          >
+            <View style={styles.bookList} key={index}>
+              <View>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("PlayList", {
+                      playListData: allScheduleData[index],
+                    })
+                  }
+                  key={index}
+                >
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: "bold",
+                      marginBottom: 5,
+                      color: "#707070",
+                    }}
+                  >
+                    {data.playlistName}
+                  </Text>
+                </TouchableOpacity>
+
+                <View style={styles.bookInfo}>
+                  <Text style={{ color: "#707070" }}>
+                    {changeToReadable(data.scheduleDate).split(",")[0]}
+                  </Text>
+                  <Text style={{ marginLeft: 20, color: "#707070" }}>
+                    {changeToReadable(data.scheduleDate).split(",")[1]}
+                  </Text>
+                </View>
               </View>
-              <Text style={{ fontSize: 12, color: "black" }}>
-                Before session
-              </Text>
+              {data.reminderMinutes !== 0 ? (
+                <View style={styles.reminderInfo}>
+                  <View style={styles.min}>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 16,
+                        color: "#707070",
+                      }}
+                    >
+                      {data.reminderMinutes}
+                    </Text>
+                    <Text>mins</Text>
+                  </View>
+                  <Text
+                    style={{ fontSize: 12, color: "black", color: "#707070" }}
+                  >
+                    Before session
+                  </Text>
+                </View>
+              ) : null}
             </View>
-          ) : null}
-        </TouchableOpacity>
-      ))}
+          </Swipeout>
+        ))
+      ) : (
+        <Text>There is no session booked</Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  bookTitle: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 25,
-    marginTop: 30,
-  },
   bookList: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 10,
-    paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#E8E8E8",
     alignItems: "center",
