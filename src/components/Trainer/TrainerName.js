@@ -6,15 +6,13 @@ import { Thumbnail } from "native-base";
 import { getInstructorInfo } from "../../data/api";
 
 const TrainerName = ({ navigation, data, blog }) => {
-  const [instructorInfo, setinstructorInfo] = useState([]);
+  // const [instructorInfo, setinstructorInfo] = useState([]);
 
-  useEffect(() => {
-    getInstructorInfo(data.instructorID).then((instructors) => {
-      // instructors.map((instructor) => {
-      setinstructorInfo(instructors);
-      // });
-    });
-  }, [data]);
+  // useEffect(() => {
+  //   getInstructorInfo(data.instructorID).then((instructors) => {
+  //     setinstructorInfo(instructors);
+  //   });
+  // }, [data]);
 
   return (
     <TouchableOpacity
