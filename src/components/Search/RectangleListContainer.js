@@ -42,7 +42,7 @@ const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) 
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     color: "#707070",
     // letterSpacing: .2
