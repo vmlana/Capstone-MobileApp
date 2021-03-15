@@ -19,7 +19,7 @@ const Calendar = ({ userId }) => {
 		// console.log('End Date: ', endDate)
 		if (startDate !== '') {
 			getDashboardData(userId, startDate, endDate).then((result) => {
-				console.log(result.daysResult)
+				// console.log(result.daysResult)
 
 				result.daysResult.map(progressResult => {
 					if (progressResult.logged != null) {

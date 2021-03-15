@@ -18,10 +18,8 @@ const TrainerScreen = ({ navigation }) => {
 
     useEffect(() => {
         getInstructorInfo(navigation.state.params.instructorID).then(
-            instructors => {
-                instructors.map(instructor => {
-                    setinstructorInfo(instructor)
-                })
+            instructor => {
+                setinstructorInfo(instructor)
             }
         )
     }, [])
