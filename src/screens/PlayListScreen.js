@@ -107,7 +107,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                       </Text>
                     </View>
                     {item.videoDuration ? (
-                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                      <Text style={styles.duration}>{item.videoDuration} min</Text>
                     ) : null}
                   </View>
                 </TouchableOpacity>
@@ -131,7 +131,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                       </Text>
                     </View>
                     {item.videoDuration ? (
-                      <Text style={styles.duration}>{item.videoDuration}</Text>
+                      <Text style={styles.duration}>{item.videoDuration} min</Text>
                     ) : null}
                   </View>
                   <Image

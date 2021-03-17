@@ -68,7 +68,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
       </View>
       <View style={styles.videoInfo}>
         <Text>{playListData.categoryName}</Text>
-        <Text>Need to get duration</Text>
+        <Text>Duration {data.videoDuration} min</Text>
       </View>
       <Text style={styles.desc}>{data.lessonDescription}</Text>
     </View>
