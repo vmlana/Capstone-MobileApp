@@ -26,7 +26,7 @@ const AuthForm = ({
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
-        <Text h3 style={{ fontWeight: "bold", marginHorizontal: 10 }}>
+        <Text h3 style={{ fontWeight: "bold", marginHorizontal: 10, fontFamily: "GothamRoundedBold_21016" }}>
           {headerText1}
         </Text>
         <Text h4 style={styles.header}>

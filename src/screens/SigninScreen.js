@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavigationEvents } from "react-navigation";
-import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native";
+import { View, StyleSheet, TouchableOpacity, AsyncStorage, ImageBackground } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 
 import { navigate } from "../navigationRef";
@@ -10,9 +10,11 @@ import { Context as AuthContext } from "../context/AuthContext";
 import AuthForm from "../components/Auth/AuthForm";
 import NavLink from "../components/Auth/NavLink";
 
+import SigninBGImage from "../../assets/background-signIn.png";
 // import Spacer from "../components/Spacer";
 
 const SigninScreen = ({ navigation }) => {
+
     const { state, signin, clearErrMsg, tokenRefresh, autoSignin } = useContext(AuthContext);
 
     useEffect(()=>{
@@ -46,6 +48,7 @@ const SigninScreen = ({ navigation }) => {
     }, [state])
 
   return (
+    <ImageBackground source={SigninBGImage} style={{width: '100%', height: '100%'}}>
     <View style={styles.container}>
       {/* <NavigationEvents
         // onWillFocus gets called while transitioning to this component screen
@@ -72,6 +75,7 @@ const SigninScreen = ({ navigation }) => {
       />
       <NavLink text={"I'm a new user."} routeName="Signup" />
     </View>
+    </ImageBackground>
   );
 };
 
