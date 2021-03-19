@@ -238,15 +238,6 @@ const AppContainer = createAppContainer(AppNavigator);
 
 const fetchFonts = async() => {
   return await Font.loadAsync({
-   "GothamBold": require("./assets/fonts/GothamBold.ttf"),
-   "GothamBoldItalic": require("./assets/fonts/GothamBoldItalic.ttf"),
-   "GothamBook" : require("./assets/fonts/GothamBook.ttf"),
-   "GothamBookItalic" : require("./assets/fonts/GothamBookItalic.ttf"),
-   "GothamLight" : require("./assets/fonts/GothamLight.ttf"),
-   "GothamLightItalic" : require("./assets/fonts/GothamLightItalic.ttf"),
-   "GothamMedium" : require("./assets/fonts/GothamMedium.ttf"),
-   "GothamMedium_1" : require("./assets/fonts/GothamMedium_1.ttf"),
-   "GothamMediumItalic" : require("./assets/fonts/GothamMediumItalic.ttf"),
    "GothamRoundedBold_21016" : require("./assets/fonts/GothamRoundedBold_21016.ttf"),
    "GothamRoundedBook_21018" : require("./assets/fonts/GothamRoundedBook_21018.ttf"),
    "GothamRoundedLight_21020" : require("./assets/fonts/GothamRoundedLight_21020.ttf"),

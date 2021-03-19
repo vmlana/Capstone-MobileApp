@@ -9,19 +9,21 @@ import {
 // import Spacer from "./Spacer";
 import { withNavigation } from "react-navigation";
 
+import {colors} from '../../colors';
+
 const NavLink = ({ navigation, text, routeName }) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text>{text}</Text>
+        <Text style={{fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey}}>{text}</Text>
         <TouchableOpacity onPress={() => navigation.navigate(routeName)}>
-          <Text style={styles.link}>
+          <Text style={{...styles.link, fontFamily: "GothamRoundedBold_21016" }}>
             {routeName === "Signup" ? "Sign Up" : "Sign In"}
           </Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate(routeName)}>
-        <Text style={styles.link}>Forgot Password?</Text>
+        {/* <Text style={styles.link}>Forgot Password?</Text> */}
       </TouchableOpacity>
     </View>
   );
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   link: {
-    color: "blue",
+    color: colors.darkGrey,
     marginLeft: 5,
   },
 });
