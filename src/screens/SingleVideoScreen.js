@@ -15,7 +15,7 @@ const SingleVideoScreen = ({ navigation }) => {
   const playList = navigation.getParam("playListData");
 
   const [playListData, setPlayList] = useState([]);
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState(null);
 
   useEffect(() => {
     setPlayList(playList);
@@ -40,7 +40,8 @@ const SingleVideoScreen = ({ navigation }) => {
           navigation={navigation}
         />
         {
-          blogs.length > 0 ?
+          blogs != null
+          ?
           <Blogs data={blogs[0]} navigation={navigation} />:
           null
         }
