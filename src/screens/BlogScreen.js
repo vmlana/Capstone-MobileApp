@@ -30,7 +30,9 @@ const BlogScreen = ({ navigation }) => {
         <View style={styles.header}>
           <Text style={styles.blogTitle}>{blogData.blogTitle}</Text>
           <View style={styles.headerInfo}>
-            <TrainerName data={blogData} />
+            <TrainerName
+              data={blogData}
+              navigation={navigation} />
             <Text style={styles.date}>{blogData.blogPostDate}</Text>
           </View>
         </View>

@@ -266,3 +266,31 @@ export const deleteSchedule = async (scheduleId) => {
 
   return deleteScheduleData;
 };
+
+export const getLessonById = async (lessonId) => {
+  const result = await fetch(`${API_URL}/lessons?lessonId=${lessonId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return result;
+};
+
+export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructorId) => {
+
+  const blogs = await fetch(`${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return blogs;
+};
+

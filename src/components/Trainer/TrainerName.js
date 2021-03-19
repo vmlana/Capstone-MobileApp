@@ -20,7 +20,7 @@ const TrainerName = ({ navigation, data, blog }) => {
       onPress={() =>
         navigation.navigate("TrainerDetails", {
           instructorName: data.instructorName,
-          instructorID: data.instructorID,
+          instructorID: data.instructorID ? data.instructorID : data.instructorId
         })
       }
     >
