@@ -1,27 +1,51 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 import { RadioButton, Text } from "react-native-paper";
 
-const SurveyList = ({ data }) => {
+const SurveyList = ({ data, onPick, indexVal }) => {
   const [value, setValue] = useState("1");
+  //   console.log(("indexVal", indexVal), ("questionId", data.questionId));
+
+  const onPress = (newValue) => {
+    setValue(newValue);
+    onPick(indexVal, newValue, data.questionId);
+  };
+
   return (
     <View>
       <RadioButton.Group
-        onValueChange={(newValue) => setValue(newValue)}
+        onValueChange={(newValue) => {
+          onPress(newValue);
+        }}
         value={value}
       >
-        {/* <View style={{ flexDirection: "row" }}> */}
-        {data.map((survey) => (
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <RadioButton value={survey.optionValue} color={"#624A99"} />
-            <Text>{survey.optionDescription}</Text>
+        {data.options.map((survey, index) => (
+          <View
+            key={index}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <RadioButton value={survey.optionId} color={"#624A99"} />
+            {/* <View
+              style={{
+                borderWidth: 1,
+                padding: 8,
+                position: "absolute",
+                left: 10,
+                top: 10,
+              }}
+            ></View> */}
+            <Text style={styles.text}>{survey.optionDescription}</Text>
           </View>
         ))}
-        {/* </View> */}
       </RadioButton.Group>
     </View>
   );
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 15,
+    color: "#707070",
+  },
+});
 
 export default SurveyList;

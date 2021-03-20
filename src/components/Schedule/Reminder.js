@@ -47,15 +47,15 @@ const Reminder = ({
   const now = new Date();
   const currentMil = now.getTime();
 
-  //   async function scheduleAndCancel() {
-  //     const identifier = await Notifications.scheduleNotificationAsync({
-  //       content: {
-  //         title: "Hey!",
-  //       },
-  //       trigger: { seconds: 5, repeats: true },
-  //     });
-  //     await Notifications.cancelScheduledNotificationAsync(identifier);
-  //   }
+  async function scheduleAndCancel() {
+    const identifier = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hey!",
+      },
+      trigger: { seconds: 5, repeats: true },
+    });
+    await Notifications.cancelScheduledNotificationAsync(identifier);
+  }
 
   const schedulePushNotification = async (time) => {
     // console.log("notification time", milSec - min - currentMil);
@@ -75,7 +75,8 @@ const Reminder = ({
         body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
-      trigger: { seconds: (milSec - min - currentMil) / 1000 },
+      trigger: { seconds: 1 },
+      //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
 
     async function newList() {
@@ -208,6 +209,7 @@ const Reminder = ({
                   paddingVertical: 5,
                   borderRadius: 5,
                   color: "black",
+                  zIndex: 1,
                 }}
               >
                 mins
@@ -290,7 +292,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginRight: 20,
   },
-  //   reminderPicker: {},
+  //   reminderPicker: { zIndex: 100 },
   reminderSetBtn: {
     width: "100%",
     backgroundColor: "white",

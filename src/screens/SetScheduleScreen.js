@@ -135,6 +135,7 @@ const SetScheduleScreen = ({ navigation }) => {
         isVisible={isTimePickerVisible}
         onConfirm={handleConfirm}
         onCancel={hideTimePicker}
+        headerTextIOS={"Pick a time"}
         mode="time"
       />
 
@@ -174,7 +175,7 @@ const SetScheduleScreen = ({ navigation }) => {
                     userId={state.userInfo.authId}
                     playListData={playListData}
                     milSec={convertToMil(dateTime)}
-                    bookedDateTime={dateTime}
+                    bookedDateTime={readableDateTime}
                     dateTime={changeToReadable(readableDateTime)}
                   />
                 </Modal>

@@ -1,30 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add @material-ui
+  /usr/local/bin/node /Users/kentauchi/.npm-global/bin/yarn add reat-native-paper
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/yoshidatomohiro/Library/Android/sdk/platform-tools
+  /Users/kentauchi/.npm-global/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/kentauchi/opt/anaconda3/bin:/Users/kentauchi/opt/anaconda3/condabin:/Users/kentauchi/.npm-global/bin
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  12.16.2
+  14.15.4
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@material-ui: Request "https://registry.yarnpkg.com/@material-ui" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66997:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
-      at Request.emit (events.js:310:20)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141721:10)
-      at Request.emit (events.js:310:20)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141643:12)
-      at Object.onceWrapper (events.js:416:28)
-      at IncomingMessage.emit (events.js:322:22)
-      at endReadableNT (_stream_readable.js:1187:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  Error: https://registry.yarnpkg.com/reat-native-paper: Not found
+      at Request.params.callback [as _callback] (/Users/kentauchi/.npm-global/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/Users/kentauchi/.npm-global/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/Users/kentauchi/.npm-global/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/Users/kentauchi/.npm-global/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (internal/streams/readable.js:1327:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {
@@ -46,7 +46,7 @@ npm manifest:
       "expo": "^40.0.1",
       "expo-av": "^9.0.0",
       "expo-constants": "~9.3.3",
-      "expo-notifications": "~0.8.2",
+      "expo-notifications": "^0.8.2",
       "expo-screen-orientation": "^3.0.0",
       "expo-status-bar": "~1.0.3",
       "moment": "^2.29.1",
@@ -54,6 +54,7 @@ npm manifest:
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
+      "react-native-auto-height-image": "^3.2.4",
       "react-native-calendar-strip": "^2.1.6",
       "react-native-calendars": "^1.1252.0",
       "react-native-elements": "^3.2.0",
@@ -66,6 +67,7 @@ npm manifest:
       "react-native-screens": "^2.17.1",
       "react-native-slider": "^0.11.0",
       "react-native-snap-carousel": "^3.9.1",
+      "react-native-swipeout": "^2.3.6",
       "react-native-video": "^5.1.1",
       "react-native-web": "~0.13.12",
       "react-native-wheel-picker-android": "^2.0.6",
@@ -3034,7 +3036,7 @@ Lockfile:
       js-yaml "^3.13.1"
       parse-json "^4.0.0"
   
-  create-react-class@^15.6.2, create-react-class@^15.6.3:
+  create-react-class@^15.6.0, create-react-class@^15.6.2, create-react-class@^15.6.3:
     version "15.7.0"
     resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.7.0.tgz#7499d7ca2e69bb51d13faf59bd04f0c65a1d6c1e"
     integrity sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==
@@ -3539,7 +3541,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-10.0.0.tgz#2923411649434f2f079343b163b13c5c9eee8b2d"
     integrity sha512-QLEb0iaBv4/blLxxfKRj2/HPisY+1t+g6MgegqZ1j1U/0qih4dvzUQrxie9ZOZyQB9gnXFCRnZv3QzHEb52dcA==
   
-  expo-notifications@~0.8.2:
+  expo-notifications@^0.8.2:
     version "0.8.2"
     resolved "https://registry.yarnpkg.com/expo-notifications/-/expo-notifications-0.8.2.tgz#69e04a4e48ec6bafaeb354d284fbc23c26f2d62d"
     integrity sha512-eX/HB96FqXzSMAwtA/fhxB1tGYELQywPm7oBTfnALHH3MFHy1bW7NZYGcU82sDF+DF09uLZ4Fn4p5ValMWA5TA==
@@ -6141,6 +6143,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
     integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
   
+  react-native-auto-height-image@^3.2.4:
+    version "3.2.4"
+    resolved "https://registry.yarnpkg.com/react-native-auto-height-image/-/react-native-auto-height-image-3.2.4.tgz#c7a95d4d9701055c680c8dc02076def1107f9522"
+    integrity sha512-PTVzLuYY4Q5IDAk0QmnSNK12VnUPlt+ZiEJUlo5JUiHverR5Lg386iHK7D2bVkTNo7SCahIPlWzdSuX5Col3XQ==
+    dependencies:
+      prop-types "^15.7.2"
+  
   react-native-calendar-strip@^2.1.6:
     version "2.1.6"
     resolved "https://registry.yarnpkg.com/react-native-calendar-strip/-/react-native-calendar-strip-2.1.6.tgz#b4af9f51a283085862e16fd29d41a7b94a0ea453"
@@ -6288,6 +6297,15 @@ Lockfile:
     version "1.0.5"
     resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz#a172cb0f3e7478ccd681fd36b8bfbcdd098bde7c"
     integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
+  
+  react-native-swipeout@^2.3.6:
+    version "2.3.6"
+    resolved "https://registry.yarnpkg.com/react-native-swipeout/-/react-native-swipeout-2.3.6.tgz#47dac8a835825cf3f2eef9e495574a3d9ab6d3fa"
+    integrity sha512-t9suUCspzck4vp2pWggWe0frS/QOtX6yYCawHnEes75A7dZCEE74bxX2A1bQzGH9cUMjq6xsdfC94RbiDKIkJg==
+    dependencies:
+      create-react-class "^15.6.0"
+      prop-types "^15.5.10"
+      react-tween-state "^0.1.5"
   
   react-native-tab-view@^2.15.2:
     version "2.15.2"

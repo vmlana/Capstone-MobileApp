@@ -19,7 +19,7 @@ const SurveyNotification = ({ close, navigation, data }) => {
             })
           }
         >
-          <Text style={{ color: "#FF9D5A", fontSize: 16 }}>Start Survey</Text>
+          <Text style={{ color: "#FF9D5A", fontSize: 14 }}>Start Survey</Text>
         </TouchableOpacity>
       </View>
       <View>
@@ -42,13 +42,13 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: "white",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 5,
   },
   Text: {
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });
