@@ -13,18 +13,18 @@ import TrainerName from "../Trainer/TrainerName";
 
 const windowWidth = Dimensions.get("window").width;
 
-const Blogs = ({ data }) => {
+const Blogs = ({navigation, data }) => {
   return (
     <View style={styles.container}>
       <Text h2 h2Style={{ marginHorizontal: 25 }}>
-        {data.title}
+        {data.blogTitle}
       </Text>
       <View style={styles.blogInfo}>
-        <TrainerName data={data} />
-        <Text>{data.date}</Text>
+        <TrainerName data={data} navigation={navigation} />
+        <Text>{data.blogPostDate}</Text>
       </View>
-      <Image source={{ uri: data.blogImage }} containerStyle={styles.blogImg} />
-      <Text style={styles.blogContent}>{data.textContents}</Text>
+      <Image source={{ uri: data.blogImageFile }} containerStyle={styles.blogImg} />
+      <Text style={styles.blogContent}>{data.blogContent}</Text>
     </View>
   );
 };

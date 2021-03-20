@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavigationEvents } from "react-navigation";
-import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native";
+import { View, StyleSheet, TouchableOpacity, AsyncStorage, ImageBackground } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 
 import { navigate } from "../navigationRef";
@@ -10,9 +10,11 @@ import { Context as AuthContext } from "../context/AuthContext";
 import AuthForm from "../components/Auth/AuthForm";
 import NavLink from "../components/Auth/NavLink";
 
+import SigninBGImage from "../../assets/background-signIn.png";
 // import Spacer from "../components/Spacer";
 
 const SigninScreen = ({ navigation }) => {
+
     const { state, signin, clearErrMsg, tokenRefresh, autoSignin } = useContext(AuthContext);
 
     useEffect(()=>{
@@ -46,32 +48,34 @@ const SigninScreen = ({ navigation }) => {
     }, [state])
 
   return (
-    <View style={styles.container}>
-      {/* <NavigationEvents
-        // onWillFocus gets called while transitioning to this component screen
-        onWillFocus={clearErrMsg}
+    <ImageBackground source={SigninBGImage} style={{width: '100%', height: '100%'}}>
+      <View style={styles.container}>
+        {/* <NavigationEvents
+          // onWillFocus gets called while transitioning to this component screen
+          onWillFocus={clearErrMsg}
 
-        // onDidFocus gets called right after transitioned to this component screen
-        //   onDidFocus={()=>{}}
+          // onDidFocus gets called right after transitioned to this component screen
+          //   onDidFocus={()=>{}}
 
-        // onWillBlur gets called while transitionig away from this component screen
-        // onWillBlur={()=>{})}
+          // onWillBlur gets called while transitionig away from this component screen
+          // onWillBlur={()=>{})}
 
-        // onDidBlur gets called right after transitionig away from this component screen
-        //   onDidBlur={()=>{}}
-      /> */}
-      <AuthForm
-        headerText1="Welcome,"
-        headerText2="Sign in to Continue!"
-        errorMessage={state.errorMessage}
-        submitButtonText="Sign In"
-        routeName="Signin"
-        onSubmit={signin}
-        navigation={navigation}
-        style={styles.auth}
-      />
-      <NavLink text={"I'm a new user."} routeName="Signup" />
-    </View>
+          // onDidBlur gets called right after transitionig away from this component screen
+          //   onDidBlur={()=>{}}
+        /> */}
+        <AuthForm
+          headerText1="Welcome,"
+          headerText2="Sign in to Continue!"
+          errorMessage={state.errorMessage}
+          submitButtonText="Sign In"
+          routeName="Signin"
+          onSubmit={signin}
+          navigation={navigation}
+          style={styles.auth}
+        />
+        <NavLink text={"I'm a new user."} routeName="Signup" />
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -84,6 +88,8 @@ SigninScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
+    justifyContent: "space-between"
   },
 });
 

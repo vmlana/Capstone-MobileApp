@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // Redux
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { SearchProvider } from "./src/context/searchContext";
@@ -15,6 +15,10 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { Tab } from "native-base";
+
+import * as Font from "expo-font";
+import AppLoading from 'expo-app-loading';
+// import { AppLoading } from "expo";
 
 // LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 // LogBox.ignoreAllLogs();//Ignore all log notifications
@@ -232,7 +236,30 @@ const AppNavigator = createSwitchNavigator({
 
 const AppContainer = createAppContainer(AppNavigator);
 
+const fetchFonts = async() => {
+  return await Font.loadAsync({
+   "GothamRoundedBold_21016" : require("./assets/fonts/GothamRoundedBold_21016.ttf"),
+   "GothamRoundedBook_21018" : require("./assets/fonts/GothamRoundedBook_21018.ttf"),
+   "GothamRoundedLight_21020" : require("./assets/fonts/GothamRoundedLight_21020.ttf"),
+   "GothamRoundedMedium_21022" : require("./assets/fonts/GothamRoundedMedium_21022.ttf")
+  });
+ };
+
 export default () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => {
+          setFontLoaded(true);
+        }}
+        onError={(error) => console.log(error)}
+      />
+    );
+  }
+
   return (
     <AuthProvider>
       <SearchProvider>

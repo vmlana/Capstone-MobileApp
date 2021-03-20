@@ -8,15 +8,27 @@ import Blogs from "../components/Blog/Blogs";
 
 // Data ====================
 import { blogData, playList } from "../demoData";
+import { getLessonById, getBlogsByCategoryIdAndInstructorId } from '../data/api';
 
 const SingleVideoScreen = ({ navigation }) => {
   const data = navigation.getParam("videoData");
   const playList = navigation.getParam("playListData");
 
   const [playListData, setPlayList] = useState([]);
+  const [blogs, setBlogs] = useState(null);
 
   useEffect(() => {
     setPlayList(playList);
+
+    // get  blogs by categoryId and instructorId
+    (async()=>{
+      const lesson = await getLessonById(data.lessonId);
+      const categoryId = lesson[0].categoryId;
+      const instructorId = lesson[0].instructorId;
+      const relatedBlogs = await getBlogsByCategoryIdAndInstructorId(categoryId, instructorId)
+      setBlogs(relatedBlogs);
+    })();
+   
   }, []);
 
   return (
@@ -27,7 +39,12 @@ const SingleVideoScreen = ({ navigation }) => {
           playListData={playListData}
           navigation={navigation}
         />
-        <Blogs data={blogData} />
+        {
+          blogs != null
+          ?
+          <Blogs data={blogs[0]} navigation={navigation} />:
+          null
+        }
       </ScrollView>
       <View style={styles.bottom}>
         <Button
