@@ -26,6 +26,7 @@ import {
   getPlayLists,
   getCategories,
   getSurveyData,
+  getUserData
 } from "../data/api";
 
 // components ===============
@@ -39,6 +40,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 const programId = 1;
 
 const HomeScreen = ({ navigation }) => {
+  const [userInfo, setUserInfo] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -47,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
   const { state } = useContext(AuthContext);
 
   if (state.userInfo) {
-    console.log("Home_authId:", state.userInfo.authId);
+    // console.log("Home_authId:", state.userInfo);
   }
 
   const surveySwitch = () => {
@@ -78,16 +80,28 @@ const HomeScreen = ({ navigation }) => {
       setSurvey(surveyData);
     };
 
+    const getUserDataArr = async () => {
+      const userData = await getUserData(state.userInfo.authId);
+      console.log(userData)
+      setUserInfo(userData)
+    };
+
     getProgramArr();
     getPlayListArr();
     getCategoriesArr();
     getSurveyArr();
+    getUserDataArr();
   }, []);
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        <Update />
+        {
+          userInfo.weekWorkout > 0 ?
+            <Update weekWorkout={userInfo.weekWorkout} /> :
+            null
+        }
+
         <View style={styles.container}>
           <ContentListContainer
             title={"Select Your workout type"}
@@ -136,6 +150,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginLeft: 25,
+    marginTop: 25
   },
   bottom: {
     position: "absolute",
