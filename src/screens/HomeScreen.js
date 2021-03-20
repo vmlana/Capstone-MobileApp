@@ -26,7 +26,7 @@ import {
   getPlayLists,
   getCategories,
   getSurveyData,
-  getUserData
+  getUserData,
 } from "../data/api";
 
 // components ===============
@@ -37,7 +37,7 @@ import SurveyNotification from "../components/Home/SurveyNotification";
 
 import { Context as AuthContext } from "../context/AuthContext";
 
-const programId = 1;
+const programId = 101;
 
 const HomeScreen = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState([]);
@@ -48,13 +48,9 @@ const HomeScreen = ({ navigation }) => {
   const [showSurvey, setShowSurvey] = useState(true);
   const { state } = useContext(AuthContext);
 
-  if (state.userInfo) {
-    // console.log("Home_authId:", state.userInfo);
-  }
-
-  const surveySwitch = () => {
-    setShowSurvey(!showSurvey);
-  };
+  //   const surveySwitch = () => {
+  //     setShowSurvey(!showSurvey);
+  //   };
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -62,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
       const filteredProgramList = await programArr.filter(
         (program) => program.programId === programId
       );
-      await setPrograms(filteredProgramList);
+      setPrograms(filteredProgramList);
     };
 
     const getPlayListArr = async () => {
@@ -82,8 +78,8 @@ const HomeScreen = ({ navigation }) => {
 
     const getUserDataArr = async () => {
       const userData = await getUserData(state.userInfo.authId);
-      console.log(userData)
-      setUserInfo(userData)
+      console.log(userData);
+      setUserInfo(userData);
     };
 
     getProgramArr();
@@ -91,16 +87,22 @@ const HomeScreen = ({ navigation }) => {
     getCategoriesArr();
     getSurveyArr();
     getUserDataArr();
-  }, []);
+  }, [state]);
+
+  useEffect(() => {}, []);
+
+  if (state.userInfo) {
+    // console.log("Home_authId:", state.userInfo);
+  }
+
+  console.log("userData", userInfo);
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        {
-          userInfo.weekWorkout > 0 ?
-            <Update weekWorkout={userInfo.weekWorkout} /> :
-            null
-        }
+        {userInfo.weekWorkout > 0 ? (
+          <Update weekWorkout={userInfo.weekWorkout} />
+        ) : null}
 
         <View style={styles.container}>
           <ContentListContainer
@@ -134,15 +136,15 @@ const HomeScreen = ({ navigation }) => {
           ) : null}
         </View>
       </ScrollView>
-      {showSurvey ? (
+      {/* {userInfo.length > 0 && userInfo.surveys.length > 0 ? (
         <View style={styles.bottom}>
           <SurveyNotification
             navigation={navigation}
             close={surveySwitch}
-            data={survey}
+            data={userInfo.surveys[0].surveyId}
           />
         </View>
-      ) : null}
+      ) : null} */}
     </View>
   );
 };
@@ -150,7 +152,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginLeft: 25,
-    marginTop: 25
+    marginTop: 25,
   },
   bottom: {
     position: "absolute",

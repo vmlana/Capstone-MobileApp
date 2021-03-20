@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Text, Button } from "react-native-elements";
+import { colors } from "../colors";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
@@ -82,7 +83,10 @@ const SetScheduleScreen = ({ navigation }) => {
     const marking = scheduleDataArr.reduce((obj, item) => {
       return {
         ...obj,
-        [item.split("T")[0]]: { selected: true, selectedColor: "#624A99" },
+        [item.split("T")[0]]: {
+          selected: true,
+          selectedColor: "#624A99",
+        },
       };
     }, {});
 
@@ -128,6 +132,13 @@ const SetScheduleScreen = ({ navigation }) => {
           enableSwipeMonths={true}
           hideArrows={true}
           markedDates={marked}
+          theme={{
+            textDayFontFamily: "GothamRoundedBook_21018",
+            textMonthFontFamily: "GothamRoundedBook_21018",
+            textDayHeaderFontFamily: "GothamRoundedBook_21018",
+            textDayFontSize: 16,
+            textMonthFontSize: 16,
+          }}
         />
       </View>
 
@@ -142,7 +153,13 @@ const SetScheduleScreen = ({ navigation }) => {
       {scheduleDataArr.length === 0 ? null : (
         <>
           <View style={styles.bookTitle}>
-            <Text h4 style={{ color: "#707070" }}>
+            <Text
+              h4
+              style={{
+                fontFamily: "GothamRoundedMedium_21022",
+                color: colors.darkGrey,
+              }}
+            >
               {playListData.playlistName} Booked
             </Text>
           </View>
@@ -150,10 +167,21 @@ const SetScheduleScreen = ({ navigation }) => {
             {scheduleDataArr.map((dateTime, index) => (
               <View key={index} style={styles.bookList}>
                 <View style={styles.bookInfo}>
-                  <Text style={{ color: "#707070" }}>
+                  <Text
+                    style={{
+                      fontFamily: "GothamRoundedBook_21018",
+                      color: colors.darkGrey,
+                    }}
+                  >
                     {changeToReadable(dateTime).split(",")[0]}
                   </Text>
-                  <Text style={{ marginLeft: 20, color: "#707070" }}>
+                  <Text
+                    style={{
+                      marginLeft: 20,
+                      fontFamily: "GothamRoundedBook_21018",
+                      color: colors.darkGrey,
+                    }}
+                  >
                     {changeToReadable(dateTime).split(",")[1]}
                   </Text>
                 </View>

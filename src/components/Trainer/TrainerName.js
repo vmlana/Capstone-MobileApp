@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import { Thumbnail } from "native-base";
+import { colors } from "../../colors";
 
 import { getInstructorInfo } from "../../data/api";
 
@@ -31,7 +32,13 @@ const TrainerName = ({ navigation, data, blog }) => {
         source={{ uri: instructorInfo.imageFile }}
         style={styles.thumbNail}
       />
-      <Text style={styles.trainerName}>
+      <Text
+        style={{
+          ...styles.trainerName,
+          fontFamily: "GothamRoundedLight_21020",
+          color: colors.darkGrey,
+        }}
+      >
         {data.instructorName ? data.instructorName : data.trainerName}
       </Text>
     </TouchableOpacity>
@@ -42,7 +49,7 @@ const styles = StyleSheet.create({
   trainerInfo: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 7,
+    // marginTop: 7,
   },
   thumbNail: {
     width: 24,
@@ -52,7 +59,6 @@ const styles = StyleSheet.create({
   trainerName: {
     fontSize: 13,
     lineHeight: 13,
-    color: "#707070",
   },
   trainerInfoForBlog: {
     flexDirection: "row",

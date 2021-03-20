@@ -6,6 +6,7 @@ import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
+import { colors } from "../../colors";
 
 import moment from "moment";
 
@@ -47,101 +48,101 @@ const Reminder = ({
   const now = new Date();
   const currentMil = now.getTime();
 
-  async function scheduleAndCancel() {
-    const identifier = await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Hey!",
-      },
-      trigger: { seconds: 5, repeats: true },
-    });
-    await Notifications.cancelScheduledNotificationAsync(identifier);
-  }
+  //   async function scheduleAndCancel() {
+  //     const identifier = await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title: "Hey!",
+  //       },
+  //       trigger: { seconds: 5, repeats: true },
+  //     });
+  //     await Notifications.cancelScheduledNotificationAsync(identifier);
+  //   }
 
-  const schedulePushNotification = async (time) => {
-    // console.log("notification time", milSec - min - currentMil);
+  //   const schedulePushNotification = async (time) => {
+  //     // console.log("notification time", milSec - min - currentMil);
 
-    const reminderData = {
-      userId: userId,
-      programId: null,
-      playlistId: playListData.playlistId,
-      scheduleDate: bookedDateTime,
-      reminderMinutes: minutes,
-    };
+  //     const reminderData = {
+  //       userId: userId,
+  //       programId: null,
+  //       playlistId: playListData.playlistId,
+  //       scheduleDate: bookedDateTime,
+  //       reminderMinutes: minutes,
+  //     };
 
-    onPress();
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "It's about time to move your body! 📬",
-        body: `Booked Session - ${playListData.playlistName}`,
-        data: { data: "goes here" },
-      },
-      trigger: { seconds: 1 },
-      //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
-    });
+  //     onPress();
+  //     await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title: "It's about time to move your body! 📬",
+  //         body: `Booked Session - ${playListData.playlistName}`,
+  //         data: { data: "goes here" },
+  //       },
+  //       trigger: { seconds: 1 },
+  //       //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
+  //     });
 
-    async function newList() {
-      await createSchedule(reminderData);
+  //     async function newList() {
+  //       await createSchedule(reminderData);
 
-      scheduleAdded(state.scheduleSwitch);
-    }
-    newList();
-  };
+  //       scheduleAdded(state.scheduleSwitch);
+  //     }
+  //     newList();
+  //   };
 
-  const registerForPushNotificationsAsync = async () => {
-    let token;
-    if (Constants.isDevice) {
-      const {
-        status: existingStatus,
-      } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
-        return;
-      }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
-    } else {
-      alert("Must use physical device for Push Notifications");
-    }
+  //   const registerForPushNotificationsAsync = async () => {
+  //     let token;
+  //     if (Constants.isDevice) {
+  //       const {
+  //         status: existingStatus,
+  //       } = await Notifications.getPermissionsAsync();
+  //       let finalStatus = existingStatus;
+  //       if (existingStatus !== "granted") {
+  //         const { status } = await Notifications.requestPermissionsAsync();
+  //         finalStatus = status;
+  //       }
+  //       if (finalStatus !== "granted") {
+  //         alert("Failed to get push token for push notification!");
+  //         return;
+  //       }
+  //       token = (await Notifications.getExpoPushTokenAsync()).data;
+  //       console.log(token);
+  //     } else {
+  //       alert("Must use physical device for Push Notifications");
+  //     }
 
-    if (Platform.OS === "android") {
-      Notifications.setNotificationChannelAsync("default", {
-        name: "default",
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
-      });
-    }
+  //     if (Platform.OS === "android") {
+  //       Notifications.setNotificationChannelAsync("default", {
+  //         name: "default",
+  //         importance: Notifications.AndroidImportance.MAX,
+  //         vibrationPattern: [0, 250, 250, 250],
+  //         lightColor: "#FF231F7C",
+  //       });
+  //     }
 
-    return token;
-  };
+  //     return token;
+  //   };
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
+  //   useEffect(() => {
+  //     registerForPushNotificationsAsync().then((token) =>
+  //       setExpoPushToken(token)
+  //     );
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
-      }
-    );
+  //     notificationListener.current = Notifications.addNotificationReceivedListener(
+  //       (notification) => {
+  //         setNotification(notification);
+  //       }
+  //     );
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log(response);
-      }
-    );
+  //     responseListener.current = Notifications.addNotificationResponseReceivedListener(
+  //       (response) => {
+  //         console.log(response);
+  //       }
+  //     );
 
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
-  }, []);
+  //     return () => {
+  //       Notifications.removeNotificationSubscription(notificationListener);
+  //       Notifications.removeNotificationSubscription(responseListener);
+  //     };
+  //   }, []);
 
   return (
     <View style={styles.centeredView}>
@@ -153,8 +154,22 @@ const Reminder = ({
           onPress={onPress}
         />
         <View style={styles.modalHeader}>
-          <Text style={styles.modalText}>Add a Reminder</Text>
-          <Text style={styles.modalTextSmall}>
+          <Text
+            style={{
+              ...styles.modalText,
+              fontFamily: "GothamRoundedBold_21016",
+              color: "white",
+            }}
+          >
+            Add a Reminder
+          </Text>
+          <Text
+            style={{
+              ...styles.modalTextSmall,
+              fontFamily: "GothamRoundedBook_21018",
+              color: "white",
+            }}
+          >
             Set-up a reminder before class
           </Text>
         </View>
@@ -167,13 +182,27 @@ const Reminder = ({
                 fontSize: 16,
                 fontWeight: "bold",
                 color: "white",
+                fontFamily: "GothamRoundedBold_21016",
               }}
             >
               {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
-              <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
-              <Text style={{ marginLeft: 20, color: "white" }}>
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "GothamRoundedBook_21018",
+                }}
+              >
+                {dateTime.split(",")[0]}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "white",
+                  fontFamily: "GothamRoundedBook_21018",
+                }}
+              >
                 {dateTime.split(",")[1]}
               </Text>
             </View>
@@ -209,13 +238,22 @@ const Reminder = ({
                   paddingVertical: 5,
                   borderRadius: 5,
                   color: "black",
+
                   zIndex: 1,
                 }}
               >
                 mins
               </Text>
             </View>
-            <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
+            <Text
+              style={{
+                fontSize: 11,
+                color: "white",
+                fontFamily: "GothamRoundedBook_21018",
+              }}
+            >
+              Before Session
+            </Text>
           </View>
         </View>
 
@@ -225,7 +263,10 @@ const Reminder = ({
             await schedulePushNotification(min);
           }}
           buttonStyle={styles.reminderSetBtn}
-          titleStyle={{ color: "#624A99" }}
+          titleStyle={{
+            color: "#624A99",
+            fontFamily: "GothamRoundedBook_21018",
+          }}
         />
       </View>
     </View>
@@ -274,8 +315,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 7,
-    color: "white",
-    fontWeight: "700",
+    // color: "white",
+    // fontWeight: "700",
     fontSize: 18,
   },
   modalTextSmall: {
