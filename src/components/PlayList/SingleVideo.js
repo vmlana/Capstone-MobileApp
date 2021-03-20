@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Video } from "expo-av";
 import {
   View,
@@ -13,13 +13,19 @@ import * as ScreenOrientation from "expo-screen-orientation";
 
 import TrainerName from "../Trainer/TrainerName";
 
+import { setActivityLog } from "../../data/api";
+import { Context as AuthContext } from "../../context/AuthContext";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const SingleVideo = ({ navigation, data, playListData }) => {
-  const onFullscreenUpdate = async ({
-    fullscreenUpdate,
-  }: VideoFullscreenUpdateEvent) => {
+  const { state } = useContext(AuthContext);
+
+  const onFullscreenUpdate = async (
+    { fullscreenUpdate },
+    VideoFullscreenUpdateEvent
+  ) => {
     switch (fullscreenUpdate) {
       case Video.FULLSCREEN_UPDATE_PLAYER_DID_PRESENT:
         await ScreenOrientation.unlockAsync(); // only on Android required
@@ -43,14 +49,21 @@ const SingleVideo = ({ navigation, data, playListData }) => {
         useNativeControls
         resizeMode="contain"
         onFullscreenUpdate={onFullscreenUpdate}
-        style={{ width: windowWidth, height: 250 }}
-        onPlaybackStatusUpdate={(playbackStatus) =>
-          playbackStatus.didJustFinish ? console.log("done") : null
-        }
+        style={{ width: windowWidth, height: 235 }}
+        onPlaybackStatusUpdate={(playbackStatus) => {
+          if (playbackStatus.didJustFinish) {
+            const log = setActivityLog(
+              state.userInfo.authId,
+              null,
+              playListData.playlistId,
+              data.lessonId
+            );
+          }
+        }}
       />
 
       <View style={styles.videoHeader}>
-        <Text h3>{data.lessonName}</Text>
+        <Text style={styles.lessonTitle}>{data.lessonName}</Text>
         <TrainerName data={playListData} navigation={navigation} />
       </View>
       <View style={styles.videoInfo}>
@@ -75,6 +88,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginVertical: 10,
     marginHorizontal: 25,
+  },
+  lessonTitle: {
+    fontSize: 23,
+    lineHeight: 28,
+    color: "#707070",
   },
   desc: {
     marginHorizontal: 25,

@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavigationEvents } from "react-navigation";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import AuthForm from "../components/Auth/AuthForm";
 import NavLink from "../components/Auth/NavLink";
 
-// import { Context as AuthContext } from "../context/AuthContext";
+import { Context as AuthContext } from "../context/AuthContext";
 
 const SignupScreen = ({ navigation }) => {
-  //   const { state, signup, clearErrMsg } = useContext(AuthContext);
+    const { state, signup, clearErrMsg } = useContext(AuthContext);
+    const [prevErr, setPrevErr] = useState(state.errorMessage);
+
+    useEffect(()=>{
+
+      if(state.errorMessage !== "" && prevErr != state.errorMessage) {
+        setPrevErr(state.errorMessage);
+        alert(state.errorMessage);
+        clearErrMsg();
+      }
+
+    }, [state.errorMessage])
 
   return (
     <View style={styles.container}>
@@ -31,7 +42,7 @@ const SignupScreen = ({ navigation }) => {
         // errorMessage={state.errorMessage}
         submitButtonText="Sign Up"
         routeName="Signup"
-        // onSubmit={signup}
+        onSubmit={signup}
         navigation={navigation}
       />
       <NavLink text={"I'm already a member."} routeName="Signin" />

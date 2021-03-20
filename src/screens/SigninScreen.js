@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavigationEvents } from "react-navigation";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 
 import { navigate } from "../navigationRef";
 
-// import { Context as AuthContext } from "../context/AuthContext";
+import { Context as AuthContext } from "../context/AuthContext";
 
 import AuthForm from "../components/Auth/AuthForm";
 import NavLink from "../components/Auth/NavLink";
@@ -13,7 +13,37 @@ import NavLink from "../components/Auth/NavLink";
 // import Spacer from "../components/Spacer";
 
 const SigninScreen = ({ navigation }) => {
-  //   const { state, signin, clearErrMsg } = useContext(AuthContext);
+    const { state, signin, clearErrMsg, tokenRefresh, autoSignin } = useContext(AuthContext);
+
+    useEffect(()=>{
+      (async()=>{
+        let userInfo = await AsyncStorage.getItem("userInfo");
+        userInfo = JSON.parse(userInfo);
+
+        // console.log(userInfo);
+
+        const now = new Date().getTime();
+        // console.log(now)
+        // console.log(now - userInfo.accessExpiresIn);
+        // console.log(now < userInfo.accessExpiresIn);
+        if(now < userInfo.accessExpiresIn){
+          // console.log("auto")
+          autoSignin();
+          navigation.navigate("Home");
+        } else if (now < userInfo.refreshExpiresIn) {
+          // console.log("refresh");
+          // refresh token
+          tokenRefresh(userInfo.refreshToken, navigation);
+        }
+      })()
+    }, [])
+
+    useEffect(()=>{
+      if(state.errorMessage !== "") {
+        alert(state.errorMessage);
+        clearErrMsg();
+      }
+    }, [state])
 
   return (
     <View style={styles.container}>
@@ -33,10 +63,10 @@ const SigninScreen = ({ navigation }) => {
       <AuthForm
         headerText1="Welcome,"
         headerText2="Sign in to Continue!"
-        // errorMessage={state.errorMessage}
+        errorMessage={state.errorMessage}
         submitButtonText="Sign In"
         routeName="Signin"
-        // onSubmit={signin}
+        onSubmit={signin}
         navigation={navigation}
         style={styles.auth}
       />

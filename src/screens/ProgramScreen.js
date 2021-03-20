@@ -63,8 +63,8 @@ const ProgramScreen = ({ navigation }) => {
                 >
                   <Image
                     style={styles.image}
-                    // source={{ uri: item.imageFile }}
-                    source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
+                    source={{ uri: item.imageFile ? item.imageFile : "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
                   />
                   <View style={styles.nameAndDesView}>
                     <Text 
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
   },
   playlistContainer: {
     flexDirection:'row',
-    marginBottom: 23
+    marginBottom: 23,
+    alignItems: "center"
   },
   image: {
     width: 135,

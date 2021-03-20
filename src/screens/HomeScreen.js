@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Container,
   Header,
@@ -13,7 +13,7 @@ import {
   Text,
 } from "native-base";
 
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 import {
   categoryPlayList as catPlays,
@@ -21,12 +21,20 @@ import {
   playList,
 } from "../demoData";
 
-import { getPrograms, getPlayLists, getCategories } from "../data/api";
+import {
+  getPrograms,
+  getPlayLists,
+  getCategories,
+  getSurveyData,
+} from "../data/api";
 
 // components ===============
 import Update from "../components/Home/Update";
 import SearchIcon from "../components/Search/SearchIcon";
 import ContentListContainer from "../components/Home/ContentListContainer";
+import SurveyNotification from "../components/Home/SurveyNotification";
+
+import { Context as AuthContext } from "../context/AuthContext";
 
 const programId = 1;
 
@@ -34,6 +42,17 @@ const HomeScreen = ({ navigation }) => {
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [survey, setSurvey] = useState([]);
+  const [showSurvey, setShowSurvey] = useState(true);
+  const { state } = useContext(AuthContext);
+
+  if (state.userInfo) {
+    console.log("Home_authId:", state.userInfo.authId);
+  }
+
+  const surveySwitch = () => {
+    setShowSurvey(!showSurvey);
+  };
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -54,14 +73,20 @@ const HomeScreen = ({ navigation }) => {
       setCategories(categoriesArr);
     };
 
+    const getSurveyArr = async () => {
+      const surveyData = await getSurveyData(1);
+      setSurvey(surveyData);
+    };
+
     getProgramArr();
     getPlayListArr();
     getCategoriesArr();
+    getSurveyArr();
   }, []);
 
   return (
-    <Container>
-      <Content>
+    <View style={{ flex: 1 }}>
+      <ScrollView>
         <Update />
         <View style={styles.container}>
           <ContentListContainer
@@ -85,7 +110,6 @@ const HomeScreen = ({ navigation }) => {
               navigation={navigation}
             />
           ) : null}
-
           {programs.length !== 0 ? (
             <ContentListContainer
               title={"Workout Playlists"}
@@ -95,14 +119,29 @@ const HomeScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
-      </Content>
-    </Container>
+      </ScrollView>
+      {showSurvey ? (
+        <View style={styles.bottom}>
+          <SurveyNotification
+            navigation={navigation}
+            close={surveySwitch}
+            data={survey}
+          />
+        </View>
+      ) : null}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginLeft: 25,
+  },
+  bottom: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

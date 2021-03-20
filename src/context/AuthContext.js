@@ -1,5 +1,6 @@
 import { AsyncStorage } from "react-native";
 import createDataContext from "./createDataContext";
+import { API_URL } from "../GLOBAL";
 
 // import a component fetching user info through API
 
@@ -12,9 +13,12 @@ const authReducer = (state, action) => {
     case "add_error":
       return { ...state, errorMessage: action.payload };
     case "signin":
-      return { errorMessage: "", token: action.payload };
+      // return { errorMessage: "", token: action.payload };
+      return { errorMessage: "", userInfo: action.payload };
     case "signout":
-      return { errorMessage: "", token: null };
+      return { errorMessage: "", userInfo: null };
+    case "scheduleAdded":
+      return { ...state, scheduleSwitch: action.payload };
     default:
       return state;
   }
@@ -31,48 +35,166 @@ const tryLocalSignin = (dispatch) => async () => {
   // ======================================
 };
 
-const signin = (dispatch) => async ({ email, password }) => {
+const signin = (dispatch) => async (email, password, navigation) => {
   try {
-    const response = await "ADD POST METHOD like API.post('/signin, {email, password})";
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
+    const response = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `email=${email}&password=${password}&userType=user`,
+    })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        throw error;
+      });
 
-    // navigate to the Home screen after successful signin
-    // Need to use the naviagate function to navigate between pages outside of the components.
-    navigate("Home");
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
+        return json;
+      });
+
+      if (!releasedate.success) {
+        throw "error";
+      }
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
+      dispatch({ type: "signin", payload: releasedate });
+
+      // navigate to the Home screen after successful signin
+      // Need to use the naviagate function to navigate between pages outside of the components.
+      navigation.navigate("Home");
+    } else {
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
+    }
   } catch (error) {
     console.log(error.message);
     dispatch({
       type: "add_error",
-      payload: "Something went wrong with sigh up. Please try again.",
+      payload: "Something went wrong with sign in. Please try again.",
     });
   }
 };
 
-const signup = (dispatch) => async ({ email, password }) => {
-  try {
-    const response = await "ADD POST MEHOD like API.post('/signup, {email, password})";
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
+const autoSignin = (dispatch) => async () => {
+  let userInfo = await AsyncStorage.getItem("userInfo");
+  userInfo = JSON.parse(userInfo);
+  dispatch({ type: "signin", payload: userInfo });
+};
 
-    // navigate to the Home screen after successful signin
-    // Need to use the naviagate function to navigate between pages outside of the components.
-    navigate("Home");
+const scheduleAdded = (dispatch) => async (schedule) => {
+  dispatch({ type: "scheduleAdded", payload: !schedule });
+};
+
+const tokenRefresh = (dispatch) => async (refreshToken, navigation) => {
+  // console.log("refresh token!!!")
+  try {
+    const response = await fetch(`${API_URL}/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `refreshToken=${refreshToken}`,
+    })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
+        return json;
+      });
+
+      if (!releasedate.success) {
+        throw "error";
+      }
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
+      dispatch({ type: "signin", payload: releasedate });
+
+      // navigate to the Home screen after successful signin
+      // Need to use the naviagate function to navigate between pages outside of the components.
+      navigation.navigate("Home");
+    } else {
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const signup = (dispatch) => async (
+  email,
+  password,
+  companyName,
+  employeeId,
+  navigation
+) => {
+  try {
+    const response = await fetch(`${API_URL}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `email=${email}&password=${password}&userType=user&companyName=${companyName}&employeeId=${employeeId}`,
+    })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    if (response.ok) {
+      let releasedate = await response.json().then(async (json) => {
+        return json;
+      });
+
+      if (!releasedate.success) {
+        throw "error";
+      }
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(releasedate));
+      dispatch({ type: "signin", payload: releasedate });
+
+      // navigate to the Home screen after successful signin
+      // Need to use the naviagate function to navigate between pages outside of the components.
+      navigation.navigate("Home");
+    } else {
+      console.log(
+        "Network failed with response " +
+          result.status +
+          ": " +
+          result.statusText
+      );
+    }
   } catch (error) {
     console.log(error.message);
     dispatch({
       type: "add_error",
-      payload: "Something went wrong with sigh up. Please try again.",
+      payload: "Something went wrong with sign up. Please try again.",
     });
   }
 };
 
 const signout = (dispatch) => async () => {
-  await AsyncStorage.removeItem("token");
-  dispatch({ type: "signout" });
-  // ======================================
-  navigate("Signin");
-  // ======================================
+  // console.log("signout");
+  await AsyncStorage.removeItem("userInfo");
 };
 
 const clearErrMsg = (dispatch) => () => {
@@ -87,6 +209,9 @@ export const { Provider, Context } = createDataContext(
     signup,
     signout,
     clearErrMsg,
+    tokenRefresh,
+    autoSignin,
+    scheduleAdded,
   },
-  { token: null, errorMessage: "" }
+  { token: null, errorMessage: "", scheduleSwitch: false }
 );

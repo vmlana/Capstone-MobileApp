@@ -20,63 +20,56 @@ import TrainerName from "../Trainer/TrainerName";
 import { getCategories } from "../../data/api";
 
 const ContentContainer = ({ navigation, result, type }) => {
+  // type !== "cat" && type !== "playlists"
+  //   ? console.log("program list", result)
+  //   : null;
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           {
-            type === "playlists" ?
-              navigation.navigate("PlayList", {
-                singleVideoData: result.lessons,
-                playListData: result,
-              })
-            : type === "cat" ?
-            navigation.navigate("Category", {
-                category: result,
-              })
-            :
-            navigation.navigate("Program", {
-                program: result,
-              })
-            }
+            type === "playlists"
+              ? navigation.navigate("PlayList", {
+                  singleVideoData: result.lessons,
+                  playListData: result,
+                })
+              : type === "cat"
+              ? navigation.navigate("Category", {
+                  category: result,
+                })
+              : navigation.navigate("Program", {
+                  program: result,
+                });
           }
-        }
+        }}
       >
-        <ThumbNail
-          type={type}
-          source={{ uri: "https://dummyimage.com/150x150/000/fff" }}
-        />
+        <ThumbNail type={type} source={{ uri: result.imageFile }} />
       </TouchableOpacity>
-      { type === "playlists" ? (
-        <Text>{result.playlistName}</Text>
+      {type === "playlists" ? (
+        <Text style={styles.contentTitle}>{result.playlistName}</Text>
       ) : type === "cat" ? (
-        <Text>{result.name}</Text>
+        <Text style={styles.contentTitle}>{result.name}</Text>
       ) : null}
 
       {type === "playlists" ? (
         <TrainerName data={result} navigation={navigation} />
       ) : type === "programs" ? (
         <View style={styles.playListContainer}>
-          <Text>{result.programName}</Text>
+          <Text style={styles.contentTitle}>{result.programName}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="checkbox-multiple-blank-outline"
               size={15}
-              color="black"
-              style={{ marginRight: 5, alignItems: "center" }}
+              color="#707070"
+              style={{ marginRight: 5, alignItems: "center", paddingTop: 3 }}
             />
-            <Text>{
-              result.lessons ?
-              result.lessons.length :
-              null
-              }</Text>
+            <Text>{result.lessons ? result.lessons.length : null}</Text>
           </View>
         </View>
       ) : null}
     </View>
   );
-
 };
 
 const styles = StyleSheet.create({
@@ -86,26 +79,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginRight: 20,
   },
-  trainerContainer: {
-    flexDirection: "row",
-    marginTop: 7,
-    alignItems: "center",
-  },
-  trainerThumb: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
-  },
+
   playListContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+
+  contentTitle: {
+    fontSize: 17,
+    lineHeight: 15,
+    color: "#707070",
+    paddingTop: 5,
   },
 });
 
 const ThumbNail = styled.Image`
   width: ${({ type }) => (type === "cat" ? "160px" : "140px")};
   height: ${({ type }) => (type === "cat" ? "140px" : "140px")};
-  border-radius: 4px;
+  border-radius: 5px;
   margin-bottom: 5px;
 `;
 

@@ -1,11 +1,17 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
+
+import moment from "moment";
+
+import { createSchedule } from "../../data/api";
+
+import { Context as AuthContext } from "../../context/AuthContext";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,26 +21,70 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Reminder = ({ onPress, dateTime }) => {
+const Reminder = ({
+  onPress,
+  userId,
+  playListData,
+  milSec,
+  dateTime,
+  bookedDateTime,
+}) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [min, setMin] = useState(0);
+  const [minutes, setMinutes] = useState(10);
+
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const setMinTime = (val) => {
-    setMin(val);
+    const minToMilSec = val * 60000;
+    setMin(minToMilSec);
+    setMinutes(val);
   };
 
+  const now = new Date();
+  const currentMil = now.getTime();
+
+  async function scheduleAndCancel() {
+    const identifier = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hey!",
+      },
+      trigger: { seconds: 5, repeats: true },
+    });
+    await Notifications.cancelScheduledNotificationAsync(identifier);
+  }
+
   const schedulePushNotification = async (time) => {
+    // console.log("notification time", milSec - min - currentMil);
+
+    const reminderData = {
+      userId: userId,
+      programId: null,
+      playlistId: playListData.playlistId,
+      scheduleDate: bookedDateTime,
+      reminderMinutes: minutes,
+    };
+
+    onPress();
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got mail! 📬",
-        body: "Here is the notification body",
+        title: "It's about time to move your body! 📬",
+        body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
-      trigger: { seconds: time },
+      trigger: { seconds: 1 },
+      //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
+
+    async function newList() {
+      await createSchedule(reminderData);
+
+      scheduleAdded(state.scheduleSwitch);
+    }
+    newList();
   };
 
   const registerForPushNotificationsAsync = async () => {
@@ -113,13 +163,13 @@ const Reminder = ({ onPress, dateTime }) => {
           <View>
             <Text
               style={{
-                marginVertical: 10,
+                marginVertical: 5,
                 fontSize: 16,
                 fontWeight: "bold",
                 color: "white",
               }}
             >
-              Session Name
+              {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
               <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
@@ -129,7 +179,13 @@ const Reminder = ({ onPress, dateTime }) => {
             </View>
           </View>
 
-          <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              alignSelf: "center",
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -153,6 +209,7 @@ const Reminder = ({ onPress, dateTime }) => {
                   paddingVertical: 5,
                   borderRadius: 5,
                   color: "black",
+                  zIndex: 1,
                 }}
               >
                 mins
@@ -165,7 +222,7 @@ const Reminder = ({ onPress, dateTime }) => {
         <Button
           title="Done"
           onPress={async () => {
-            await schedulePushNotification(min, onPress);
+            await schedulePushNotification(min);
           }}
           buttonStyle={styles.reminderSetBtn}
           titleStyle={{ color: "#624A99" }}
@@ -235,7 +292,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginRight: 20,
   },
-  //   reminderPicker: {},
+  //   reminderPicker: { zIndex: 100 },
   reminderSetBtn: {
     width: "100%",
     backgroundColor: "white",
