@@ -236,6 +236,23 @@ export const getSurveyData = async (surveyId) => {
   return result;
 };
 
+export const postSurvey = async (surveyAnswers) => {
+  const newSurvey = await fetch(`${API_URL}/survey`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(surveyAnswers),
+  })
+    .then((response) => response.text())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => console.error(error));
+
+  return newSurvey;
+};
+
 export const createSchedule = async (scheduleData) => {
   const newSchedule = await fetch(`${API_URL}/schedules`, {
     method: "POST",
