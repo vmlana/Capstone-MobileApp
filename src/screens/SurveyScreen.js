@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import SurveyList from "../components/Survey/SurveyList";
 import { Button } from "react-native-elements";
-import { postSurvey } from "../data/api";
+import { getSurveyData, postSurvey } from "../data/api";
 import bcgimg from "../../assets/TextBG.png";
 
 import { Context as AuthContext } from "../context/AuthContext";
 
 const SurveyScreen = ({ navigation }) => {
-  const surveyData = navigation.getParam("surveyData");
+  const surveyId = navigation.getParam("surveyData");
   const [text, setText] = useState("");
   const [answers, setAnswers] = useState([]);
   const [surveys, setSurveys] = useState([]);
@@ -23,15 +23,20 @@ const SurveyScreen = ({ navigation }) => {
   const { state } = useContext(AuthContext);
 
   useEffect(() => {
-    surveyData.questions.map((question, index) =>
-      setAnswers((old) => [
-        ...old,
-        {
-          questionId: question.questionId,
-          answerValue: "1",
-        },
-      ])
-    );
+    (async () => {
+      const surveyData = await getSurveyData(surveyId);
+      setSurveys(surveyData);
+
+      surveyData.questions.map((question, index) =>
+        setAnswers((old) => [
+          ...old,
+          {
+            questionId: question.questionId,
+            answerValue: "1",
+          },
+        ])
+      );
+    })();
   }, []);
 
   const onPick = async (indexVal, value, questionId) => {

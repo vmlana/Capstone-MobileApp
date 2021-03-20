@@ -1,4 +1,5 @@
 import { API_URL } from "../GLOBAL";
+// import { useContext } from "react";
 
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
@@ -297,9 +298,13 @@ export const getLessonById = async (lessonId) => {
   return result;
 };
 
-export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructorId) => {
-
-  const blogs = await fetch(`${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`)
+export const getBlogsByCategoryIdAndInstructorId = async (
+  categoryId,
+  instructorId
+) => {
+  const blogs = await fetch(
+    `${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`
+  )
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -312,9 +317,7 @@ export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructor
 };
 
 export const getUserData = async (userId) => {
-  const userData = await fetch(
-    `${API_URL}/user?userId=${userId}`
-  )
+  const userData = await fetch(`${API_URL}/user?userId=${userId}`)
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -325,4 +328,3 @@ export const getUserData = async (userId) => {
     .catch((error) => console.error(error));
   return userData;
 };
-

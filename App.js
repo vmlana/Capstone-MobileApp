@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 // Redux
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { SearchProvider } from "./src/context/searchContext";
 import { setNavigator } from "./src/navigationRef";
 
-import { View, Button, StyleSheet, Text, } from "react-native";
+import { View, Button, StyleSheet, Text } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
@@ -17,7 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Tab } from "native-base";
 
 import * as Font from "expo-font";
-import AppLoading from 'expo-app-loading';
+import AppLoading from "expo-app-loading";
 // import { AppLoading } from "expo";
 
 // LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -36,10 +36,10 @@ import SetScheduleScreen from "./src/screens/SetScheduleScreen";
 import SearchIcon from "./src/components/Search/SearchIcon";
 import CloseIcon from "./src/components/Search/CloseIcon";
 
-import TrainerScreen from './src/screens/TrainerScreen';
-import CategoryScreen from './src/screens/CategoryScreen';
-import ProgramScreen from './src/screens/ProgramScreen';
-import BlogListScreen from './src/screens/BlogListScreen';
+import TrainerScreen from "./src/screens/TrainerScreen";
+import CategoryScreen from "./src/screens/CategoryScreen";
+import ProgramScreen from "./src/screens/ProgramScreen";
+import BlogListScreen from "./src/screens/BlogListScreen";
 import SurveyScreen from "./src/screens/SurveyScreen";
 
 // The most top will be initially renddered
@@ -104,10 +104,11 @@ const HomeStack = createStackNavigator(
       headerRight: () => <SearchIcon />,
       headerBackTitle: " ",
       headerTitleStyle: {
-        fontWeight: "normal",
+        // fontWeight: "normal",
         textAlign: "center",
         color: "#7561A4",
         fontSize: 28,
+        fontFamily: "GothamRoundedLight_21020",
       },
     },
   }
@@ -236,14 +237,14 @@ const AppNavigator = createSwitchNavigator({
 
 const AppContainer = createAppContainer(AppNavigator);
 
-const fetchFonts = async() => {
+const fetchFonts = async () => {
   return await Font.loadAsync({
-   "GothamRoundedBold_21016" : require("./assets/fonts/GothamRoundedBold_21016.ttf"),
-   "GothamRoundedBook_21018" : require("./assets/fonts/GothamRoundedBook_21018.ttf"),
-   "GothamRoundedLight_21020" : require("./assets/fonts/GothamRoundedLight_21020.ttf"),
-   "GothamRoundedMedium_21022" : require("./assets/fonts/GothamRoundedMedium_21022.ttf")
+    GothamRoundedBold_21016: require("./assets/fonts/GothamRoundedBold_21016.ttf"),
+    GothamRoundedBook_21018: require("./assets/fonts/GothamRoundedBook_21018.ttf"),
+    GothamRoundedLight_21020: require("./assets/fonts/GothamRoundedLight_21020.ttf"),
+    GothamRoundedMedium_21022: require("./assets/fonts/GothamRoundedMedium_21022.ttf"),
   });
- };
+};
 
 export default () => {
   const [fontLoaded, setFontLoaded] = useState(false);
