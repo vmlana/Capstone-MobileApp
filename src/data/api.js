@@ -294,3 +294,18 @@ export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructor
   return blogs;
 };
 
+export const getUserData = async (userId) => {
+  const userData = await fetch(
+    `${API_URL}/user?userId=${userId}`
+  )
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return userData;
+};
+
