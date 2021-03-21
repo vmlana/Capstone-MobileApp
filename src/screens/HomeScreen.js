@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
 
     const getUserDataArr = async () => {
       const userData = await getUserData(state.userInfo.authId);
-      console.log(userData);
+      // console.log(userData);
       setUserInfo(userData);
     };
 
@@ -89,13 +89,13 @@ const HomeScreen = ({ navigation }) => {
     getUserDataArr();
   }, [state]);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   if (state.userInfo) {
     // console.log("Home_authId:", state.userInfo);
   }
 
-  console.log("userData", userInfo);
+  // console.log("userData", userInfo);
 
   return (
     <View style={{ flex: 1 }}>
