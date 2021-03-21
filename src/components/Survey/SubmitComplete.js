@@ -5,11 +5,15 @@ const SubmitComplete = () => {
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        <View>
-          <Text h4 style={{ color: "white" }}>
-            Complete Submitted
-          </Text>
-        </View>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 16,
+            fontFamily: "GothamRoundedMedium_21022",
+          }}
+        >
+          Complete Submitted
+        </Text>
       </View>
     </View>
   );
@@ -29,7 +33,8 @@ const styles = StyleSheet.create({
   modalView: {
     width: "80%",
     height: "20%",
-    justifyContent: "space-between",
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#624A99",
     borderRadius: 20,
