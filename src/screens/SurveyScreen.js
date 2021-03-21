@@ -82,7 +82,7 @@ const SurveyScreen = ({ navigation }) => {
     setTimeout(() => {
       setSubmitted(false);
       navigation.navigate("Home");
-    }, 2000);
+    }, 1500);
   };
 
   return (
