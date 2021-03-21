@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, ScrollView, View } from "react-native";
 import { RadioButton, Text } from "react-native-paper";
+import { colors } from "../../colors";
 
 const SurveyList = ({ data, onPick, indexVal }) => {
   const [value, setValue] = useState("1");
@@ -34,7 +35,11 @@ const SurveyList = ({ data, onPick, indexVal }) => {
                 top: 10,
               }}
             ></View> */}
-            <Text style={styles.text}>{survey.optionDescription}</Text>
+            <Text
+              style={{ ...styles.text, fontFamily: "GothamRoundedBook_21018" }}
+            >
+              {survey.optionDescription}
+            </Text>
           </View>
         ))}
       </RadioButton.Group>
@@ -44,7 +49,7 @@ const SurveyList = ({ data, onPick, indexVal }) => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 15,
-    color: "#707070",
+    color: "#767676",
   },
 });
 
