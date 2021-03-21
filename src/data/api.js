@@ -234,6 +234,7 @@ export const getSurveyData = async (surveyId) => {
       }
     })
     .catch((error) => console.error(error));
+  console.log("in api call", result);
   return result;
 };
 

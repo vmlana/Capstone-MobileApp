@@ -48,9 +48,9 @@ const HomeScreen = ({ navigation }) => {
   const [showSurvey, setShowSurvey] = useState(true);
   const { state } = useContext(AuthContext);
 
-  //   const surveySwitch = () => {
-  //     setShowSurvey(!showSurvey);
-  //   };
+  const surveySwitch = () => {
+    setShowSurvey(!showSurvey);
+  };
 
   useEffect(() => {
     const getProgramArr = async () => {
@@ -97,6 +97,8 @@ const HomeScreen = ({ navigation }) => {
 
   // console.log("userData", userInfo);
 
+  //   console.log(userInfo.surveys[0].surveyId);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -136,15 +138,18 @@ const HomeScreen = ({ navigation }) => {
           ) : null}
         </View>
       </ScrollView>
-      {/* {userInfo.length > 0 && userInfo.surveys.length > 0 ? (
-        <View style={styles.bottom}>
-          <SurveyNotification
-            navigation={navigation}
-            close={surveySwitch}
-            data={userInfo.surveys[0].surveyId}
-          />
-        </View>
-      ) : null} */}
+
+      {userInfo && showSurvey ? (
+        userInfo.surveys ? (
+          <View style={styles.bottom}>
+            <SurveyNotification
+              navigation={navigation}
+              close={surveySwitch}
+              data={userInfo.surveys[0].surveyId}
+            />
+          </View>
+        ) : null
+      ) : null}
     </View>
   );
 };
