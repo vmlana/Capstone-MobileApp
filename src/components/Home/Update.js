@@ -24,7 +24,7 @@ const Update = ({ weekWorkout }) => {
 		},
 		{
 			imgeUri: winnerImageUri,
-			color: '#F59C60',
+			color: '#FBA76E',
 			text: 'Bravo!'
 		}
 	]

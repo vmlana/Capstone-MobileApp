@@ -29,7 +29,7 @@ const TrainerName = ({ navigation, data, blog }) => {
     >
       <Thumbnail
         small
-        source={{ uri: instructorInfo.imageFile }}
+        source={{ uri: (instructorInfo.imageFile ? instructorInfo.imageFile : data.instructorImage) }}
         style={styles.thumbNail}
       />
       <Text
