@@ -32,6 +32,7 @@ const CustomDayComponent = (props) => {
                     :
                     (
                         <ProgressCircle
+                            percent={0}
                             radius={17}
                             borderWidth={0}
                             color="#FBA76E"
