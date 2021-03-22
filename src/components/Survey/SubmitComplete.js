@@ -12,7 +12,7 @@ const SubmitComplete = () => {
             fontFamily: "GothamRoundedMedium_21022",
           }}
         >
-          Complete Submitted
+          Thank you for your feedback
         </Text>
       </View>
     </View>
