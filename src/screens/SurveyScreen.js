@@ -19,18 +19,18 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { colors } from "../colors";
 
 const SurveyScreen = ({ navigation }) => {
-  const surveyId = navigation.getParam("surveyData");
+  const surveyDataset = navigation.getParam("surveyData");
   const [text, setText] = useState("");
   const [answers, setAnswers] = useState([]);
   const [surveys, setSurveys] = useState("");
   const [isPicked, setIsPicked] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const { state } = useContext(AuthContext);
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   useEffect(() => {
     const getSurvey = async () => {
-      const surveyData = await getSurveyData(surveyId);
-      console.log("useEffect surveyData", surveyData);
+      const surveyData = await getSurveyData(surveyDataset.surveyId);
+      //   console.log("useEffect surveyData", surveyData);
       setSurveys(surveyData);
 
       surveyData.questions.map((question, index) =>
@@ -71,13 +71,14 @@ const SurveyScreen = ({ navigation }) => {
   const onSubmit = () => {
     const surveyAnswers = {
       userId: state.userInfo.authId,
-      surveyId: surveyId,
-      programId: null,
+      surveyId: surveyDataset.surveyId,
+      programId: surveyDataset.programId,
       answers: answers,
     };
 
     postSurvey(surveyAnswers);
     setSubmitted(true);
+    scheduleAdded(state.scheduleSwitch);
 
     setTimeout(() => {
       setSubmitted(false);
