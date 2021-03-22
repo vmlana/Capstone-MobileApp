@@ -1,13 +1,12 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component } from "react";
 import { View, Text } from "react-native";
-import CalendarStrip from 'react-native-calendar-strip';
-import moment from 'moment';
+import CalendarStrip from "react-native-calendar-strip";
+import moment from "moment";
 import { getDashboardData } from "../../data/api";
 import CustomDayComponent from './CustomDayComponent';
 
-
-
 const Calendar = ({ userId }) => {
+
 	const [startDate, setStartDate] = useState('2021-02-15')
 	// const [endDate, setEndDate] = useState(moment().subtract(7, "days").format('YYYY-MM-DD'))
 	const [customDatesStyles, setCustomDatesStyles] = useState([])
@@ -99,4 +98,5 @@ const Calendar = ({ userId }) => {
 }
 
 export default Calendar
+
 

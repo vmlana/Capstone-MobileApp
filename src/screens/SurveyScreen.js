@@ -6,25 +6,31 @@ import {
   ScrollView,
   TextInput,
   Image,
+  Modal,
 } from "react-native";
 import SurveyList from "../components/Survey/SurveyList";
+import SubmitComplete from "../components/Survey/SubmitComplete";
 import { Button } from "react-native-elements";
 import { getSurveyData, postSurvey } from "../data/api";
 import bcgimg from "../../assets/TextBG.png";
 
 import { Context as AuthContext } from "../context/AuthContext";
 
+import { colors } from "../colors";
+
 const SurveyScreen = ({ navigation }) => {
-  const surveyId = navigation.getParam("surveyData");
+  const surveyDataset = navigation.getParam("surveyData");
   const [text, setText] = useState("");
   const [answers, setAnswers] = useState([]);
-  const [surveys, setSurveys] = useState([]);
+  const [surveys, setSurveys] = useState("");
   const [isPicked, setIsPicked] = useState(false);
-  const { state } = useContext(AuthContext);
+  const [submitted, setSubmitted] = useState(false);
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   useEffect(() => {
-    (async () => {
-      const surveyData = await getSurveyData(surveyId);
+    const getSurvey = async () => {
+      const surveyData = await getSurveyData(surveyDataset.surveyId);
+      //   console.log("useEffect surveyData", surveyData);
       setSurveys(surveyData);
 
       surveyData.questions.map((question, index) =>
@@ -36,7 +42,9 @@ const SurveyScreen = ({ navigation }) => {
           },
         ])
       );
-    })();
+    };
+
+    getSurvey();
   }, []);
 
   const onPick = async (indexVal, value, questionId) => {
@@ -63,46 +71,95 @@ const SurveyScreen = ({ navigation }) => {
   const onSubmit = () => {
     const surveyAnswers = {
       userId: state.userInfo.authId,
-      surveyId: surveyData.surveyId,
-      programId: null,
+      surveyId: surveyDataset.surveyId,
+      programId: surveyDataset.programId,
       answers: answers,
     };
+
     postSurvey(surveyAnswers);
+    setSubmitted(true);
+    scheduleAdded(state.scheduleSwitch);
+
+    setTimeout(() => {
+      setSubmitted(false);
+      navigation.navigate("Home");
+    }, 1500);
   };
 
   return (
     <ScrollView style={styles.container}>
       <View>
         <Image source={bcgimg} />
-        <Text h3 style={styles.headerText}>
+        <Text
+          h3
+          style={{
+            ...styles.headerText,
+            fontFamily: "GothamRoundedMedium_21022",
+          }}
+        >
           Please select the option that best {"\n"} suits your experience with
           us
         </Text>
       </View>
 
-      {surveyData.questions.map((survey, index) => (
-        <View key={index} style={styles.quiz}>
-          <View>
-            <Text style={styles.question}>{survey.questionDescription}</Text>
+      {surveys ? (
+        surveys.questions.map((survey, index) => (
+          <View key={index} style={styles.quiz}>
+            <View>
+              <Text
+                style={{
+                  ...styles.question,
+                  fontFamily: "GothamRoundedMedium_21022",
+                }}
+              >
+                {survey.questionDescription}
+              </Text>
+            </View>
+            <SurveyList
+              data={survey}
+              onPick={onPick}
+              indexVal={index}
+              onPress={onSubmit}
+            />
           </View>
-          <SurveyList
-            data={survey}
-            onPick={onPick}
-            indexVal={index}
-            onPress={onSubmit}
-          />
-        </View>
-      ))}
-      <TextInput
-        multiline={true}
-        numberOfLines={Platform.OS === "ios" ? null : 6}
-        minHeight={Platform.OS === "ios" && 6 ? 20 * 6 : null}
-        onChangeText={(text) => updateText(text)}
-        value={text}
-        autoCorrect={false}
-        style={styles.textArea}
+        ))
+      ) : (
+        <Text
+          style={{ ...styles.question, fontFamily: "GothamRoundedBook_21018" }}
+        >
+          Loading...
+        </Text>
+      )}
+      {surveys ? (
+        <TextInput
+          multiline={true}
+          numberOfLines={Platform.OS === "ios" ? null : 6}
+          minHeight={Platform.OS === "ios" && 6 ? 20 * 6 : null}
+          onChangeText={(text) => updateText(text)}
+          value={text}
+          autoCorrect={false}
+          style={styles.textArea}
+        />
+      ) : null}
+
+      <Button
+        title="Submit Survey"
+        buttonStyle={{
+          ...styles.button,
+          fontFamily: "GothamRoundedBook_21018",
+        }}
+        onPress={onSubmit}
       />
-      <Button title="Submit" buttonStyle={styles.button} onPress={onSubmit} />
+
+      <Modal
+        transparent={true}
+        visible={submitted}
+        onRequestClose={() => {
+          submitted;
+        }}
+      >
+        <SubmitComplete />
+      </Modal>
     </ScrollView>
   );
 };
@@ -144,8 +201,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   question: {
-    color: "#707070",
-    fontSize: 16,
+    color: "#767676",
+    fontSize: 17,
     fontWeight: "bold",
     marginTop: 10,
     marginBottom: 5,
