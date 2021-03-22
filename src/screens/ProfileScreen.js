@@ -47,9 +47,9 @@ const ProfileScreen = ({ navigation }) => {
     })();
   }, []);
 
-	return (
-		<Container>
-			<Content style={styles.container}>
+  return (
+    <Container>
+      <Content style={styles.container}>
         <View style={styles.subContainer}>
           <UserInfo imageFile={dashboard.imageFile} userName={dashboard.userName} department={dashboard.department} userId={dashboard.userId} />
           <View style={styles.workoutProgress}>
@@ -87,9 +87,9 @@ const ProfileScreen = ({ navigation }) => {
             width: '100%',
             // height: "100%",
           }}>
-          <Contact signout={()=>{
-              signout();
-              navigation.navigate("Signin");
+          <Contact signout={() => {
+            signout();
+            navigation.navigate("Signin");
           }} />
         </ImageBackground>
         {/* <TouchableOpacity
@@ -119,11 +119,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
   },
   progressMessage: {
-    textAlign: "center",
     color: "#FFFFFF",
     fontSize: 17,
     lineHeight: 20,
     fontWeight: "bold",
+    maxWidth: 200,
+    margin: 0,
+    marginLeft: "auto",
+    marginRight: "auto",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: "#9383B9",
+    borderRadius: 7,
   },
   progressGreet: {
     color: "#FFFFFF",

@@ -5,14 +5,15 @@ import {
     Thumbnail
 } from "native-base"
 
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 
 import { getInstructorInfo } from '../data/api'
+import ContentContainer from '../components/Home/ContentContainer'
 
 const TrainerScreen = ({ navigation }) => {
 
     const { container, instructorPrimary, nameSpeciality, speciality, thumbnail, trainerName, trainerSpeciality, trainerResume, trainerContact, trainerEmail,
-        recommendedHeader } = styles
+        recommendedHeader, recommendedContent } = styles
 
     const [instructorInfo, setinstructorInfo] = useState([]);
 
@@ -25,8 +26,8 @@ const TrainerScreen = ({ navigation }) => {
     }, [])
 
     return (
-        <Container style={container}>
-            <Content>
+        <ScrollView>
+            <View style={container}>
                 <View style={instructorPrimary}>
                     {
                         instructorInfo.imageFile == null
@@ -36,26 +37,42 @@ const TrainerScreen = ({ navigation }) => {
                             <Thumbnail large source={{ uri: instructorInfo.imageFile }} style={thumbnail} />
                     }
                     <View style={nameSpeciality}>
-
                         <Text style={trainerName}>{instructorInfo.instructorName}</Text>
                         <Text style={speciality}>Speciality: <Text style={trainerSpeciality}>{instructorInfo.specializationArea}</Text></Text>
                     </View>
                 </View>
-
                 <Text style={trainerResume}>{instructorInfo.resume}</Text>
                 <Text style={trainerContact}>Contact: <Text style={trainerEmail}>{instructorInfo.userLogin}</Text></Text>
+                <Text style={recommendedHeader}>Recommended Sessions by same trainer {console.log(instructorInfo)}</Text>
 
-                <View>
-                    <Text style={recommendedHeader}>Recommended Sessions by same trainer</Text>
-                </View>
-            </Content>
-        </Container>
+            </View>
+            <View style={recommendedContent}>
+                <FlatList
+                    style={{ marginBottom: 20 }}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={instructorInfo.playlists}
+                    keyExtractor={(item, index) => {
+                        return item.toString() + index;
+                    }}
+                    renderItem={({ item }) => (
+                        <ContentContainer
+                            result={item}
+                            type='playlists'
+                            navigation={navigation}
+                        />
+                    )}
+
+                // numColumns={2}
+                />
+            </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 33
+        padding: 25
     },
     instructorPrimary: {
         display: 'flex',
@@ -97,6 +114,7 @@ const styles = StyleSheet.create({
     trainerContact: {
         fontSize: 15,
         lineHeight: 29,
+        marginTop: 32,
         color: '#707070'
     },
     trainerEmail: {
@@ -104,10 +122,14 @@ const styles = StyleSheet.create({
     },
     recommendedHeader: {
         fontSize: 22,
+        fontWeight: 'bold',
         color: '#707070',
         lineHeight: 26,
         textAlign: 'center',
-        marginTop: 50
+        marginTop: 50,
+    },
+    recommendedContent: {
+        paddingLeft: 25
     }
 });
 
