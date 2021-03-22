@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
   const [survey, setSurvey] = useState([]);
   const [showSurvey, setShowSurvey] = useState(true);
-  const { state } = useContext(AuthContext);
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const surveySwitch = () => {
     setShowSurvey(!showSurvey);
@@ -139,13 +139,13 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      {userInfo && showSurvey ? (
-        userInfo.surveys ? (
+      {userInfo.length !== 0 && showSurvey ? (
+        userInfo.surveys.length !== 0 ? (
           <View style={styles.bottom}>
             <SurveyNotification
               navigation={navigation}
               close={surveySwitch}
-              data={userInfo.surveys[0].surveyId}
+              data={userInfo.surveys[0]}
             />
           </View>
         ) : null
