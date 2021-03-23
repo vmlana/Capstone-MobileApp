@@ -16,7 +16,7 @@ import { scheduleNotificationAsync } from "expo-notifications";
 import moment from "moment";
 
 const ReminderList = ({ navigation, getScheduleArr }) => {
-  const { state } = useContext(AuthContext);
+  const { state, scheduleAdded } = useContext(AuthContext);
   const [allScheduleData, setAllScheduleData] = useState([]);
   const [deleteSwitcher, setDeleteSwitcher] = useState(false);
   const [reminderVisible, setReminderVisible] = useState(false);
@@ -55,10 +55,9 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
       setAllScheduleData(allUserScheduleData);
       getScheduleArr(allUserScheduleData);
     };
-    getScheduleList();
-  }, [state.scheduleSwitch, deleteSwitcher]);
 
-  //   console.log("playlistdata", playListData);
+    getScheduleList();
+  }, [state.scheduleSwitch]);
 
   return (
     <View>
@@ -70,9 +69,13 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
                 text: "Delete",
                 backgroundColor: "#ba0c00",
                 onPress: () => {
-                  deleteSchedule(data.scheduleId),
-                    setDeleteSwitcher(!deleteSwitcher),
-                    console.log("delete called");
+                  deleteSchedule(data.scheduleId).then((result) => {
+                    console.log("delete data complete");
+                    return scheduleAdded(state.scheduleSwitch);
+                  });
+                  // setDeleteSwitcher(!deleteSwitcher),
+
+                  console.log("delete called");
                 },
               },
             ]}

@@ -234,7 +234,7 @@ export const getSurveyData = async (surveyId) => {
       }
     })
     .catch((error) => console.error(error));
-  console.log("in api call", result);
+
   return result;
 };
 
@@ -270,7 +270,7 @@ export const createSchedule = async (scheduleData) => {
 };
 
 export const deleteSchedule = async (scheduleId) => {
-  const deleteSceduleData = await fetch(
+  const deleteScheduleData = await fetch(
     `${API_URL}/schedules?scheduleId=${scheduleId}`,
     {
       method: "DELETE",

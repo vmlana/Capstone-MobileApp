@@ -21,6 +21,7 @@ import { Directions } from "react-native-gesture-handler";
 import { Context as AuthContext } from "../context/AuthContext";
 import { playList } from "../demoData";
 import { createSchedule, getUserScheduleData } from "../data/api";
+import { createIconSetFromFontello } from "@expo/vector-icons";
 
 const today = new Date();
 const todaysDate = today.toISOString().slice(0, 10);
@@ -57,9 +58,30 @@ const SetScheduleScreen = ({ navigation }) => {
   };
 
   const handleConfirm = (time) => {
-    const utcTime = new Date(time.getTime() - time.getTimezoneOffset() * 60000);
-    const dateGot = utcTime.toISOString().split("T")[0];
-    const pickedDateTime = utcTime.toISOString().replace(dateGot, pressedDay);
+    const localTime = new Date(
+      time.getTime() - time.getTimezoneOffset() * 60000
+    );
+    const dateGot = localTime.toISOString().split("T")[0];
+    // const dateGot = time.toISOString().split("T")[0];
+    // console.log("dateGot&pressedDate", dateGot, pressedDay);
+    // console.log("time", time);
+    // console.log(
+    //   "utcTimetoPass",
+    //   localTime.toISOString().split("T")[1].slice(0, -1)
+    // );
+    const selectedLocalTime = localTime
+      .toISOString()
+      .split("T")[1]
+      .slice(0, -7);
+    const selectedLoaclDateandTime = pressedDay + "T" + selectedLocalTime;
+    const pickedDateTime = new moment(
+      selectedLoaclDateandTime,
+      "YYYY-MM-DDTHH:mm"
+    ).utc();
+    // console.log("SLDT", selectedLoaclDateandTime);
+    // console.log("final utc date and time", finalDateUTC);
+    // const pickedDateTime = time.toISOString().replace(dateGot, pressedDay);
+    // const pickedDateTime = localTime.toISOString().replace(dateGot, pressedDay);
     const readableDateTime = moment(pickedDateTime).format("MMM Do, h:mm a");
 
     const scheduleData = {
@@ -73,7 +95,7 @@ const SetScheduleScreen = ({ navigation }) => {
     setTimePickerVisibility(false);
     async function newList() {
       await createSchedule(scheduleData);
-      setChange(!change);
+      //   setChange(!change);
       scheduleAdded(state.scheduleSwitch);
     }
     newList();
@@ -107,22 +129,24 @@ const SetScheduleScreen = ({ navigation }) => {
   }, [scheduleDataArr]);
 
   useEffect(() => {
-    const getScheduleArr = async () => {
-      const scheduleListArr = await getUserScheduleData(
-        state.userInfo.authId,
-        playListData.playlistId
-      );
-      const x = await scheduleListArr.map((schedule) => {
-        let testDateTime = new Date(schedule.scheduleDate.toLocaleString());
-        let localTime = moment(testDateTime).format();
-        return localTime;
-      });
+    const getScheduleArr = async (userId, playlistId) => {
+      let scheduleListArr = await getUserScheduleData(userId, playlistId);
 
-      setscheduleDataArr(x);
+      if (scheduleListArr !== null) {
+        const x = await scheduleListArr.map((schedule) => {
+          let testDateTime = new Date(schedule.scheduleDate.toLocaleString());
+          let localTime = moment(testDateTime).format();
+          return localTime;
+        });
+
+        setscheduleDataArr(x);
+      } else {
+        setscheduleDataArr([]);
+      }
     };
 
-    getScheduleArr();
-  }, [change]);
+    getScheduleArr(state.userInfo.authId, playListData.playlistId);
+  }, [state.scheduleSwitch]);
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
