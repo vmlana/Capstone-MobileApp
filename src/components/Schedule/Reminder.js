@@ -39,6 +39,9 @@ const Reminder = ({
 
   const { state, scheduleAdded } = useContext(AuthContext);
 
+  const dateDatatoPasstoDB = new Date(bookedDateTime).toISOString();
+  console.log("in reminder", dateDatatoPasstoDB);
+
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
@@ -65,7 +68,7 @@ const Reminder = ({
       userId: userId,
       programId: null,
       playlistId: playListData.playlistId,
-      scheduleDate: bookedDateTime,
+      scheduleDate: dateDatatoPasstoDB,
       reminderMinutes: minutes,
     };
 

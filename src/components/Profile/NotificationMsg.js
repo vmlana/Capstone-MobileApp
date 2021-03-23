@@ -12,15 +12,24 @@ const NotificationMsg = ({ onPress, scheduleArr }) => {
 
   const notificationReset = async () => {
     await scheduleArr.map((schedule) => {
-      let testDateTime = new Date(schedule.scheduleDate.toLocaleString());
-      let localTime = moment(testDateTime).format();
+      //   const dateDatatoPasstoDB = new Date(schedule).toISOString();
+
+      //   let testDateTime = new Date(schedule.scheduleDate.toLocaleString());
+      //   let localTime = moment(testDateTime).format();
+
+      //   const selectedLocalDateandTime = schedule.scheduleDate.slice(0, -7);
+      //   const pickedDateTime = new moment(
+      //     selectedLocalDateandTime,
+      //     "YYYY-MM-DDTHH:mm"
+      //   ).utc();
+
+      //   console.log("pickedDateTime", schedule);
 
       const dataToSend = {
         userId: schedule.userId,
-        scheduleDate: localTime,
+        scheduleDate: schedule.scheduleDate,
         reminderMinutes: 0,
         programId: null,
-        programName: null,
         playlistId: schedule.playlistId,
       };
 
@@ -31,7 +40,7 @@ const NotificationMsg = ({ onPress, scheduleArr }) => {
   const cancel = async () => {
     await Notifications.cancelAllScheduledNotificationsAsync();
     console.log("cancel called");
-    await notificationReset();
+    notificationReset();
     onPress();
   };
 
