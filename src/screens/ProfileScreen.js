@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
-import { View, StyleSheet, TouchableOpacity, AsyncStorage, ImageBackground } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  AsyncStorage,
+  ImageBackground,
+} from "react-native";
 import {
   Container,
   Header,
@@ -24,7 +30,6 @@ import Reminder from "../components/Profile/Reminder";
 import Contact from "../components/Profile/Contact";
 
 import bkgMobileProfile from "../../assets/bkgMobileProfile.png";
-
 
 const ProfileScreen = ({ navigation }) => {
   const [dashboard, setDashboard] = useState([]);
@@ -51,25 +56,29 @@ const ProfileScreen = ({ navigation }) => {
     <Container>
       <Content style={styles.container}>
         <View style={styles.subContainer}>
-          <UserInfo imageFile={dashboard.imageFile} userName={dashboard.userName} department={dashboard.department} userId={dashboard.userId} />
+          <UserInfo
+            imageFile={dashboard.imageFile}
+            userName={dashboard.userName}
+            department={dashboard.department}
+            userId={dashboard.userId}
+          />
           <View style={styles.workoutProgress}>
             <Calendar userId={state.userInfo.authId} />
-            {
-              (dashboard.workInDay != null || dashboard.workInDay > 0) ?
-                (
-                  <View>
-                    <Text style={styles.progressGreet}>Congratulations!</Text>
-                    <Text style={styles.completedClasses}>You completed {dashboard.workInDay} classes today!</Text>
-                  </View>
-                ) :
-                (
-                  <View>
-                    <Text style={styles.progressMessage}>Start workout!</Text>
-                    <Text style={styles.completedClasses}>You completed {0} classes today!</Text>
-                  </View>
-                )
-            }
-
+            {dashboard.workInDay != null || dashboard.workInDay > 0 ? (
+              <View>
+                <Text style={styles.progressGreet}>Congratulations!</Text>
+                <Text style={styles.completedClasses}>
+                  You completed {dashboard.workInDay} classes today!
+                </Text>
+              </View>
+            ) : (
+              <View>
+                <Text style={styles.progressMessage}>Start workout!</Text>
+                <Text style={styles.completedClasses}>
+                  You completed {0} classes today!
+                </Text>
+              </View>
+            )}
 
             <View style={styles.levelStreak}>
               <Text style={styles.userLevel}>Mid-level</Text>
@@ -84,13 +93,19 @@ const ProfileScreen = ({ navigation }) => {
         <ImageBackground
           source={bkgMobileProfile}
           style={{
-            width: '100%',
+            width: "100%",
             // height: "100%",
-          }}>
-          <Contact signout={() => {
-            signout();
-            navigation.navigate("Signin");
-          }} />
+          }}
+          imageStyle={{
+            resizeMode: "stretch",
+          }}
+        >
+          <Contact
+            signout={() => {
+              signout();
+              navigation.navigate("Signin");
+            }}
+          />
         </ImageBackground>
         {/* <TouchableOpacity
           onPress={() => {

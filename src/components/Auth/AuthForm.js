@@ -9,7 +9,7 @@ import {
 import NavLink from "./NavLink";
 // import Spacer from "./Spacer";
 
-import {colors} from '../../colors';
+import { colors } from "../../colors";
 
 const AuthForm = ({
   headerText1,
@@ -28,10 +28,25 @@ const AuthForm = ({
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
-        <Text h3 style={{ fontWeight: "bold", marginHorizontal: 10, fontFamily: "GothamRoundedBold_21016", color: colors.UIViolet }}>
+        <Text
+          h3
+          style={{
+            fontWeight: "bold",
+            marginHorizontal: 10,
+            fontFamily: "GothamRoundedBold_21016",
+            color: colors.UIViolet,
+          }}
+        >
           {headerText1}
         </Text>
-        <Text h4 style={{...styles.header, fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey}}>
+        <Text
+          h4
+          style={{
+            ...styles.header,
+            fontFamily: "GothamRoundedLight_21020",
+            color: colors.darkGrey,
+          }}
+        >
           {headerText2}
         </Text>
         <Input
@@ -71,15 +86,27 @@ const AuthForm = ({
           }}
         />
         {routeName === "Signin" ? (
-          <Text style={{textAlign: "right", marginRight: 16, fontFamily: "GothamRoundedLight_21020", fontSize: 12}}>Forgot password?</Text>
-          ):null
-        }
+          <Text
+            style={{
+              textAlign: "right",
+              textDecorationLine: "underline",
+              marginRight: 16,
+              fontFamily: "GothamRoundedLight_21020",
+              fontSize: 12,
+            }}
+          >
+            Forgot password?
+          </Text>
+        ) : null}
 
         {routeName === "Signup" ? (
           <>
             <Input
               label="Company Name"
-              labelStyle={{ fontSize: 12, fontFamily: "GothamRoundedBook_21018" }}
+              labelStyle={{
+                fontSize: 12,
+                fontFamily: "GothamRoundedBook_21018",
+              }}
               value={companyName}
               onChangeText={setCompanyName}
               autoCapitalize="none"
@@ -96,7 +123,10 @@ const AuthForm = ({
             />
             <Input
               label="Employee Number"
-              labelStyle={{ fontSize: 12, fontFamily: "GothamRoundedBook_21018" }}
+              labelStyle={{
+                fontSize: 12,
+                fontFamily: "GothamRoundedBook_21018",
+              }}
               value={employeeId}
               onChangeText={setEmployeeId}
               autoCapitalize="none"
@@ -135,7 +165,7 @@ const AuthForm = ({
               onSubmit(email, password, navigation);
             }
           }}
-        // onPress={() => navigation.navigate("Home")}
+          // onPress={() => navigation.navigate("Home")}
         />
         {/* <Button
           title={"Connect with Google"}
@@ -159,7 +189,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     justifyContent: "space-between",
     paddingTop: "7%",
-    height: "80%"
+    height: "80%",
   },
   header: {
     marginTop: 10,
@@ -180,7 +210,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: colors.UIViolet,
     padding: 12,
-    borderRadius: 5
+    borderRadius: 5,
   },
 });
 

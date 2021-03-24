@@ -243,6 +243,10 @@ const fetchFonts = async () => {
     GothamRoundedBook_21018: require("./assets/fonts/GothamRoundedBook_21018.ttf"),
     GothamRoundedLight_21020: require("./assets/fonts/GothamRoundedLight_21020.ttf"),
     GothamRoundedMedium_21022: require("./assets/fonts/GothamRoundedMedium_21022.ttf"),
+    GothamBold: require("./assets/fonts/GothamBold.ttf"),
+    GothamBook: require("./assets/fonts/GothamBook.ttf"),
+    GothamLight: require("./assets/fonts/GothamLight.ttf"),
+    GothamMedium: require("./assets/fonts/GothamMedium.ttf"),
   });
 };
 
