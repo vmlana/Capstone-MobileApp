@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     userNameText: {
         fontSize: 28,
         lineHeight: 38,
-        color: '#FBA76E'
+        color: '#FBA76E',
+        fontFamily: 'GothamLight'
     },
     extraText: {
         color: '#707070',

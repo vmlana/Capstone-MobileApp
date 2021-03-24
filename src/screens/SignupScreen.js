@@ -10,21 +10,21 @@ import { Context as AuthContext } from "../context/AuthContext";
 import SigninBGImage from "../../assets/background-signIn.png";
 
 const SignupScreen = ({ navigation }) => {
-    const { state, signup, clearErrMsg } = useContext(AuthContext);
-    const [prevErr, setPrevErr] = useState(state.errorMessage);
+  const { state, signup, clearErrMsg } = useContext(AuthContext);
+  const [prevErr, setPrevErr] = useState(state.errorMessage);
 
-    useEffect(()=>{
+  useEffect(() => {
 
-      if(state.errorMessage !== "" && prevErr != state.errorMessage) {
-        setPrevErr(state.errorMessage);
-        alert(state.errorMessage);
-        clearErrMsg();
-      }
+    if (state.errorMessage !== "" && prevErr != state.errorMessage) {
+      setPrevErr(state.errorMessage);
+      alert(state.errorMessage);
+      clearErrMsg();
+    }
 
-    }, [state.errorMessage])
+  }, [state.errorMessage])
 
   return (
-    <ImageBackground source={SigninBGImage} style={{width: '100%', height: '100%'}}>
+    <ImageBackground source={SigninBGImage} style={{ width: '100%', height: '100%' }}>
       <View style={styles.container}>
         {/* <NavigationEvents
           // onWillFocus gets called while transitioning to this component screen
@@ -41,7 +41,7 @@ const SignupScreen = ({ navigation }) => {
         /> */}
         <AuthForm
           headerText1="Create Account,"
-          headerText2="Sign up to get started!"
+          headerText2="Sign Up to get started!"
           // errorMessage={state.errorMessage}
           submitButtonText="Sign Up"
           routeName="Signup"
