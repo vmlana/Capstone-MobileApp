@@ -20,8 +20,8 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 // import { AppLoading } from "expo";
 
-LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-LogBox.ignoreAllLogs();//Ignore all log notifications
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 // Screens ============================================
 import HomeScreen from "./src/screens/HomeScreen";
@@ -245,7 +245,7 @@ const fetchFonts = async () => {
     GothamRoundedMedium_21022: require("./assets/fonts/GothamRoundedMedium_21022.ttf"),
     GothamBold: require("./assets/fonts/GothamBold.ttf"),
     GothamBook: require("./assets/fonts/GothamBook.ttf"),
-    GothamLight: require("./assets/fonts/GothamLight.ttf"),
+    // GothamLight: require("./assets/fonts/GothamLight.ttf"),
     GothamMedium: require("./assets/fonts/GothamMedium.ttf"),
   });
 };
