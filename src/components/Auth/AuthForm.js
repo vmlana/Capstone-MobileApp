@@ -41,12 +41,12 @@ const AuthForm = ({
         <Text
           style={{
             ...styles.header,
-            // fontFamily: "GothamLight",
+            fontFamily: "GothamLight",
             color: colors.darkGrey,
             fontWeight: "normal",
-            fontSize: 23,
+            fontSize: 21,
             paddingBottom: 30,
-            letterSpacing: 1.2,
+            // letterSpacing: 1.2,
           }}
         >
           {headerText2}
@@ -55,10 +55,10 @@ const AuthForm = ({
           label="Email"
           labelStyle={{
             fontSize: 14,
-            // fontFamily: "GothamLight",
+            fontFamily: "GothamLight",
             fontWeight: "normal",
             color: "#707070",
-            letterSpacing: 1.2,
+            // letterSpacing: 1.2,
           }}
           value={email}
           onChangeText={setEmail}
@@ -79,10 +79,10 @@ const AuthForm = ({
           label="Password"
           labelStyle={{
             fontSize: 14,
-            // fontFamily: "GothamLight",
+            fontFamily: "GothamLight",
             fontWeight: "normal",
             color: "#707070",
-            letterSpacing: 1.2,
+            // letterSpacing: 1.2,
           }}
           value={password}
           onChangeText={setPassword}
@@ -122,10 +122,10 @@ const AuthForm = ({
               label="Company Name"
               labelStyle={{
                 fontSize: 14,
-                // fontFamily: "GothamLight",
+                fontFamily: "GothamLight",
                 fontWeight: "normal",
                 color: "#707070",
-                letterSpacing: 1.2,
+                // letterSpacing: 1.2,
               }}
               value={companyName}
               onChangeText={setCompanyName}
@@ -146,10 +146,10 @@ const AuthForm = ({
               label="Employee Number"
               labelStyle={{
                 fontSize: 14,
-                // fontFamily: "GothamLight",
+                fontFamily: "GothamLight",
                 fontWeight: "normal",
                 color: "#707070",
-                letterSpacing: 1.2,
+                // letterSpacing: 1.2,
               }}
               value={employeeId}
               onChangeText={setEmployeeId}
@@ -190,7 +190,7 @@ const AuthForm = ({
               onSubmit(email, password, navigation);
             }
           }}
-          // onPress={() => navigation.navigate("Home")}
+        // onPress={() => navigation.navigate("Home")}
         />
         {/* <Button
           title={"Connect with Google"}
