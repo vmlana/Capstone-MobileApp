@@ -159,7 +159,7 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
           </Swipeout>
         ))
       ) : (
-        <Text style={{ color: "#707070" }}>There is no session booked</Text>
+        <Text style={{ color: "#707070", fontFamily: 'GothamBook', fontSize: 16, lineHeight: 19 }}>There is no session booked.</Text>
       )}
     </View>
   );
