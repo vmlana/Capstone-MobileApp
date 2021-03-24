@@ -9,8 +9,7 @@ import {
 import NavLink from "./NavLink";
 // import Spacer from "./Spacer";
 
-import { colors } from '../../colors';
-
+import { colors } from "../../colors";
 
 const AuthForm = ({
   headerText1,
@@ -29,17 +28,38 @@ const AuthForm = ({
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
-
-        <Text style={{ marginHorizontal: 10, fontFamily: "GothamRoundedBold_21016", color: colors.UIViolet, fontSize: 32, lineHeight: 38 }}>
+        <Text
+          style={{
+            marginHorizontal: 10,
+            fontFamily: "GothamRoundedBold_21016",
+            color: colors.UIViolet,
+            fontSize: 30,
+          }}
+        >
           {headerText1}
         </Text>
-        <Text style={{ ...styles.header, fontFamily: "GothamLight", color: colors.darkGrey, fontWeight: 'normal', fontSize: 23, lineHeight: 33 }}>
-
+        <Text
+          style={{
+            ...styles.header,
+            // fontFamily: "GothamLight",
+            color: colors.darkGrey,
+            fontWeight: "normal",
+            fontSize: 23,
+            paddingBottom: 30,
+            letterSpacing: 1.2,
+          }}
+        >
           {headerText2}
         </Text>
         <Input
           label="Email"
-          labelStyle={{ fontSize: 14, fontFamily: "GothamLight", fontWeight: 'normal', color: '#707070' }}
+          labelStyle={{
+            fontSize: 14,
+            // fontFamily: "GothamLight",
+            fontWeight: "normal",
+            color: "#707070",
+            letterSpacing: 1.2,
+          }}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -49,7 +69,7 @@ const AuthForm = ({
             borderRadius: 4,
             marginTop: 4,
             // height: 36,
-            borderBottomWidth: 0.5
+            borderBottomWidth: 0.5,
           }}
           inputStyle={{
             paddingLeft: 10,
@@ -57,7 +77,13 @@ const AuthForm = ({
         />
         <Input
           label="Password"
-          labelStyle={{ fontSize: 14, fontFamily: "GothamLight", fontWeight: 'normal', color: '#707070' }}
+          labelStyle={{
+            fontSize: 14,
+            // fontFamily: "GothamLight",
+            fontWeight: "normal",
+            color: "#707070",
+            letterSpacing: 1.2,
+          }}
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
@@ -68,7 +94,7 @@ const AuthForm = ({
             borderRadius: 4,
             marginTop: 4,
             // height: 36,
-            borderBottomWidth: 0.5
+            borderBottomWidth: 0.5,
           }}
           containerStyle={{ paddingBottom: 0 }}
           inputStyle={{
@@ -76,17 +102,31 @@ const AuthForm = ({
           }}
         />
         {routeName === "Signin" ? (
-
-          <Text style={{ textAlign: "right", marginRight: 16, fontFamily: "GothamLight", fontSize: 12, color: '#707070', textDecorationLine: 'underline' }}>Forgot password?</Text>
-        ) : null
-        }
-
+          <Text
+            style={{
+              textAlign: "right",
+              marginRight: 16,
+              fontFamily: "GothamLight",
+              fontSize: 12,
+              color: "#707070",
+              textDecorationLine: "underline",
+            }}
+          >
+            Forgot password?
+          </Text>
+        ) : null}
 
         {routeName === "Signup" ? (
           <>
             <Input
               label="Company Name"
-              labelStyle={{ fontSize: 14, fontFamily: "GothamLight", fontWeight: 'normal', color: '#707070' }}
+              labelStyle={{
+                fontSize: 14,
+                // fontFamily: "GothamLight",
+                fontWeight: "normal",
+                color: "#707070",
+                letterSpacing: 1.2,
+              }}
               value={companyName}
               onChangeText={setCompanyName}
               autoCapitalize="none"
@@ -96,7 +136,7 @@ const AuthForm = ({
                 borderRadius: 4,
                 marginTop: 4,
                 // height: 36,
-                borderBottomWidth: 0.5
+                borderBottomWidth: 0.5,
               }}
               inputStyle={{
                 paddingLeft: 10,
@@ -104,7 +144,13 @@ const AuthForm = ({
             />
             <Input
               label="Employee Number"
-              labelStyle={{ fontSize: 14, fontFamily: "GothamLight", fontWeight: 'normal', color: '#707070' }}
+              labelStyle={{
+                fontSize: 14,
+                // fontFamily: "GothamLight",
+                fontWeight: "normal",
+                color: "#707070",
+                letterSpacing: 1.2,
+              }}
               value={employeeId}
               onChangeText={setEmployeeId}
               autoCapitalize="none"
@@ -115,7 +161,7 @@ const AuthForm = ({
                 borderRadius: 4,
                 marginTop: 4,
                 // height: 36,
-                borderBottomWidth: 0.5
+                borderBottomWidth: 0.5,
               }}
               containerStyle={{ paddingBottom: 0 }}
               inputStyle={{
@@ -174,7 +220,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     marginHorizontal: 10,
-    fontWeight: 'normal'
+    fontWeight: "normal",
   },
   errorMessage: {
     fontSize: 16,
