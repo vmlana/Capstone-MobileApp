@@ -58,7 +58,6 @@ const AuthForm = ({
             fontFamily: "GothamLight",
             fontWeight: "normal",
             color: "#707070",
-            // letterSpacing: 1.2,
           }}
           value={email}
           onChangeText={setEmail}
@@ -82,7 +81,6 @@ const AuthForm = ({
             fontFamily: "GothamLight",
             fontWeight: "normal",
             color: "#707070",
-            // letterSpacing: 1.2,
           }}
           value={password}
           onChangeText={setPassword}
