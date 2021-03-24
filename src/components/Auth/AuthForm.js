@@ -11,6 +11,7 @@ import NavLink from "./NavLink";
 
 import { colors } from '../../colors';
 
+
 const AuthForm = ({
   headerText1,
   headerText2,
@@ -28,10 +29,12 @@ const AuthForm = ({
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView enabled={true} style={{ marginBottom: 0 }}>
+
         <Text style={{ marginHorizontal: 10, fontFamily: "GothamRoundedBold_21016", color: colors.UIViolet, fontSize: 32, lineHeight: 38 }}>
           {headerText1}
         </Text>
         <Text style={{ ...styles.header, fontFamily: "GothamLight", color: colors.darkGrey, fontWeight: 'normal', fontSize: 23, lineHeight: 33 }}>
+
           {headerText2}
         </Text>
         <Input
@@ -73,9 +76,11 @@ const AuthForm = ({
           }}
         />
         {routeName === "Signin" ? (
+
           <Text style={{ textAlign: "right", marginRight: 16, fontFamily: "GothamLight", fontSize: 12, color: '#707070', textDecorationLine: 'underline' }}>Forgot password?</Text>
         ) : null
         }
+
 
         {routeName === "Signup" ? (
           <>
@@ -139,7 +144,7 @@ const AuthForm = ({
               onSubmit(email, password, navigation);
             }
           }}
-        // onPress={() => navigation.navigate("Home")}
+          // onPress={() => navigation.navigate("Home")}
         />
         {/* <Button
           title={"Connect with Google"}
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     justifyContent: "space-between",
     paddingTop: "7%",
-    height: "80%"
+    height: "80%",
   },
   header: {
     marginTop: 10,
@@ -185,7 +190,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: colors.UIViolet,
     padding: 12,
-    borderRadius: 5
+    borderRadius: 5,
   },
 });
 
