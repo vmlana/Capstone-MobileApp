@@ -4,7 +4,7 @@ import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { SearchProvider } from "./src/context/searchContext";
 import { setNavigator } from "./src/navigationRef";
 
-import { View, Button, StyleSheet, Text } from "react-native";
+import { View, Button, StyleSheet, Text, LogBox } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
@@ -20,8 +20,8 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 // import { AppLoading } from "expo";
 
-// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-// LogBox.ignoreAllLogs();//Ignore all log notifications
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 // Screens ============================================
 import HomeScreen from "./src/screens/HomeScreen";

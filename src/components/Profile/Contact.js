@@ -1,25 +1,25 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 
-import {colors} from '../../colors';
+import { colors } from '../../colors';
 
-const Contact = ({signout}) => {
+const Contact = ({ signout }) => {
     return (
         <View style={styles.contactContainer}>
             <View>
-                <Text style={{...styles.titleText, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey }}>Contact Us</Text>
-                <Text style={{...styles.contactText, fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey}}>For any queries, you can contact the instructors directly on</Text>
-                <Text style={{...styles.userEmail, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey}}>contactinstructors@appname.com</Text>
+                <Text style={{ ...styles.titleText, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey }}>Contact Us</Text>
+                <Text style={{ ...styles.contactText, fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey }}>For any queries, you can contact the instructors directly on</Text>
+                <Text style={{ ...styles.userEmail, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey }}>support@pivotcare.ca</Text>
             </View>
-            <View style={{ flexDirection: "row", paddingBottom: 5, justifyContent: "space-between"}}>
+            <View style={{ flexDirection: "row", paddingBottom: 5, justifyContent: "space-between" }}>
                 <TouchableOpacity
                     onPress={() => {
                         signout();
                     }}
-                    >
-                    <Text style={{...styles.signOutLink, fontFamily: "GothamRoundedBook_21018"}}>Log Out</Text>
+                >
+                    <Text style={{ ...styles.signOutLink, fontFamily: "GothamRoundedBook_21018" }}>Log Out</Text>
                 </TouchableOpacity>
-                <Text style={{...styles.signOutLink, marginRight: 12, fontFamily: "GothamRoundedBook_21018"}}>Terms & Conditions</Text>
+                <Text style={{ ...styles.signOutLink, marginRight: 12, fontFamily: "GothamRoundedBook_21018" }}>Terms & Conditions</Text>
             </View>
         </View>
     )
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline",
         textDecorationStyle: "solid",
         textDecorationColor: "#fff",
-      },
-    })
+    },
+})
 
 
 export default Contact
