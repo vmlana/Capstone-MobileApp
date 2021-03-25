@@ -52,6 +52,7 @@ const SingleVideoScreen = ({ navigation }) => {
         <Button
           title="Schedule a Session"
           buttonStyle={styles.button}
+          titleStyle={{ fontFamily: "GothamRoundedBook_21018" }}
           onPress={() =>
             navigation.navigate("SetSchedule", {
               videoData: data,
@@ -67,11 +68,11 @@ const SingleVideoScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   button: {
     width: "100%",
-    backgroundColor: "orange",
-    color: "white",
+    backgroundColor: "#F59C60",
     alignSelf: "center",
     padding: 10,
     borderRadius: 4,
+    fontFamily: "GothamRoundedBold_21016",
   },
   bottom: {
     position: "absolute",

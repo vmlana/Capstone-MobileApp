@@ -48,7 +48,13 @@ const NotificationMsg = ({ onPress, scheduleArr }) => {
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
         <View>
-          <Text h4 style={{ color: "white" }}>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 16,
+              fontFamily: "GothamRoundedBook_21018",
+            }}
+          >
             Turn off all notifications?
           </Text>
         </View>
@@ -57,13 +63,21 @@ const NotificationMsg = ({ onPress, scheduleArr }) => {
             title="Yes"
             onPress={cancel}
             buttonStyle={styles.reminderSetBtn}
-            titleStyle={{ color: "#624A99" }}
+            titleStyle={{
+              color: "#624A99",
+              fontFamily: "GothamRoundedBook_21018",
+              fontSize: 16,
+            }}
           />
           <Button
             title="No"
             onPress={onPress}
             buttonStyle={styles.reminderSetBtn}
-            titleStyle={{ color: "#624A99" }}
+            titleStyle={{
+              color: "#624A99",
+              fontFamily: "GothamRoundedBook_21018",
+              fontSize: 16,
+            }}
           />
         </View>
       </View>
@@ -88,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#624A99",
     borderRadius: 20,
     paddingVertical: 25,
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -106,8 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     marginTop: 20,
-    marginHorizontal: 40,
-    paddingHorizontal: 50,
+    marginHorizontal: 20,
+    paddingHorizontal: 30,
   },
 });
 
