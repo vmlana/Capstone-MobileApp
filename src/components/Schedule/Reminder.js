@@ -240,7 +240,7 @@ const Reminder = ({
                   paddingRight: 5,
                   paddingVertical: 5,
                   borderRadius: 5,
-                  color: "black",
+                  color: "#707070",
 
                   zIndex: 1,
                 }}
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "35%",
     justifyContent: "space-between",
-    backgroundColor: "#624A99",
+    backgroundColor: "#7561A4",
     borderRadius: 20,
     paddingVertical: 25,
     paddingHorizontal: 25,

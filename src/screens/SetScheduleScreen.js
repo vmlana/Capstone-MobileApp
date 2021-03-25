@@ -102,6 +102,18 @@ const SetScheduleScreen = ({ navigation }) => {
   };
 
   const getMarkedDate = () => {
+    let currentDate = moment().format().split("T")[0];
+    const currentDateObj = {
+      [currentDate]: {
+        marked: true,
+        customStyles: {
+          text: {
+            fontWeight: "bold",
+          },
+        },
+      },
+    };
+
     const marking = scheduleDataArr.reduce((obj, item) => {
       return {
         ...obj,
@@ -112,7 +124,9 @@ const SetScheduleScreen = ({ navigation }) => {
       };
     }, {});
 
-    setMarked(marking);
+    let markingObj = Object.assign({}, currentDateObj, marking);
+
+    setMarked(markingObj);
   };
 
   const changeToReadable = (time) => moment(time).format("MMM Do, h:mm a");
@@ -152,9 +166,10 @@ const SetScheduleScreen = ({ navigation }) => {
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
         <Calendar
+          markingType={"custom"}
           onDayPress={showTimePicker}
           enableSwipeMonths={true}
-          hideArrows={true}
+          hideArrows={false}
           markedDates={marked}
           theme={{
             textDayFontFamily: "GothamRoundedBook_21018",
@@ -162,6 +177,8 @@ const SetScheduleScreen = ({ navigation }) => {
             textDayHeaderFontFamily: "GothamRoundedBook_21018",
             textDayFontSize: 16,
             textMonthFontSize: 16,
+            todayTextColor: "#4F99CE",
+            arrowColor: "#624A99",
           }}
         />
       </View>

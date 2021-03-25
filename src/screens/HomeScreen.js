@@ -89,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
     getUserDataArr();
   }, [state]);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   if (state.userInfo) {
     // console.log("Home_authId:", state.userInfo);
@@ -121,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
           />
           {playLists.length !== 0 ? (
             <ContentListContainer
-              title={"Most Viewed / Hit List"}
+              title={"Most Viewed"}
               dataList={playLists}
               sizeBig={false}
               type={"playlists"}
