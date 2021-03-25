@@ -4,6 +4,7 @@ import CalendarStrip from "react-native-calendar-strip";
 import moment from "moment";
 import { getDashboardData } from "../../data/api";
 import CustomDayComponent from './CustomDayComponent';
+import { Image } from "native-base";
 
 const Calendar = ({ userId }) => {
 
@@ -70,12 +71,9 @@ const Calendar = ({ userId }) => {
 				calendarAnimation={{ type: 'parallel', duration: 1000 }}
 				style={{ height: 120 }}
 				headerText={formatHeaderString}
-				calendarHeaderStyle={{ color: 'white', fontSize: 16, lineHeight: 19 }}
-
-				dateNumberStyle={{ color: 'white', fontSize: 14, fontWeight: 'normal' }}
-				dateNameStyle={{ color: 'white', fontSize: 8 }}
-
-				highlightDateNameStyle={{ color: 'white' }}
+				calendarHeaderStyle={{ color: '#FFFFFF', fontSize: 16, lineHeight: 22, fontFamily: 'GothamMedium' }}
+				// dateNumberStyle={{ color: '#FFFFFF', fontSize: 14, fontWeight: 'normal', fontFamily: 'GothamMedium' }}
+				// dateNameStyle={{ color: '#FFFFFF', fontSize: 8, fontFamily: 'GothamLight' }}
 
 				// onWeekChanged={(start, end) => {
 				// 	setStartDate(start.format('YYYY-MM-DD'))
@@ -88,9 +86,16 @@ const Calendar = ({ userId }) => {
 					let percentProgress = getPercet(formattedDt, progressData)
 					return (<CustomDayComponent userId={userId} date={formattedDt} percent={percentProgress} />);
 				}}
-
+				highlightDateNameStyle={{ color: '#FFFFFF' }}
 				highlightDateNumberStyle={{ color: 'white' }}
-				dateContainerStyle={{ backgroundColor: 'red' }}
+				iconLeft={require("../../../assets/icon-prev.png")}
+				iconRight={require("../../../assets/icon-next.png")}
+				iconLeftStyle={{
+					marginRight: 5
+				}}
+				iconRightStyle={{
+					marginLeft: 5
+				}}
 			/>
 
 		</View>

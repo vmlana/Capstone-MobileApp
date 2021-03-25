@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   editLink: {
     fontSize: 12,
-    lineHeight: 13,
+    lineHeight: 19,
     color: "#707070",
     fontFamily: "GothamMedium",
     textDecorationLine: "underline",
