@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import { View, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import { Thumbnail } from "native-base";
+import { colors } from "../../colors";
 
 import { getInstructorInfo } from "../../data/api";
 
 const TrainerName = ({ navigation, data, blog }) => {
-  // const [instructorInfo, setinstructorInfo] = useState([]);
+  const [instructorInfo, setInstructorInfo] = useState("");
 
-  // useEffect(() => {
-  //   getInstructorInfo(data.instructorID).then((instructors) => {
-  //     setinstructorInfo(instructors);
-  //   });
-  // }, [data]);
+  useEffect(() => {
+    getInstructorInfo(data.instructorID).then((instructor) => {
+      setInstructorInfo(instructor);
+    });
+  }, [data]);
 
   return (
     <TouchableOpacity
@@ -20,20 +21,24 @@ const TrainerName = ({ navigation, data, blog }) => {
       onPress={() =>
         navigation.navigate("TrainerDetails", {
           instructorName: data.instructorName,
-          instructorID: data.instructorID ? data.instructorID : data.instructorId
+          instructorID: data.instructorID
+            ? data.instructorID
+            : data.instructorId,
         })
       }
     >
       <Thumbnail
         small
-        source={
-          data.imageFile ?
-            { uri: data.imageFile } :
-            { uri: data.instructorImage }
-        }
+        source={{ uri: (instructorInfo.imageFile ? instructorInfo.imageFile : data.instructorImage) }}
         style={styles.thumbNail}
       />
-      <Text style={styles.trainerName}>
+      <Text
+        style={{
+          ...styles.trainerName,
+          fontFamily: "GothamRoundedLight_21020",
+          color: colors.darkGrey,
+        }}
+      >
         {data.instructorName ? data.instructorName : data.trainerName}
       </Text>
     </TouchableOpacity>
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
   trainerInfo: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 7,
+    // marginTop: 7,
   },
   thumbNail: {
     width: 24,
@@ -54,7 +59,6 @@ const styles = StyleSheet.create({
   trainerName: {
     fontSize: 13,
     lineHeight: 13,
-    color: "#707070",
   },
   trainerInfoForBlog: {
     flexDirection: "row",

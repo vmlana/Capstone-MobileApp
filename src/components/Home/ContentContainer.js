@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { colors } from "../../colors";
 
 import {
   Container,
@@ -47,16 +48,40 @@ const ContentContainer = ({ navigation, result, type }) => {
         <ThumbNail type={type} source={{ uri: result.imageFile }} />
       </TouchableOpacity>
       {type === "playlists" ? (
-        <Text style={styles.contentTitle}>{result.playlistName}</Text>
+        <Text
+          style={{
+            ...styles.contentTitle,
+            fontFamily: "GothamRoundedLight_21020",
+            color: colors.darkGrey,
+          }}
+        >
+          {result.playlistName}
+        </Text>
       ) : type === "cat" ? (
-        <Text style={styles.contentTitle}>{result.name}</Text>
+        <Text
+          style={{
+            ...styles.contentTitle,
+            fontFamily: "GothamRoundedLight_21020",
+            color: colors.darkGrey,
+          }}
+        >
+          {result.name}
+        </Text>
       ) : null}
 
       {type === "playlists" ? (
         <TrainerName data={result} navigation={navigation} />
       ) : type === "programs" ? (
         <View style={styles.playListContainer}>
-          <Text style={styles.contentTitle}>{result.programName}</Text>
+          <Text
+            style={{
+              ...styles.contentTitle,
+              fontFamily: "GothamRoundedLight_21020",
+              color: colors.darkGrey,
+            }}
+          >
+            {result.programName}
+          </Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="checkbox-multiple-blank-outline"
@@ -86,10 +111,11 @@ const styles = StyleSheet.create({
   },
 
   contentTitle: {
-    fontSize: 17,
+    fontSize: 15,
     lineHeight: 15,
-    color: "#707070",
     paddingTop: 5,
+    marginBottom: 7,
+    width: 140,
   },
 });
 

@@ -16,7 +16,7 @@ import { scheduleNotificationAsync } from "expo-notifications";
 import moment from "moment";
 
 const ReminderList = ({ navigation, getScheduleArr }) => {
-  const { state } = useContext(AuthContext);
+  const { state, scheduleAdded } = useContext(AuthContext);
   const [allScheduleData, setAllScheduleData] = useState([]);
   const [deleteSwitcher, setDeleteSwitcher] = useState(false);
   const [reminderVisible, setReminderVisible] = useState(false);
@@ -55,10 +55,9 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
       setAllScheduleData(allUserScheduleData);
       getScheduleArr(allUserScheduleData);
     };
-    getScheduleList();
-  }, [state.scheduleSwitch, deleteSwitcher]);
 
-  //   console.log("playlistdata", playListData);
+    getScheduleList();
+  }, [state.scheduleSwitch]);
 
   return (
     <View>
@@ -69,16 +68,21 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
               {
                 text: "Delete",
                 backgroundColor: "#ba0c00",
+
                 onPress: () => {
-                  deleteSchedule(data.scheduleId),
-                    setDeleteSwitcher(!deleteSwitcher),
-                    console.log("delete called");
+                  deleteSchedule(data.scheduleId).then((result) => {
+                    console.log("delete data complete");
+                    return scheduleAdded(state.scheduleSwitch);
+                  });
+                  // setDeleteSwitcher(!deleteSwitcher),
+
+                  console.log("delete called");
                 },
               },
             ]}
             autoClose={true}
             backgroundColor="transparent"
-            style={{ height: 80 }}
+            style={{ height: 70 }}
             key={index}
           >
             <View style={styles.bookList}>
@@ -156,7 +160,16 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
           </Swipeout>
         ))
       ) : (
-        <Text style={{ color: "#707070" }}>There is no session booked</Text>
+        <Text
+          style={{
+            color: "#707070",
+            fontFamily: "GothamBook",
+            fontSize: 16,
+            lineHeight: 19,
+          }}
+        >
+          There is no session booked.
+        </Text>
       )}
     </View>
   );
@@ -166,9 +179,9 @@ const styles = StyleSheet.create({
   bookList: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomWidth: 1,
     borderBottomColor: "#E8E8E8",
     alignItems: "center",
+    // marginRight: 10,
   },
   bookInfo: {
     flexDirection: "row",

@@ -6,8 +6,10 @@ const SurveyNotification = ({ close, navigation, data }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.Text}>
-          Tell us how we can improve {"\n"} by answering a short survey
+        <Text
+          style={{ ...styles.Text, fontFamily: "GothamRoundedMedium_21022" }}
+        >
+          Give us your feedback {"\n"}about how we can improve
         </Text>
       </View>
       <View>
@@ -19,7 +21,15 @@ const SurveyNotification = ({ close, navigation, data }) => {
             })
           }
         >
-          <Text style={{ color: "#FF9D5A", fontSize: 16 }}>Start Survey</Text>
+          <Text
+            style={{
+              color: "#FF9D5A",
+              fontSize: 14,
+              fontFamily: "GothamLight",
+            }}
+          >
+            Give Feedback
+          </Text>
         </TouchableOpacity>
       </View>
       <View>
@@ -42,13 +52,13 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: "white",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 5,
   },
   Text: {
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });

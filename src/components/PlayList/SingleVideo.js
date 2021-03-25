@@ -10,6 +10,7 @@ import {
 import { Text, Image } from "react-native-elements";
 import { Thumbnail } from "native-base";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { colors } from "../../colors";
 
 import TrainerName from "../Trainer/TrainerName";
 
@@ -63,14 +64,44 @@ const SingleVideo = ({ navigation, data, playListData }) => {
       />
 
       <View style={styles.videoHeader}>
-        <Text style={styles.lessonTitle}>{data.lessonName}</Text>
+        <Text
+          style={{
+            ...styles.lessonTitle,
+            fontFamily: "GothamRoundedMedium_21022",
+            color: colors.darkGrey,
+          }}
+        >
+          {data.lessonName}
+        </Text>
         <TrainerName data={playListData} navigation={navigation} />
       </View>
       <View style={styles.videoInfo}>
-        <Text>{playListData.categoryName}</Text>
-        <Text>Duration {data.videoDuration} min</Text>
+        <Text
+          style={{
+            fontFamily: "GothamRoundedBook_21018",
+            color: colors.darkGrey,
+          }}
+        >
+          {playListData.categoryName}
+        </Text>
+        <Text
+          style={{
+            fontFamily: "GothamRoundedBook_21018",
+            color: colors.darkGrey,
+          }}
+        >
+          {data.videoDuration * 100} mins
+        </Text>
       </View>
-      <Text style={styles.desc}>{data.lessonDescription}</Text>
+      <Text
+        style={{
+          ...styles.desc,
+          fontFamily: "GothamRoundedBook_21018",
+          color: colors.darkGrey,
+        }}
+      >
+        {data.lessonDescription}
+      </Text>
     </View>
   );
 };
@@ -88,15 +119,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginVertical: 10,
     marginHorizontal: 25,
+    alignItems: "center",
   },
   lessonTitle: {
     fontSize: 23,
     lineHeight: 28,
-    color: "#707070",
+    // color: "#707070",
   },
   desc: {
     marginHorizontal: 25,
     marginVertical: 10,
+    lineHeight: 18,
   },
 });
 

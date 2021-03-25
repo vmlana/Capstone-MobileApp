@@ -1,76 +1,60 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component } from "react";
 import { View, Text } from "react-native";
-import CalendarStrip from 'react-native-calendar-strip';
-import moment from 'moment';
+import CalendarStrip from "react-native-calendar-strip";
+import moment from "moment";
 import { getDashboardData } from "../../data/api";
-
-
+import CustomDayComponent from './CustomDayComponent';
+import { Image } from "native-base";
 
 const Calendar = ({ userId }) => {
-	const [startDate, setStartDate] = useState('')
-	const [endDate, setEndDate] = useState(moment().subtract(7, "days").format('YYYY-MM-DD'))
+
+	const [startDate, setStartDate] = useState('2021-02-15')
+	// const [endDate, setEndDate] = useState(moment().subtract(7, "days").format('YYYY-MM-DD'))
 	const [customDatesStyles, setCustomDatesStyles] = useState([])
+	const [progressData, setProgressData] = useState([])
+
+	const getPercet = (dateFilter, data) => {
+		// console.log('progressData', data);
+
+		let percent = 0
+		let matchedDate = {}
+		if (data.length > 0) {
+			matchedDate = data.find(mDate => (
+				mDate.day == dateFilter
+			))
+
+			if (matchedDate.percent != null) {
+				percent = matchedDate.percent
+			}
+
+			// console.log(matchedDate);
+
+		}
+		// return percent
+		return percent
+	}
+
 
 	useEffect(() => {
-
-		let customDatesStyle = [];
 
 		// console.log('Start Date: ', startDate)
 		// console.log('End Date: ', endDate)
 		if (startDate !== '') {
-			getDashboardData(userId, startDate, endDate).then((result) => {
+			getDashboardData(userId, startDate).then((result) => {
 				// console.log(result.daysResult)
 
-				result.daysResult.map(progressResult => {
-					if (progressResult.logged != null) {
-						let date = progressResult.day;
-						// console.log(date)
+				setProgressData(result.daysResult);
 
-						customDatesStyle.push({
-							startDate: date, // Single date since no endDate provided
-							dateNameStyle: {
-								paddingBottom: 7
-							},
-							dateNumberStyle: {
-								borderWidth: 3,
-								borderColor: '#FBA76E',
-								alignItems: 'center',
-								justifyContent: 'center',
-								width: 35,
-								height: 35,
-								borderRadius: 50,
-								lineHeight: 30
-							},
-							// highlightDateNameStyle: { color: 'pink' },
-							highlightDateNumberStyle: {
-								borderWidth: 3,
-								borderColor: '#FBA76E',
-								alignItems: 'center',
-								justifyContent: 'center',
-								width: 35,
-								height: 35,
-								borderRadius: 50,
-								lineHeight: 30,
-								color: '#FFFFFF'
-							},
-							// Random color...
-							// dateContainerStyle: { backgroundColor: `#${(`#00000${(Math.random() * (1 << 24) | 0).toString(16)}`).slice(-6)}` },
-							dateContainerStyle: {
-								// borderTopWidth: 1,
-								// borderBottomWidth: 1,
-								// borderLeftWidth: 1,
-								// borderWidth: 1,
-							},
-						});
-					}
-
-				})
-
-				setCustomDatesStyles(customDatesStyle)
 			});
 		}
 
 	}, [startDate]);
+
+	useEffect(() => {
+		// console.log('UseEffect: ', progressData)
+
+	}, [progressData]);
+
 
 	const formatHeaderString = moment().format('D MMMM YYYY, dddd')
 
@@ -81,44 +65,43 @@ const Calendar = ({ userId }) => {
 	return (
 		<View>
 			<CalendarStrip
-				// startDate={endDate}
+				startDate={startDate}
 				customDatesStyles={customDatesStyles}
 				maxDate={moment().format('YYYY-MM-DD')}
 				calendarAnimation={{ type: 'parallel', duration: 1000 }}
 				style={{ height: 120 }}
 				headerText={formatHeaderString}
-				calendarHeaderStyle={{ color: 'white', fontSize: 16, lineHeight: 19 }}
+				calendarHeaderStyle={{ color: '#FFFFFF', fontSize: 16, lineHeight: 22, fontFamily: 'GothamMedium' }}
+				// dateNumberStyle={{ color: '#FFFFFF', fontSize: 14, fontWeight: 'normal', fontFamily: 'GothamMedium' }}
+				// dateNameStyle={{ color: '#FFFFFF', fontSize: 8, fontFamily: 'GothamLight' }}
 
-				dateNumberStyle={{ color: 'white', fontSize: 14, fontWeight: 'normal' }}
-				dateNameStyle={{ color: 'white', fontSize: 10, }}
-
-				highlightDateNameStyle={{ color: 'white' }}
-
-				onWeekChanged={(start, end) => {
-					setStartDate(start.format('YYYY-MM-DD'))
-					setEndDate(end.format('YYYY-MM-DD'))
-					// console.log(start.format('YYYY-MM-DD'))
-					// console.log(end.format('YYYY-MM-DD'))
-				}}
+				// onWeekChanged={(start, end) => {
+				// 	setStartDate(start.format('YYYY-MM-DD'))
+				// 	setEndDate(end.format('YYYY-MM-DD'))
+				// }}
 				dateNameFormat={moment().format('dd')}
 
-			// scrollable={true}
-			// scrollerPaging={true}
-			// highlightDateNumberStyle={{ color: 'white' }}
-			// iconContainer={{ flex: 0.1 }}
-			// dateContainerStyle={{ backgroundColor: 'red' }}
-			// dayContainerStyle={{ backgroundColor: 'black' }}
-			// highlightDateContainerStyle={{ backgroundColor: 'black' }}
-			// markedDates={this.state.markedDates}
-			// daySelectionAnimation={{ type: 'background', duration: 300, highlightColor: '#9265DC' }}
-			// onDateSelected={this.onDateSelected}
-			// useIsoWeekday={false}
-			// calendarColor={'#3343CE'}
+				dayComponent={({ date }) => {
+					let formattedDt = date.format('YYYY-MM-DD');
+					let percentProgress = getPercet(formattedDt, progressData)
+					return (<CustomDayComponent userId={userId} date={formattedDt} percent={percentProgress} />);
+				}}
+				highlightDateNameStyle={{ color: '#FFFFFF' }}
+				highlightDateNumberStyle={{ color: 'white' }}
+				iconLeft={require("../../../assets/icon-prev.png")}
+				iconRight={require("../../../assets/icon-next.png")}
+				iconLeftStyle={{
+					marginRight: 5
+				}}
+				iconRightStyle={{
+					marginLeft: 5
+				}}
 			/>
-			{/* <Text style={{ fontSize: 24 }}>Selected Date: {this.state.formattedDate}</Text> */}
+
 		</View>
 	);
 }
 
 export default Calendar
+
 

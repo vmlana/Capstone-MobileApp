@@ -4,19 +4,45 @@ import { Thumbnail } from "native-base";
 import { Button, Text, Input } from "react-native-elements";
 
 import ClapImage from '../../../assets/icons-clap.png'
+import CelebrateImage from '../../../assets/icons-celebrate.png'
+import WinnerImage from '../../../assets/icons-winner.png'
 const clapImageUri = Image.resolveAssetSource(ClapImage).uri
+const celebrateImageUri = Image.resolveAssetSource(CelebrateImage).uri
+const winnerImageUri = Image.resolveAssetSource(WinnerImage).uri
 
-const Update = () => {
+const Update = ({ weekWorkout }) => {
+	const dashboardArr = [
+		{
+			imgeUri: clapImageUri,
+			color: '#65A4D1',
+			text: 'Keep it Up!'
+		},
+		{
+			imgeUri: celebrateImageUri,
+			color: '#7561A4',
+			text: 'Great Job!'
+		},
+		{
+			imgeUri: winnerImageUri,
+			color: '#FBA76E',
+			text: 'Bravo!'
+		}
+	]
+
+	var randomDashboard = dashboardArr[Math.floor(Math.random() * dashboardArr.length)];
+
+	// console.log(randomDashboard)
+
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, { backgroundColor: randomDashboard.color }]} >
 			<View style={styles.textContainer}>
-				<Text style={styles.headerText}>Keep it Up!</Text>
-				<Text style={styles.headerSubText}>You completed 5 workouts last week!</Text>
+				<Text style={styles.headerText}>{randomDashboard.text}</Text>
+				<Text style={styles.headerSubText}>You completed {weekWorkout} workouts last week!</Text>
 			</View>
 			<Thumbnail
 				large
 				source={{
-					uri: clapImageUri,
+					uri: randomDashboard.imgeUri,
 				}}
 			/>
 		</View >
@@ -29,11 +55,11 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		marginHorizontal: 25,
-		marginVertical: 25,
+		marginTop: 25,
 		alignItems: "center",
 		paddingHorizontal: 25,
 		paddingVertical: 20,
-		backgroundColor: '#65A4D1',
+		// backgroundColor: '#65A4D1', 
 
 	},
 	textContainer: {

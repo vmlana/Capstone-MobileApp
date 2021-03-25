@@ -26,6 +26,7 @@ import {
   getPlayLists,
   getCategories,
   getSurveyData,
+  getUserData,
 } from "../data/api";
 
 // components ===============
@@ -36,19 +37,16 @@ import SurveyNotification from "../components/Home/SurveyNotification";
 
 import { Context as AuthContext } from "../context/AuthContext";
 
-const programId = 1;
+const programId = 101;
 
 const HomeScreen = ({ navigation }) => {
+  const [userInfo, setUserInfo] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
   const [categories, setCategories] = useState([]);
   const [survey, setSurvey] = useState([]);
   const [showSurvey, setShowSurvey] = useState(true);
-  const { state } = useContext(AuthContext);
-
-  if (state.userInfo) {
-    console.log("Home_authId:", state.userInfo.authId);
-  }
+  const { state, scheduleAdded } = useContext(AuthContext);
 
   const surveySwitch = () => {
     setShowSurvey(!showSurvey);
@@ -60,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
       const filteredProgramList = await programArr.filter(
         (program) => program.programId === programId
       );
-      await setPrograms(filteredProgramList);
+      setPrograms(filteredProgramList);
     };
 
     const getPlayListArr = async () => {
@@ -78,16 +76,36 @@ const HomeScreen = ({ navigation }) => {
       setSurvey(surveyData);
     };
 
+    const getUserDataArr = async () => {
+      const userData = await getUserData(state.userInfo.authId);
+      // console.log(userData);
+      setUserInfo(userData);
+    };
+
     getProgramArr();
     getPlayListArr();
     getCategoriesArr();
     getSurveyArr();
-  }, []);
+    getUserDataArr();
+  }, [state]);
+
+  useEffect(() => {}, []);
+
+  if (state.userInfo) {
+    // console.log("Home_authId:", state.userInfo);
+  }
+
+  // console.log("userData", userInfo);
+
+  //   console.log(userInfo.surveys[0].surveyId);
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        <Update />
+        {userInfo.weekWorkout > 0 ? (
+          <Update weekWorkout={userInfo.weekWorkout} />
+        ) : null}
+
         <View style={styles.container}>
           <ContentListContainer
             title={"Select Your workout type"}
@@ -103,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
           />
           {playLists.length !== 0 ? (
             <ContentListContainer
-              title={"Most Viewed / Hit List"}
+              title={"Most Viewed"}
               dataList={playLists}
               sizeBig={false}
               type={"playlists"}
@@ -120,14 +138,17 @@ const HomeScreen = ({ navigation }) => {
           ) : null}
         </View>
       </ScrollView>
-      {showSurvey ? (
-        <View style={styles.bottom}>
-          <SurveyNotification
-            navigation={navigation}
-            close={surveySwitch}
-            data={survey}
-          />
-        </View>
+
+      {userInfo.length !== 0 && showSurvey ? (
+        userInfo.surveys.length !== 0 ? (
+          <View style={styles.bottom}>
+            <SurveyNotification
+              navigation={navigation}
+              close={surveySwitch}
+              data={userInfo.surveys[0]}
+            />
+          </View>
+        ) : null
       ) : null}
     </View>
   );
@@ -136,6 +157,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginLeft: 25,
+    marginTop: 25,
   },
   bottom: {
     position: "absolute",

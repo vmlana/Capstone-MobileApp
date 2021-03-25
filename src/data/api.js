@@ -1,4 +1,5 @@
 import { API_URL } from "../GLOBAL";
+// import { useContext } from "react";
 
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
@@ -233,7 +234,25 @@ export const getSurveyData = async (surveyId) => {
       }
     })
     .catch((error) => console.error(error));
+
   return result;
+};
+
+export const postSurvey = async (surveyAnswers) => {
+  const newSurvey = await fetch(`${API_URL}/survey`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(surveyAnswers),
+  })
+    .then((response) => response.text())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => console.error(error));
+
+  return newSurvey;
 };
 
 export const createSchedule = async (scheduleData) => {
@@ -251,7 +270,7 @@ export const createSchedule = async (scheduleData) => {
 };
 
 export const deleteSchedule = async (scheduleId) => {
-  const deleteSceduleData = await fetch(
+  const deleteScheduleData = await fetch(
     `${API_URL}/schedules?scheduleId=${scheduleId}`,
     {
       method: "DELETE",
@@ -280,9 +299,13 @@ export const getLessonById = async (lessonId) => {
   return result;
 };
 
-export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructorId) => {
-
-  const blogs = await fetch(`${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`)
+export const getBlogsByCategoryIdAndInstructorId = async (
+  categoryId,
+  instructorId
+) => {
+  const blogs = await fetch(
+    `${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`
+  )
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -294,3 +317,15 @@ export const getBlogsByCategoryIdAndInstructorId = async (categoryId, instructor
   return blogs;
 };
 
+export const getUserData = async (userId) => {
+  const userData = await fetch(`${API_URL}/user?userId=${userId}`)
+    .then((response) => {
+      if (response.status != 404) {
+        return response.json();
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => console.error(error));
+  return userData;
+};

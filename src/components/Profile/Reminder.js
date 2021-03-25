@@ -23,36 +23,56 @@ const Reminder = ({ navigation }) => {
       <View style={styles.titleContainer}>
         <View>
           <Text style={styles.titleText}>Reminders</Text>
-          <Text style={{ color: "#707070" }}>
+          <Text
+            style={{
+              color: "#707070",
+              fontFamily: "GothamLight",
+              fontSize: 15,
+              lineHeight: 20,
+            }}
+          >
             Set-up a reminder before class
           </Text>
         </View>
-
-        <Icon
-          name={"bell"}
-          color={"#624A99"}
-          size={24}
-          onPress={reminderSwitch}
-          style={{ paddingLeft: 20 }}
-        />
+        {scheduleArr !== null ? (
+          <Icon
+            name={"bell"}
+            color={"#624A99"}
+            size={24}
+            onPress={reminderSwitch}
+            style={{ paddingLeft: 20 }}
+          />
+        ) : (
+          <Icon
+            name={"bell"}
+            color={"gray"}
+            size={24}
+            onPress={reminderSwitch}
+            style={{ paddingLeft: 20 }}
+          />
+        )}
       </View>
-      <Modal
-        transparent={true}
-        visible={reminderVisible}
-        onRequestClose={() => {
-          reminderSwitch;
-        }}
-      >
-        <NotificationMsg
-          onPress={reminderSwitch}
-          scheduleArr={scheduleArr}
-          //   userId={state.userInfo.authId}
-          //   playListData={playListData}
-          //   milSec={convertToMil(dateTime)}
-          //   bookedDateTime={dateTime}
-          //   dateTime={changeToReadable(readableDateTime)}
-        />
-      </Modal>
+
+      {scheduleArr !== null ? (
+        <Modal
+          transparent={true}
+          visible={reminderVisible}
+          onRequestClose={() => {
+            reminderSwitch;
+          }}
+        >
+          <NotificationMsg
+            onPress={reminderSwitch}
+            scheduleArr={scheduleArr}
+            //   userId={state.userInfo.authId}
+            //   playListData={playListData}
+            //   milSec={convertToMil(dateTime)}
+            //   bookedDateTime={dateTime}
+            //   dateTime={changeToReadable(readableDateTime)}
+          />
+        </Modal>
+      ) : null}
+
       <ReminderList navigation={navigation} getScheduleArr={getScheduleArr} />
     </View>
   );
@@ -60,19 +80,23 @@ const Reminder = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   reminderContainer: {
-    marginVertical: 15,
+    marginTop: 30,
+    paddingVertical: 15,
+    borderBottomWidth: 0.5,
+    borderTopWidth: 0.5,
+    borderColor: "#707070",
   },
   titleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 22,
   },
   titleText: {
     fontSize: 26,
-    lineHeight: 31,
+    lineHeight: 36,
     color: "#707070",
-    // marginBottom: 15,
+    fontFamily: "GothamRoundedBold_21016",
   },
   contactText: {
     fontSize: 15,

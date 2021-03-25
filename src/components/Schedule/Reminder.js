@@ -6,6 +6,7 @@ import { Text, Button } from "react-native-elements";
 import { abs } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/Entypo";
 import Picker from "./Picker";
+import { colors } from "../../colors";
 
 import moment from "moment";
 
@@ -38,6 +39,9 @@ const Reminder = ({
 
   const { state, scheduleAdded } = useContext(AuthContext);
 
+  const dateDatatoPasstoDB = new Date(bookedDateTime).toISOString();
+  console.log("in reminder", dateDatatoPasstoDB);
+
   const setMinTime = (val) => {
     const minToMilSec = val * 60000;
     setMin(minToMilSec);
@@ -47,15 +51,15 @@ const Reminder = ({
   const now = new Date();
   const currentMil = now.getTime();
 
-  //   async function scheduleAndCancel() {
-  //     const identifier = await Notifications.scheduleNotificationAsync({
-  //       content: {
-  //         title: "Hey!",
-  //       },
-  //       trigger: { seconds: 5, repeats: true },
-  //     });
-  //     await Notifications.cancelScheduledNotificationAsync(identifier);
-  //   }
+  async function scheduleAndCancel() {
+    const identifier = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hey!",
+      },
+      trigger: { seconds: 5, repeats: true },
+    });
+    await Notifications.cancelScheduledNotificationAsync(identifier);
+  }
 
   const schedulePushNotification = async (time) => {
     // console.log("notification time", milSec - min - currentMil);
@@ -64,7 +68,7 @@ const Reminder = ({
       userId: userId,
       programId: null,
       playlistId: playListData.playlistId,
-      scheduleDate: bookedDateTime,
+      scheduleDate: dateDatatoPasstoDB,
       reminderMinutes: minutes,
     };
 
@@ -75,7 +79,8 @@ const Reminder = ({
         body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
-      trigger: { seconds: (milSec - min - currentMil) / 1000 },
+      trigger: { seconds: 1 },
+      //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
 
     async function newList() {
@@ -152,8 +157,22 @@ const Reminder = ({
           onPress={onPress}
         />
         <View style={styles.modalHeader}>
-          <Text style={styles.modalText}>Add a Reminder</Text>
-          <Text style={styles.modalTextSmall}>
+          <Text
+            style={{
+              ...styles.modalText,
+              fontFamily: "GothamRoundedBold_21016",
+              color: "white",
+            }}
+          >
+            Add a Reminder
+          </Text>
+          <Text
+            style={{
+              ...styles.modalTextSmall,
+              fontFamily: "GothamRoundedBook_21018",
+              color: "white",
+            }}
+          >
             Set-up a reminder before class
           </Text>
         </View>
@@ -166,13 +185,27 @@ const Reminder = ({
                 fontSize: 16,
                 fontWeight: "bold",
                 color: "white",
+                fontFamily: "GothamRoundedBold_21016",
               }}
             >
               {playListData.playlistName}
             </Text>
             <View style={styles.bookedTime}>
-              <Text style={{ color: "white" }}>{dateTime.split(",")[0]}</Text>
-              <Text style={{ marginLeft: 20, color: "white" }}>
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "GothamRoundedBook_21018",
+                }}
+              >
+                {dateTime.split(",")[0]}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "white",
+                  fontFamily: "GothamRoundedBook_21018",
+                }}
+              >
                 {dateTime.split(",")[1]}
               </Text>
             </View>
@@ -207,13 +240,23 @@ const Reminder = ({
                   paddingRight: 5,
                   paddingVertical: 5,
                   borderRadius: 5,
-                  color: "black",
+                  color: "#707070",
+
+                  zIndex: 1,
                 }}
               >
                 mins
               </Text>
             </View>
-            <Text style={{ fontSize: 12, color: "white" }}>Before Session</Text>
+            <Text
+              style={{
+                fontSize: 11,
+                color: "white",
+                fontFamily: "GothamRoundedBook_21018",
+              }}
+            >
+              Before Session
+            </Text>
           </View>
         </View>
 
@@ -223,7 +266,10 @@ const Reminder = ({
             await schedulePushNotification(min);
           }}
           buttonStyle={styles.reminderSetBtn}
-          titleStyle={{ color: "#624A99" }}
+          titleStyle={{
+            color: "#624A99",
+            fontFamily: "GothamRoundedBook_21018",
+          }}
         />
       </View>
     </View>
@@ -243,7 +289,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "35%",
     justifyContent: "space-between",
-    backgroundColor: "#624A99",
+    backgroundColor: "#7561A4",
     borderRadius: 20,
     paddingVertical: 25,
     paddingHorizontal: 25,
@@ -272,8 +318,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 7,
-    color: "white",
-    fontWeight: "700",
+    // color: "white",
+    // fontWeight: "700",
     fontSize: 18,
   },
   modalTextSmall: {
@@ -290,7 +336,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginRight: 20,
   },
-  //   reminderPicker: {},
+  //   reminderPicker: { zIndex: 100 },
   reminderSetBtn: {
     width: "100%",
     backgroundColor: "white",
