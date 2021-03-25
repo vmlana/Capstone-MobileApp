@@ -4,6 +4,8 @@ import SearchIcon from '../../components/Search/SearchIcon';
 
 import { useSearchContext } from '../../../src/context/searchContext';
 
+import {colors} from '../../colors';
+
 const SearchInput = (props) => {
   const [searchInput, setSearchInput] = useState("")
   const {searchString, setSearchString} = useSearchContext();
@@ -47,7 +49,8 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 5,
     fontSize: 20,
-    
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.darkGrey,
   }
 })
 

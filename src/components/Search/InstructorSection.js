@@ -14,6 +14,7 @@ import {
   Thumbnail
 } from "native-base";
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import {colors} from '../../colors';
 
 const InstructorSection = ({ dataList, navigation }) => {
 
@@ -94,19 +95,23 @@ const styles = StyleSheet.create({
   },
   instructorName: {
     fontSize: 22,
-    fontWeight: "600",
+    // fontWeight: "600",
     marginTop: 4,
     marginBottom: 4,
+    fontFamily: "GothamRoundedBold_21016",
+    color: colors.darkGrey,
   },
   instructorDescription: {
     fontSize: 14,
-    color: "#aaa",
     marginBottom: 4,
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.darkGrey,
+    lineHeight: 18
   },
   seeMoreText: {
     fontSize: 16,
-    color: "#555",
-    fontWeight: "500",
+    color: colors.darkGrey,
+    fontFamily: "GothamRoundedMedium_21022",
     textDecorationLine: "underline"
   }
 });

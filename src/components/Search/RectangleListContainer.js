@@ -15,6 +15,8 @@ import { Text } from "react-native-elements";
 
 import RectangleContainer from "./RectangleContainer";
 
+import { colors } from '../../colors';
+
 const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) => {
   return (
     <View>
@@ -43,9 +45,10 @@ const RectangleListContainer = ({ title, dataList, navigation, onPressScroll }) 
 const styles = StyleSheet.create({
   label: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#707070",
-    // letterSpacing: .2
+    fontFamily: "GothamRoundedBold_21016",
+    color: colors.darkGrey,
+    letterSpacing: .2,
+    // marginBottom: 4
   }
 })
 

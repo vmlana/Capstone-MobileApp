@@ -18,6 +18,7 @@ import TrainerName from "../components/Trainer/TrainerName";
 import RectangleListContainer from "../components/Search/RectangleListContainer";
 import { light } from "@material-ui/core/styles/createPalette";
 
+import {colors} from '../colors';
 
 const BlogScreen = ({ navigation }) => {
   const blogData = navigation.getParam("blogData");
@@ -27,6 +28,7 @@ const BlogScreen = ({ navigation }) => {
   return (
     <ScrollView ref={scrollRef} style={styles.container}>
       <Content>
+
         <View style={styles.header}>
           <Text style={styles.blogTitle}>{blogData.blogTitle}</Text>
           <View style={styles.headerInfo}>
@@ -101,9 +103,10 @@ const styles = StyleSheet.create({
   //     alignItems: "center",
   // },
   blogTitle: {
+    fontFamily: "GothamRoundedBold_21016",
+    color: colors.darkGrey,
+    // marginHorizontal: 25,
     fontSize: 28,
-    fontWeight: "bold",
-    color: "#707070",
     letterSpacing: 1,
     marginBottom: 18
   },
@@ -114,8 +117,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   date: {
-    fontSize: 14,
-    color: "#707070",
+    fontFamily: "GothamRoundedLight_21020",
+    color: colors.darkGrey,
+    fontSize: 12
   },
   article: {
     paddingTop: 20,
@@ -124,19 +128,21 @@ const styles = StyleSheet.create({
     paddingRight: 30,
   },
   contents: {
-    color: "#707070",
     lineHeight: 22,
-    letterSpacing: .2
+    letterSpacing: .2,
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.darkGrey,
   },
   tags: {
+    marginTop: 40,
     paddingLeft: 30,
     paddingRight: 30,
     flexDirection:'row',
-    marginBottom: 60
+    marginBottom: 32
   },
   tag: {
-    color: "#707070",
-    fontWeight: "300"
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.mediumGrey,
   },
   relatedBlogs: {
     paddingLeft: 30,

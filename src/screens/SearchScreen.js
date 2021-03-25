@@ -25,6 +25,8 @@ import { useSearchContext } from '../../src/context/searchContext';
 import { getSearchResult } from '../data/api';
 import RectangleListContainer from "../components/Search/RectangleListContainer";
 
+import {colors} from '../colors';
+
 const SearchScreen = ({ navigation }) => {
   const {searchString, setSearchString} = useSearchContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +83,7 @@ const SearchScreen = ({ navigation }) => {
       ) {
     return (
       <View style={styles.centered}>
-        <Text>Nothing found.</Text>
+        <Text style={styles.nothingText}>Nothing found.</Text>
       </View>
     )
   }
@@ -114,6 +116,7 @@ const SearchScreen = ({ navigation }) => {
             dataList={searchResultObject.playlists}
             type={"playlists"}
             navigation={navigation}
+            isSearchScreen={true}
           /> : null
         }
         {/* BLOG SECTION **********************/}
@@ -175,6 +178,10 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
   },
+  nothingText: {
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.darkGrey,
+  }
 });
 
 export default SearchScreen;

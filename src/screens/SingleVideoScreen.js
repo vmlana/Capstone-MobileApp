@@ -13,6 +13,9 @@ import {
   getBlogsByCategoryIdAndInstructorId,
 } from "../data/api";
 
+// Style ====================
+import { colors } from "../colors";
+
 const SingleVideoScreen = ({ navigation }) => {
   const data = navigation.getParam("videoData");
   const playList = navigation.getParam("playListData");
@@ -46,7 +49,11 @@ const SingleVideoScreen = ({ navigation }) => {
         />
         {blogs != null ? (
           <Blogs data={blogs[0]} navigation={navigation} />
-        ) : null}
+        ) : 
+          <View style={styles.noBlogsContainer}>
+            <Text style={styles.noBlogsText}>There is no related blogs to this lesson.</Text>
+          </View>
+        }
       </ScrollView>
       <View style={styles.bottom}>
         <Button
@@ -81,6 +88,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  noBlogsContainer: {
+    margin: 32,
+    flex: 1,
+    textAlign: "center"
+  },
+  noBlogsText: {
+    textAlign: "center",
+    fontFamily: "GothamRoundedBook_21018",
+    color: colors.mediumGrey
   },
 });
 

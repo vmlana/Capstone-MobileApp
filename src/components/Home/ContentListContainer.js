@@ -16,14 +16,15 @@ import { colors } from "../../colors";
 
 import ContentContainer from "./ContentContainer";
 
-const ContentListContainer = ({ title, dataList, navigation, type }) => {
+const ContentListContainer = ({ title, dataList, navigation, type, isSearchScreen }) => {
   return (
     <View>
       <Text
         style={{
           ...styles.titleText,
-          fontFamily: "GothamRoundedMedium_21022",
+          fontFamily: isSearchScreen ? "GothamRoundedBold_21016" : "GothamRoundedMedium_21022",
           color: colors.darkGrey,
+          fontSize: isSearchScreen ? 24 : 19
         }}
       >
         {title}
