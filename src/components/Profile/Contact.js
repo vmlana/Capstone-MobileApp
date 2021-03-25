@@ -8,7 +8,7 @@ const Contact = ({ signout }) => {
         <View style={styles.contactContainer}>
             <View>
                 <Text style={{ ...styles.titleText, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey }}>Contact Us</Text>
-                <Text style={{ ...styles.contactText, fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey }}>For any queries, you can contact the instructors directly on</Text>
+                <Text style={{ ...styles.contactText, color: "#707070", fontFamily: 'GothamLight', fontSize: 15, lineHeight: 20 }}>For any queries, you can contact us directly on:</Text>
                 <Text style={{ ...styles.userEmail, fontFamily: "GothamRoundedBold_21016", color: colors.darkGrey }}>support@pivotcare.ca</Text>
             </View>
             <View style={{ flexDirection: "row", paddingBottom: 5, justifyContent: "space-between" }}>
@@ -17,9 +17,9 @@ const Contact = ({ signout }) => {
                         signout();
                     }}
                 >
-                    <Text style={{ ...styles.signOutLink, fontFamily: "GothamRoundedBook_21018" }}>Log Out</Text>
+                    <Text style={{ ...styles.signOutLink, fontFamily: "GothamRoundedBook_21018", fontSize: 15 }}>Log Out</Text>
                 </TouchableOpacity>
-                <Text style={{ ...styles.signOutLink, marginRight: 12, fontFamily: "GothamRoundedBook_21018" }}>Terms & Conditions</Text>
+                <Text style={{ ...styles.signOutLink, marginRight: 12, fontFamily: "GothamRoundedBook_21018", fontSize: 15 }}>Terms & Conditions</Text>
             </View>
         </View>
     )
@@ -27,7 +27,6 @@ const Contact = ({ signout }) => {
 
 const styles = StyleSheet.create({
     contactContainer: {
-        marginVertical: 15,
         height: 500,
         width: "100%",
         flex: 1,
@@ -50,11 +49,10 @@ const styles = StyleSheet.create({
     userEmail: {
         fontSize: 15,
         lineHeight: 20,
-        color: '#707070',
-        fontWeight: 'bold'
+        color: '#707070'
     },
     signOutLink: {
-        // marginBottom: 30,
+        marginBottom: 10,
         color: "#fff",
         textDecorationLine: "underline",
         textDecorationStyle: "solid",

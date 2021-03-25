@@ -60,7 +60,7 @@ const Reminder = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   reminderContainer: {
-    marginVertical: 30,
+    marginTop: 30,
     paddingVertical: 15,
     borderBottomWidth: 0.5,
     borderTopWidth: 0.5,
