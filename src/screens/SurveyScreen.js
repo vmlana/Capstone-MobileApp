@@ -96,9 +96,7 @@ const SurveyScreen = ({ navigation }) => {
             ...styles.headerText,
             fontFamily: "GothamRoundedMedium_21022",
           }}
-        >
-          Please select the option that best {"\n"} suits your experience with
-          us
+        >Select the option that best {"\n"}suits your experience with us
         </Text>
       </View>
 
@@ -172,7 +170,7 @@ const styles = StyleSheet.create({
   headerText: {
     paddingHorizontal: 15,
     position: "absolute",
-    top: "35%",
+    top: "20%",
     left: 15,
     fontSize: 18,
     fontWeight: "bold",
