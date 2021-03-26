@@ -90,7 +90,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
             color: colors.darkGrey,
           }}
         >
-          {data.videoDuration * 100} mins
+          {data.videoDuration} mins
         </Text>
       </View>
       <Text

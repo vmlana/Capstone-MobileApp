@@ -9,7 +9,7 @@ const SurveyNotification = ({ close, navigation, data }) => {
         <Text
           style={{ ...styles.Text, fontFamily: "GothamRoundedMedium_21022" }}
         >
-          Give us your feedback {"\n"}about how we can improve
+          Give us your feedback {"\n"}on how we can improve
         </Text>
       </View>
       <View>
@@ -28,7 +28,7 @@ const SurveyNotification = ({ close, navigation, data }) => {
               fontFamily: "GothamLight",
             }}
           >
-            Give Feedback
+            Feedback
           </Text>
         </TouchableOpacity>
       </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "bold",
   },
 });
