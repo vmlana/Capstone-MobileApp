@@ -9,15 +9,15 @@ import {
 // import Spacer from "./Spacer";
 import { withNavigation } from "react-navigation";
 
-import {colors} from '../../colors';
+import { colors } from '../../colors';
 
 const NavLink = ({ navigation, text, routeName }) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={{fontFamily: "GothamRoundedLight_21020", color: colors.darkGrey}}>{text}</Text>
+        <Text style={{ fontFamily: "GothamLight", color: colors.darkGrey }}>{text}</Text>
         <TouchableOpacity onPress={() => navigation.navigate(routeName)}>
-          <Text style={{...styles.link, fontFamily: "GothamRoundedBold_21016" }}>
+          <Text style={{ ...styles.link, fontFamily: "GothamBold", borderBottomWidth: 1, borderBottomColor: colors.darkGrey }}>
             {routeName === "Signup" ? "Sign Up" : "Sign In"}
           </Text>
         </TouchableOpacity>
