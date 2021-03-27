@@ -42,82 +42,82 @@ const CategoryScreen = ({ navigation }) => {
     <View
       style={styles.container}
     >
-        <FlatList
-          style={styles.flatList}
-          data={playlists}
-          keyExtractor={(item)=> item.playlistId.toString()}
-          renderItem={({item, index}) => {
-            return (
-            <View>
-              {
-                index % 2 === 0
-                ?
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("PlayList", {
-                      singleVideoData: item.lessons,
-                      playListData: item,
-                    })
-                  }
-                  style={styles.playlistContainer}
-                >
-                  <Image
-                    style={styles.image}
-                    source={{ uri: item.imageFile }}
-                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
-                  />
-                  <View style={styles.nameAndDesView}>
-                    <Text 
-                      style={styles.playlistName}
-                    >
-                      {item.playlistName}
-                    </Text>
-                    <Text style={styles.instructorName}>{item.instructorName}</Text>
-                    <View>
-                      <Text 
-                        style={styles.playlistDescription}
-                      >
-                        {item.playlistDescription}
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              :
+      <FlatList
+        style={styles.flatList}
+        data={playlists}
+        keyExtractor={(item)=> item.playlistId.toString()}
+        renderItem={({item, index}) => {
+          return (
+          <View>
+            {
+              index % 2 === 0
+              ?
               <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("PlayList", {
-                      singleVideoData: item.lessons,
-                      playListData: item,
-                    })
-                  }
-                  style={styles.playlistContainer}
-                >
-                  <View style={styles.nameAndDesViewLeft}>
+                onPress={() =>
+                  navigation.navigate("PlayList", {
+                    singleVideoData: item.lessons,
+                    playListData: item,
+                  })
+                }
+                style={styles.playlistContainer}
+              >
+                <Image
+                  style={styles.image}
+                  source={{ uri: item.imageFile }}
+                  // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
+                />
+                <View style={styles.nameAndDesView}>
+                  <Text 
+                    style={styles.playlistName}
+                  >
+                    {item.playlistName}
+                  </Text>
+                  {/* <Text style={styles.instructorName}>{item.instructorName}</Text> */}
+                  <View>
                     <Text 
-                      style={styles.playlistName}
+                      style={styles.playlistDescription}
                     >
-                      {item.playlistName}
+                      {item.playlistDescription}
                     </Text>
-                    <Text style={styles.instructorName}>{item.instructorName}</Text>
-                    <View>
-                      <Text 
-                        style={styles.playlistDescription}
-                      >
-                        {item.playlistDescription}
-                      </Text>
-                    </View>
                   </View>
-                  <Image
-                    style={styles.image}
-                    // source={{ uri: item.imageFile }}
-                    source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
-                  />
-                </TouchableOpacity>
-              }
-            </View>
-            )}
-          }
-        />
+                </View>
+              </TouchableOpacity>
+            :
+            <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("PlayList", {
+                    singleVideoData: item.lessons,
+                    playListData: item,
+                  })
+                }
+                style={styles.playlistContainer}
+              >
+                <View style={styles.nameAndDesViewLeft}>
+                  <Text 
+                    style={styles.playlistName}
+                  >
+                    {item.playlistName}
+                  </Text>
+                  <Text style={styles.instructorName}>{item.instructorName}</Text>
+                  <View>
+                    <Text 
+                      style={styles.playlistDescription}
+                    >
+                      {item.playlistDescription}
+                    </Text>
+                  </View>
+                </View>
+                <Image
+                  style={styles.image}
+                  // source={{ uri: item.imageFile }}
+                  source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/stretch.jpg" }}
+                />
+              </TouchableOpacity>
+            }
+          </View>
+          )}
+        }
+      />
     </View>
   );
 };
@@ -125,10 +125,11 @@ const CategoryScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      // padding: 33,
+      // paddingBottom: 33,
   },
   flatList: {
     padding: 33,
+    // paddingBottom: 40
   },
   centered: {
       flex: 1,
@@ -137,25 +138,27 @@ const styles = StyleSheet.create({
   },
   playlistContainer: {
     flexDirection:'row',
-    marginBottom: 23,
+    marginBottom: 25,
     alignItems: "center"
   },
   image: {
     width: 135,
     height: 142,
-    borderRadius: 5
+    borderRadius: 5,
+    marginBottom: 26,
   },
   nameAndDesView: {
     paddingTop: 13,
     paddingLeft: 26,
-    paddingBottom: 26,
+    marginBottom: 26,
     flex: 1,
     flexDirection: "column",
+    justifyContent: "center"
   },
   nameAndDesViewLeft: {
     paddingTop: 13,
     paddingRight: 26,
-    paddingBottom: 26,
+    marginBottom: 26,
     flex: 1,
     flexDirection: "column",
   },
