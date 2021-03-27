@@ -72,7 +72,7 @@ const ProgramScreen = ({ navigation }) => {
                     >
                       {item.playlistName}
                     </Text>
-                    <Text style={styles.instructorName}>{item.instructorName}</Text>
+                    {/* <Text style={styles.instructorName}>{item.instructorName}</Text> */}
                     <View>
                       <Text 
                         style={styles.playlistDescription}
@@ -98,7 +98,7 @@ const ProgramScreen = ({ navigation }) => {
                     >
                       {item.playlistName}
                     </Text>
-                    <Text style={styles.instructorName}>{item.instructorName}</Text>
+                    {/* <Text style={styles.instructorName}>{item.instructorName}</Text> */}
                     <View>
                       <Text 
                         style={styles.playlistDescription}
@@ -136,26 +136,28 @@ const styles = StyleSheet.create({
       alignItems: "center",
   },
   playlistContainer: {
-    flexDirection:'row',
-    marginBottom: 23,
+    flexDirection: 'row',
+    marginBottom: 25,
     alignItems: "center"
   },
   image: {
     width: 135,
     height: 142,
-    borderRadius: 5
+    borderRadius: 5,
+    marginBottom: 26,
   },
   nameAndDesView: {
     paddingTop: 13,
     paddingLeft: 26,
-    paddingBottom: 26,
+    marginBottom: 26,
     flex: 1,
     flexDirection: "column",
+    justifyContent: "center"
   },
   nameAndDesViewLeft: {
     paddingTop: 13,
     paddingRight: 26,
-    paddingBottom: 26,
+    marginBottom: 26,
     flex: 1,
     flexDirection: "column",
   },
