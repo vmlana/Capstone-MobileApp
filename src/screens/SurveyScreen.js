@@ -141,7 +141,7 @@ const SurveyScreen = ({ navigation }) => {
       ) : null}
 
       <Button
-        title="Submit Survey"
+        title="Submit Feedback"
         buttonStyle={{
           ...styles.button,
           fontFamily: "GothamRoundedBook_21018",
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   button: {
-    backgroundColor: "orange",
+    backgroundColor: "#F59C60",
     color: "white",
     alignSelf: "center",
     paddingVertical: 10,

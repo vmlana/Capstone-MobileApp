@@ -130,7 +130,7 @@ const HomeScreen = ({ navigation }) => {
           ) : null}
           {programs.length !== 0 ? (
             <ContentListContainer
-              title={"Workout Playlists"}
+              title={"Workout Programs"}
               dataList={programs}
               type={"programs"}
               navigation={navigation}
