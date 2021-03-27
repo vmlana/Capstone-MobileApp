@@ -6,7 +6,7 @@ import { colors } from "../../colors";
 
 import { getInstructorInfo } from "../../data/api";
 
-const TrainerName = ({ navigation, data, blog }) => {
+const TrainerName = ({ navigation, data, blog, page }) => {
   const [instructorInfo, setInstructorInfo] = useState("");
 
   useEffect(() => {
@@ -29,7 +29,11 @@ const TrainerName = ({ navigation, data, blog }) => {
     >
       <Thumbnail
         small
-        source={{ uri: (instructorInfo.imageFile ? instructorInfo.imageFile : data.instructorImage) }}
+        source={{
+          uri: instructorInfo.imageFile
+            ? instructorInfo.imageFile
+            : data.instructorImage,
+        }}
         style={styles.thumbNail}
       />
       <Text
@@ -49,7 +53,6 @@ const styles = StyleSheet.create({
   trainerInfo: {
     flexDirection: "row",
     alignItems: "center",
-    // marginTop: 7,
   },
   thumbNail: {
     width: 24,

@@ -120,6 +120,11 @@ const SetScheduleScreen = ({ navigation }) => {
         [item.split("T")[0]]: {
           selected: true,
           selectedColor: "#624A99",
+          customStyles: {
+            text: {
+              lineHeight: 20,
+            },
+          },
         },
       };
     }, {});
@@ -180,6 +185,13 @@ const SetScheduleScreen = ({ navigation }) => {
             todayTextColor: "#4F99CE",
             arrowColor: "#624A99",
           }}
+          //   dayComponent={({ date, state }) => {
+          //     return (
+          //       <View>
+          //         <Text style={{ paddingTop: 3 }}>{date.day}</Text>
+          //       </View>
+          //     );
+          //   }}
         />
       </View>
 

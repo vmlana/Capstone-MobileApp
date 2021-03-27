@@ -75,6 +75,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
         </Text>
         <TrainerName data={playListData} navigation={navigation} />
       </View>
+
       <View style={styles.videoInfo}>
         <Text
           style={{
@@ -108,11 +109,10 @@ const SingleVideo = ({ navigation, data, playListData }) => {
 
 const styles = StyleSheet.create({
   videoHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "space-around",
     marginHorizontal: 25,
     marginVertical: 10,
-    alignItems: "center",
   },
   videoInfo: {
     flexDirection: "row",
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   lessonTitle: {
     fontSize: 23,
     lineHeight: 28,
+    marginBottom: 10,
     // color: "#707070",
   },
   desc: {
