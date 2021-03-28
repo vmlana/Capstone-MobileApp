@@ -67,6 +67,19 @@ export const getPlayLists = async () => {
   return playlists;
 };
 
+export const getRecentPlayLists = async () => {
+  const accessToken = await retrieveUserInfo()
+  const playlists = await fetch(`${API_URL}/playlists?orderby=publishedDate desc`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+  return playlists;
+};
+
+
 export const getInstructorInfo = async (instructoId) => {
   const accessToken = await retrieveUserInfo()
   const instructor = await fetch(
