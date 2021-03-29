@@ -1,8 +1,25 @@
 import { API_URL } from "../GLOBAL";
 // import { useContext } from "react";
+import { AsyncStorage } from "react-native";
 
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
+
+const retrieveUserInfo = async () => {
+  try {
+    const value = await AsyncStorage.getItem("userInfo");
+    if (value !== null) {
+      // We have data!!
+      // console.log(value);
+      const { accessToken, accessExpiresIn, refreshToken, refreshExpiresIn } = JSON.parse(value);
+      return accessToken;
+      // return value.json()
+    }
+  } catch (error) {
+    // Error retrieving data
+    console.log(error)
+  }
+};
 
 export async function registerForPushNotificationsAsync(userId: string) {
   let experienceId = undefined;
@@ -26,22 +43,51 @@ export async function registerForPushNotificationsAsync(userId: string) {
 }
 
 export const getPrograms = async () => {
-  const programs = await fetch(`${API_URL}/programs?userId=3&programId=`)
+  const accessToken = await retrieveUserInfo()
+  const programs = await fetch(
+    `${API_URL}/programs?userId=3&programId=`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => response.json())
     .catch((error) => console.error(error));
   return programs;
 };
 
 export const getPlayLists = async () => {
-  const playlists = await fetch(`${API_URL}/playlists?userId=3&programId=`)
+  const accessToken = await retrieveUserInfo()
+  const playlists = await fetch(`${API_URL}/playlists?userId=3&programId=`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => response.json())
     .catch((error) => console.error(error));
   return playlists;
 };
 
+export const getRecentPlayLists = async () => {
+  const accessToken = await retrieveUserInfo()
+  const playlists = await fetch(`${API_URL}/playlists?orderby=publishedDate desc`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+  return playlists;
+};
+
+
 export const getInstructorInfo = async (instructoId) => {
+  const accessToken = await retrieveUserInfo()
   const instructor = await fetch(
-    `${API_URL}/instructor?instructorId=${instructoId}`
+    `${API_URL}/instructor?instructorId=${instructoId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    }
   )
     .then((response) => response.json())
     .catch((error) => console.error(error));
@@ -50,7 +96,12 @@ export const getInstructorInfo = async (instructoId) => {
 };
 
 export const getCategories = async () => {
-  const categories = await fetch(`${API_URL}/categories`)
+  const accessToken = await retrieveUserInfo()
+  const categories = await fetch(`${API_URL}/categories`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -63,7 +114,12 @@ export const getCategories = async () => {
 };
 
 export const getPlayListsByCategoryId = async (categoryId) => {
-  const playlists = await fetch(`${API_URL}/playlists?categoryId=${categoryId}`)
+  const accessToken = await retrieveUserInfo()
+  const playlists = await fetch(`${API_URL}/playlists?categoryId=${categoryId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -76,8 +132,13 @@ export const getPlayListsByCategoryId = async (categoryId) => {
 };
 
 export const getSearchResult = async (userId, keyword) => {
+  const accessToken = await retrieveUserInfo()
   const result = await fetch(
-    `${API_URL}/search?userId=${userId}&keyword=${keyword}`
+    `${API_URL}/search?userId=${userId}&keyword=${keyword}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    }
   )
     .then((response) => {
       if (response.status != 404) {
@@ -91,8 +152,13 @@ export const getSearchResult = async (userId, keyword) => {
 };
 
 export const getPlaylistByPlaylistId = async (playlistId) => {
+  const accessToken = await retrieveUserInfo()
   // console.log(4.5, playlistId)
-  const result = await fetch(`${API_URL}/playlists?playlistId=${playlistId}`)
+  const result = await fetch(`${API_URL}/playlists?playlistId=${playlistId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       // console.log(response);
       if (response.status != 404) {
@@ -107,7 +173,12 @@ export const getPlaylistByPlaylistId = async (playlistId) => {
 };
 
 export const getProgramByProgramId = async (programId) => {
-  const result = await fetch(`${API_URL}/programs?programId=${programId}`)
+  const accessToken = await retrieveUserInfo()
+  const result = await fetch(`${API_URL}/programs?programId=${programId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -120,7 +191,12 @@ export const getProgramByProgramId = async (programId) => {
 };
 
 export const getUserDashboard = async (userId) => {
-  const result = await fetch(`${API_URL}/dashboard?userId=${userId}`)
+  const accessToken = await retrieveUserInfo()
+  const result = await fetch(`${API_URL}/dashboard?userId=${userId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -138,12 +214,14 @@ export const setActivityLog = async (
   playlistId,
   lessonId
 ) => {
+  const accessToken = await retrieveUserInfo()
   //console.log('Register Log: ' + userId + '  ' + programId + '  ' + playlistId + '  ' + lessonId);
 
   const result = await fetch(`${API_URL}/activitylog`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "access-token": `${accessToken}`,
     },
 
     body: JSON.stringify({
@@ -159,6 +237,7 @@ export const setActivityLog = async (
 };
 
 export const getBlogs = async (blogId, userId) => {
+  const accessToken = await retrieveUserInfo()
   let qry = "";
 
   if (blogId) {
@@ -169,7 +248,11 @@ export const getBlogs = async (blogId, userId) => {
 
   // console.log(qry)
 
-  const blogs = await fetch(`${API_URL}/blogs${qry}`)
+  const blogs = await fetch(`${API_URL}/blogs${qry}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -182,8 +265,13 @@ export const getBlogs = async (blogId, userId) => {
 };
 
 export const getUserScheduleData = async (userId, playlistId) => {
+  const accessToken = await retrieveUserInfo()
   const result = await fetch(
-    `${API_URL}/schedules?userId=${userId}&playlistId=${playlistId}`
+    `${API_URL}/schedules?userId=${userId}&playlistId=${playlistId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    }
   )
     .then((response) => {
       if (response.status != 404) {
@@ -197,8 +285,13 @@ export const getUserScheduleData = async (userId, playlistId) => {
 };
 
 export const getDashboardData = async (userId, initialDate, finalDate) => {
+  const accessToken = await retrieveUserInfo()
   const dashboardData = await fetch(
-    `${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`
+    `${API_URL}/dashboard?userId=${userId}&initialDate=${initialDate}&finalDate=${finalDate}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    }
   )
     .then((response) => {
       if (response.status != 404) {
@@ -212,7 +305,12 @@ export const getDashboardData = async (userId, initialDate, finalDate) => {
 };
 
 export const getAllUserScheduleData = async (userId) => {
-  const result = await fetch(`${API_URL}/schedules?userId=${userId}`)
+  const accessToken = await retrieveUserInfo()
+  const result = await fetch(`${API_URL}/schedules?userId=${userId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -225,7 +323,12 @@ export const getAllUserScheduleData = async (userId) => {
 };
 
 export const getSurveyData = async (surveyId) => {
-  const result = await fetch(`${API_URL}/survey?surveyId=${surveyId}`)
+  const accessToken = await retrieveUserInfo()
+  const result = await fetch(`${API_URL}/survey?surveyId=${surveyId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -239,10 +342,12 @@ export const getSurveyData = async (surveyId) => {
 };
 
 export const postSurvey = async (surveyAnswers) => {
+  const accessToken = await retrieveUserInfo()
   const newSurvey = await fetch(`${API_URL}/survey`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "access-token": `${accessToken}`,
     },
     body: JSON.stringify(surveyAnswers),
   })
@@ -256,10 +361,12 @@ export const postSurvey = async (surveyAnswers) => {
 };
 
 export const createSchedule = async (scheduleData) => {
+  const accessToken = await retrieveUserInfo()
   const newSchedule = await fetch(`${API_URL}/schedules`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "access-token": `${accessToken}`,
     },
     body: JSON.stringify(scheduleData),
   })
@@ -270,12 +377,14 @@ export const createSchedule = async (scheduleData) => {
 };
 
 export const deleteSchedule = async (scheduleId) => {
+  const accessToken = await retrieveUserInfo()
   const deleteScheduleData = await fetch(
     `${API_URL}/schedules?scheduleId=${scheduleId}`,
     {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "access-token": `${accessToken}`,
       },
       body: JSON.stringify({ scheduleId: scheduleId }),
     }
@@ -287,7 +396,12 @@ export const deleteSchedule = async (scheduleId) => {
 };
 
 export const getLessonById = async (lessonId) => {
-  const result = await fetch(`${API_URL}/lessons?lessonId=${lessonId}`)
+  const accessToken = await retrieveUserInfo()
+  const result = await fetch(`${API_URL}/lessons?lessonId=${lessonId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();
@@ -303,8 +417,13 @@ export const getBlogsByCategoryIdAndInstructorId = async (
   categoryId,
   instructorId
 ) => {
+  const accessToken = await retrieveUserInfo()
   const blogs = await fetch(
-    `${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`
+    `${API_URL}/blogs?categoryId=${categoryId}&instructorId=${instructorId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    }
   )
     .then((response) => {
       if (response.status != 404) {
@@ -318,7 +437,12 @@ export const getBlogsByCategoryIdAndInstructorId = async (
 };
 
 export const getUserData = async (userId) => {
-  const userData = await fetch(`${API_URL}/user?userId=${userId}`)
+  const accessToken = await retrieveUserInfo()
+  const userData = await fetch(`${API_URL}/user?userId=${userId}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      }
+    })
     .then((response) => {
       if (response.status != 404) {
         return response.json();

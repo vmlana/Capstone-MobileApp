@@ -24,6 +24,7 @@ import {
 import {
   getPrograms,
   getPlayLists,
+  getRecentPlayLists,  
   getCategories,
   getSurveyData,
   getUserData,
@@ -43,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [playLists, setPlayLists] = useState([]);
+  const [recentPlayLists, setRecentPlayLists] = useState([]);    
   const [categories, setCategories] = useState([]);
   const [survey, setSurvey] = useState([]);
   const [showSurvey, setShowSurvey] = useState(true);
@@ -66,6 +68,11 @@ const HomeScreen = ({ navigation }) => {
       setPlayLists(playListArr);
     };
 
+    const getRecentPlayListArr = async () => {
+      const recentPlayListArr = await getRecentPlayLists();
+      setRecentPlayLists(recentPlayListArr);
+    };
+
     const getCategoriesArr = async () => {
       const categoriesArr = await getCategories();
       setCategories(categoriesArr);
@@ -84,6 +91,7 @@ const HomeScreen = ({ navigation }) => {
 
     getProgramArr();
     getPlayListArr();
+    getRecentPlayListArr();       
     getCategoriesArr();
     getSurveyArr();
     getUserDataArr();
@@ -115,7 +123,7 @@ const HomeScreen = ({ navigation }) => {
           />
           <ContentListContainer
             title={"Recently Added"}
-            dataList={playLists}
+            dataList={recentPlayLists}
             type={"playlists"}
             navigation={navigation}
           />
