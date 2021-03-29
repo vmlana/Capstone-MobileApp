@@ -15,6 +15,7 @@ const SurveyNotification = ({ close, navigation, data }) => {
       <View>
         <TouchableOpacity
           style={styles.Button}
+          activeOpacity={1}
           onPress={() =>
             navigation.navigate("Survey", {
               surveyData: data,
@@ -25,7 +26,8 @@ const SurveyNotification = ({ close, navigation, data }) => {
             style={{
               color: "#FF9D5A",
               fontSize: 14,
-              fontFamily: "GothamLight",
+              lineHeight: 20,
+              fontFamily: "GothamBook",
             }}
           >
             Feedback
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
-    fontSize: 13,
-    fontWeight: "bold",
+    fontSize: 14,
+    lineHeight: 19
   },
 });

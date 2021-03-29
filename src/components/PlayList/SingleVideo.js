@@ -79,16 +79,20 @@ const SingleVideo = ({ navigation, data, playListData }) => {
       <View style={styles.videoInfo}>
         <Text
           style={{
-            fontFamily: "GothamRoundedBook_21018",
+            fontFamily: "GothamBook",
             color: colors.darkGrey,
+            fontSize: 13,
+            lineHeight: 18
           }}
         >
           {playListData.categoryName}
         </Text>
         <Text
           style={{
-            fontFamily: "GothamRoundedBook_21018",
+            fontFamily: "GothamBook",
             color: colors.darkGrey,
+            fontSize: 13,
+            lineHeight: 18
           }}
         >
           {data.videoDuration} mins
@@ -97,8 +101,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
       <Text
         style={{
           ...styles.desc,
-          fontFamily: "GothamRoundedBook_21018",
-          color: colors.darkGrey,
+          fontFamily: "GothamBook"
         }}
       >
         {data.lessonDescription}
@@ -123,14 +126,16 @@ const styles = StyleSheet.create({
   },
   lessonTitle: {
     fontSize: 23,
-    lineHeight: 28,
+    lineHeight: 33,
     marginBottom: 10,
     // color: "#707070",
   },
   desc: {
     marginHorizontal: 25,
     marginVertical: 10,
-    lineHeight: 18,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#707070'
   },
 });
 

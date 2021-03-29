@@ -61,6 +61,13 @@ const HomeStack = createStackNavigator(
 			screen: SingleVideoScreen,
 			navigationOptions: ({ navigation }) => ({
 				title: `${navigation.state.params.lessonName}`,
+				headerTitleStyle: {
+					textAlign: "center",
+					color: "#7561A4",
+					fontSize: 20,
+					lineHeight: 30,
+					fontFamily: "GothamRoundedMedium_21022",
+				}
 			}),
 		},
 		SetSchedule: {

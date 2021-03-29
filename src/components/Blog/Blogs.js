@@ -15,7 +15,7 @@ import { colors } from "../../colors";
 
 const windowWidth = Dimensions.get("window").width;
 
-const Blogs = ({navigation, data }) => {
+const Blogs = ({ navigation, data }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.blogTitle}>
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     fontFamily: "GothamRoundedBold_21016",
     color: colors.darkGrey,
     marginHorizontal: 25,
-    fontSize: 28
+    fontSize: 26,
+    lineHeight: 31
   },
   blogInfo: {
     flexDirection: "row",
@@ -70,10 +71,10 @@ const styles = StyleSheet.create({
   blogContent: {
     marginHorizontal: 25,
     marginVertical: 10,
-    fontFamily: "GothamRoundedBook_21018",
+    fontFamily: "GothamBook",
     color: colors.darkGrey,
-    lineHeight: 18,
-    letterSpacing: .2,
+    fontSize: 14,
+    lineHeight: 20,
   },
 });
 

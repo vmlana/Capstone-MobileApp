@@ -15,12 +15,12 @@ const Picker = ({ onChange }) => {
         }}
         wrapperHeight={40}
         wrapperWidth={100}
-        wrapperBackground={"#7561A4"}
+        wrapperBackground={"transparent"}
         itemHeight={23}
         highlightColor={"#707070"}
-        itemTextStyle={{ fontSize: 0.5, color: "white" }}
-        activeItemTextStyle={{ color: "black", zIndex: 5 }}
-        highlightWidth={1}
+        itemTextStyle={{ fontSize: 9, color: "white" }}
+        activeItemTextStyle={{ fontSize: 16, color: "#707070" }}
+        highlightWidth={0}
       />
     </>
   );

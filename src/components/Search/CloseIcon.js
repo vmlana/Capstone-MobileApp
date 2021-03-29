@@ -18,7 +18,7 @@ const CloseIcon = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 30,
+    marginRight: 20,
     fontSize: 30,
     color: "#7561A4",
   },

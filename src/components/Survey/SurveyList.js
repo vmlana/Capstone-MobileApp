@@ -36,7 +36,7 @@ const SurveyList = ({ data, onPick, indexVal }) => {
               }}
             ></View> */}
             <Text
-              style={{ ...styles.text, fontFamily: "GothamRoundedBook_21018" }}
+              style={styles.text}
             >
               {survey.optionDescription}
             </Text>
@@ -48,8 +48,11 @@ const SurveyList = ({ data, onPick, indexVal }) => {
 };
 const styles = StyleSheet.create({
   text: {
+    fontFamily: "GothamRoundedBook_21018",
     fontSize: 15,
+    lineHeight: 20,
     color: "#767676",
+    paddingBottom: 2
   },
 });
 

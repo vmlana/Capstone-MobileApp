@@ -97,7 +97,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                   <Image
                     style={styles.image}
                     source={{ uri: item.imageFile }}
-                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                  // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                   <View style={styles.nameAndDesView}>
                     <Text style={styles.lessonName}>{item.lessonName}</Text>
@@ -137,7 +137,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                   <Image
                     style={styles.image}
                     source={{ uri: item.imageFile }}
-                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                  // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                 </TouchableOpacity>
               )}
@@ -172,26 +172,29 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   nameAndDesView: {
-    paddingTop: 26,
-    paddingLeft: 26,
-    paddingBottom: 26,
+    paddingTop: 20,
+    paddingLeft: 25,
+    paddingBottom: 25,
     flex: 1,
     flexDirection: "column",
   },
   nameAndDesViewLeft: {
-    paddingTop: 26,
-    paddingRight: 26,
-    paddingBottom: 26,
+    paddingTop: 20,
+    paddingRight: 25,
+    paddingBottom: 25,
     flex: 1,
     flexDirection: "column",
   },
   lessonName: {
+    fontFamily: 'GothamRoundedMedium_21022',
     fontSize: 19,
     marginBottom: 11,
     color: "#707070",
-    lineHeight: 23,
+    lineHeight: 27,
+    textTransform: "capitalize"
   },
   lessonDescription: {
+    fontFamily: 'GothamLight',
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",
@@ -199,6 +202,7 @@ const styles = StyleSheet.create({
     color: "#707070",
   },
   duration: {
+    fontFamily: 'GothamLight',
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",
