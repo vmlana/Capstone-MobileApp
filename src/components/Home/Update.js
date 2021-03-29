@@ -39,11 +39,12 @@ const Update = ({ weekWorkout }) => {
 				<Text style={styles.headerText}>{randomDashboard.text}</Text>
 				<Text style={styles.headerSubText}>You completed {weekWorkout} workouts last week!</Text>
 			</View>
-			<Thumbnail
-				large
+			<Image
+				// large
 				source={{
 					uri: randomDashboard.imgeUri,
 				}}
+				style={styles.imageStyle}
 			/>
 		</View >
 	);
@@ -67,15 +68,21 @@ const styles = StyleSheet.create({
 		color: '#FFFFFF'
 	},
 	headerText: {
+		fontFamily: 'GothamMedium',
 		color: '#FFFFFF',
 		fontSize: 28,
-		lineHeight: 34,
+		lineHeight: 40,
 		marginBottom: 5
 	},
 	headerSubText: {
+		fontFamily: 'GothamBook',
 		color: '#FFFFFF',
 		fontSize: 13,
-		lineHeight: 15
+		lineHeight: 17
+	},
+	imageStyle: {
+		width: 80,
+		height: 80
 	}
 });
 

@@ -49,7 +49,7 @@ const SingleVideoScreen = ({ navigation }) => {
         />
         {blogs != null ? (
           <Blogs data={blogs[0]} navigation={navigation} />
-        ) : 
+        ) :
           <View style={styles.noBlogsContainer}>
             <Text style={styles.noBlogsText}>There is no related blogs to this lesson.</Text>
           </View>
@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 10,
     borderRadius: 4,
-    fontFamily: "GothamRoundedBold_21016",
+    fontFamily: "GothamRoundedBook_21018",
+    fontSize: 20,
+    lineHeight: 28
   },
   bottom: {
     position: "absolute",

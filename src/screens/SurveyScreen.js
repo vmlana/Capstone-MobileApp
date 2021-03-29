@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   Modal,
+  TouchableOpacity
 } from "react-native";
 import SurveyList from "../components/Survey/SurveyList";
 import SubmitComplete from "../components/Survey/SubmitComplete";
@@ -17,6 +18,7 @@ import bcgimg from "../../assets/TextBG.png";
 import { Context as AuthContext } from "../context/AuthContext";
 
 import { colors } from "../colors";
+import { ImageBackground } from "react-native";
 
 const SurveyScreen = ({ navigation }) => {
   const surveyDataset = navigation.getParam("surveyData");
@@ -89,15 +91,12 @@ const SurveyScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Image source={bcgimg} />
-        <Text
-          h3
-          style={{
-            ...styles.headerText,
-            fontFamily: "GothamRoundedMedium_21022",
-          }}
-        >Select the option that best {"\n"}suits your experience with us
+        <ImageBackground source={bcgimg} style={styles.image}>
+          <Text
+            style={styles.headerText}
+          >Please select the option that best suits your experience with us
         </Text>
+        </ImageBackground>
       </View>
 
       {surveys ? (
@@ -105,10 +104,7 @@ const SurveyScreen = ({ navigation }) => {
           <View key={index} style={styles.quiz}>
             <View>
               <Text
-                style={{
-                  ...styles.question,
-                  fontFamily: "GothamRoundedMedium_21022",
-                }}
+                style={styles.question}
               >
                 {survey.questionDescription}
               </Text>
@@ -123,7 +119,7 @@ const SurveyScreen = ({ navigation }) => {
         ))
       ) : (
         <Text
-          style={{ ...styles.question, fontFamily: "GothamRoundedBook_21018" }}
+          style={styles.questionLoading}
         >
           Loading...
         </Text>
@@ -144,10 +140,30 @@ const SurveyScreen = ({ navigation }) => {
         title="Submit Feedback"
         buttonStyle={{
           ...styles.button,
-          fontFamily: "GothamRoundedBook_21018",
+          fontFamily: "GothamBook"
         }}
         onPress={onSubmit}
       />
+
+      {/* <TouchableOpacity
+        style={{
+          ...styles.button,
+          fontFamily: "GothamBook"
+        }}
+        activeOpacity={1}
+        onPress={onSubmit}
+      >
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 14,
+            lineHeight: 20,
+            fontFamily: "GothamBook",
+          }}
+        >
+          Submit Feedback
+          </Text>
+      </TouchableOpacity> */}
 
       <Modal
         transparent={true}
@@ -167,13 +183,17 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 15,
     position: "relative",
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
   headerText: {
-    paddingHorizontal: 15,
-    position: "absolute",
-    top: "20%",
-    left: 15,
-    fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "GothamRoundedMedium_21022",
+    paddingVertical: 30,
+    paddingHorizontal: 25,
+    fontSize: 19,
+    lineHeight: 25,
     color: "white",
   },
   textArea: {
@@ -199,12 +219,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   question: {
+    fontFamily: "GothamRoundedMedium_21022",
     color: "#767676",
-    fontSize: 17,
-    fontWeight: "bold",
+    fontSize: 19,
+    lineHeight: 27,
     marginTop: 10,
     marginBottom: 5,
-    marginHorizontal: 15,
+    marginHorizontal: 10,
+  },
+  questionLoading: {
+    fontFamily: "GothamRoundedMedium_21022",
+    color: "#767676",
+    fontSize: 19,
+    lineHeight: 27,
+    marginTop: 10,
+    marginBottom: 5,
+    marginHorizontal: 25,
   },
 });
 

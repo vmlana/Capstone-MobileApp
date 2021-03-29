@@ -89,40 +89,45 @@ const styles = StyleSheet.create({
         color: '#707070'
     },
     trainerName: {
+        fontFamily: "GothamRoundedBold_21016",
         fontSize: 22,
-        fontWeight: 'bold',
         color: '#707070',
         lineHeight: 26
     },
     speciality: {
+        fontFamily: 'GothamMedium',
         fontSize: 12,
         lineHeight: 23,
         color: '#707070'
     },
     trainerSpeciality: {
+        fontFamily: 'GothamBook',
         marginLeft: 10,
         fontSize: 12,
         lineHeight: 23,
         color: '#707070'
     },
     trainerResume: {
+        fontFamily: 'GothamBook',
         fontSize: 13,
         lineHeight: 17,
         marginTop: 27,
         color: '#A3A3A3'
     },
     trainerContact: {
+        fontFamily: 'GothamMedium',
         fontSize: 15,
-        lineHeight: 29,
+        lineHeight: 20,
         marginTop: 32,
         color: '#707070'
     },
     trainerEmail: {
+        fontFamily: 'GothamBook',
         marginLeft: 24
     },
     recommendedHeader: {
+        fontFamily: "GothamRoundedBold_21016",
         fontSize: 22,
-        fontWeight: 'bold',
         color: '#707070',
         lineHeight: 26,
         textAlign: 'center',

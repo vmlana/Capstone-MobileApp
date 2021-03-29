@@ -169,7 +169,7 @@ const Reminder = ({
           <Text
             style={{
               ...styles.modalTextSmall,
-              fontFamily: "GothamRoundedBook_21018",
+              fontFamily: "GothamLight",
               color: "white",
             }}
           >
@@ -181,9 +181,10 @@ const Reminder = ({
           <View>
             <Text
               style={{
-                marginVertical: 5,
+                marginTop: 0,
+                marginBottom: 5,
                 fontSize: 16,
-                fontWeight: "bold",
+                lineHeight: 23,
                 color: "white",
                 fontFamily: "GothamRoundedBold_21016",
               }}
@@ -194,7 +195,9 @@ const Reminder = ({
               <Text
                 style={{
                   color: "white",
-                  fontFamily: "GothamRoundedBook_21018",
+                  fontFamily: "GothamBook",
+                  fontSize: 13,
+                  lineHeight: 19
                 }}
               >
                 {dateTime.split(",")[0]}
@@ -203,7 +206,10 @@ const Reminder = ({
                 style={{
                   marginLeft: 20,
                   color: "white",
-                  fontFamily: "GothamRoundedBook_21018",
+                  fontFamily: "GothamBook",
+                  fontSize: 13,
+                  lineHeight: 19,
+                  textTransform: "uppercase"
                 }}
               >
                 {dateTime.split(",")[1]}
@@ -235,14 +241,13 @@ const Reminder = ({
                   position: "absolute",
                   alignSelf: "center",
                   right: 0,
-                  backgroundColor: "rgba(144, 186, 226, 0.5)",
-                  paddingLeft: 50,
-                  paddingRight: 5,
+                  backgroundColor: "rgba(182, 211, 232, 1)",
+                  paddingLeft: 42,
+                  paddingRight: 10,
                   paddingVertical: 5,
                   borderRadius: 5,
                   color: "#707070",
-
-                  zIndex: 1,
+                  zIndex: -1,
                 }}
               >
                 mins
@@ -250,9 +255,10 @@ const Reminder = ({
             </View>
             <Text
               style={{
-                fontSize: 11,
+                fontSize: 10,
                 color: "white",
-                fontFamily: "GothamRoundedBook_21018",
+                fontFamily: "GothamBook",
+                textAlign: "right"
               }}
             >
               Before Session
@@ -317,15 +323,16 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   modalText: {
-    marginBottom: 7,
-    // color: "white",
-    // fontWeight: "700",
+    marginBottom: 0,
     fontSize: 18,
+    lineHeight: 24
   },
   modalTextSmall: {
-    marginBottom: 7,
+    marginBottom: 11,
     textAlign: "center",
     color: "white",
+    fontSize: 14,
+    lineHeight: 20
   },
   reminderInfo: {
     justifyContent: "space-between",

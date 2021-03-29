@@ -32,14 +32,14 @@ const ContentContainer = ({ navigation, result, type }) => {
           {
             type === "playlists"
               ? navigation.navigate("PlayList", {
-                  singleVideoData: result.lessons,
-                  playListData: result,
-                })
+                singleVideoData: result.lessons,
+                playListData: result,
+              })
               : type === "cat"
-              ? navigation.navigate("Category", {
+                ? navigation.navigate("Category", {
                   category: result,
                 })
-              : navigation.navigate("Program", {
+                : navigation.navigate("Program", {
                   program: result,
                 });
           }
@@ -51,7 +51,7 @@ const ContentContainer = ({ navigation, result, type }) => {
         <Text
           style={{
             ...styles.contentTitle,
-            fontFamily: "GothamRoundedLight_21020",
+            fontFamily: "GothamBook",
             color: colors.darkGrey,
           }}
         >
@@ -61,7 +61,7 @@ const ContentContainer = ({ navigation, result, type }) => {
         <Text
           style={{
             ...styles.contentTitle,
-            fontFamily: "GothamRoundedLight_21020",
+            fontFamily: "GothamBook",
             color: colors.darkGrey,
           }}
         >
@@ -70,13 +70,13 @@ const ContentContainer = ({ navigation, result, type }) => {
       ) : null}
 
       {type === "playlists" ? (
-        <TrainerName data={result} navigation={navigation} />
+        <TrainerName data={result} navigation={navigation} screen="home" />
       ) : type === "programs" ? (
         <View style={styles.playListContainer}>
           <Text
             style={{
               ...styles.contentTitle,
-              fontFamily: "GothamRoundedLight_21020",
+              fontFamily: "GothamBook",
               color: colors.darkGrey,
             }}
           >
@@ -111,11 +111,12 @@ const styles = StyleSheet.create({
   },
 
   contentTitle: {
-    fontSize: 15,
-    lineHeight: 15,
+    fontSize: 13.5,
+    lineHeight: 18,
     paddingTop: 5,
     marginBottom: 7,
     width: 140,
+    textTransform: "capitalize"
   },
 });
 

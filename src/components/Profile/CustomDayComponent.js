@@ -14,12 +14,12 @@ const CustomDayComponent = (props) => {
 
     return (
         <View>
-            <Text style={{ fontSize: 14, color: '#FFF', fontFamily: 'GothamLight', marginBottom: 7, textAlign: 'center' }}>{weekDayName.charAt(0)}</Text>
+            <Text style={{ fontSize: 12.5, color: '#FFF', fontFamily: 'GothamLight', marginBottom: 7, textAlign: 'center' }}>{weekDayName.charAt(0)}</Text>
             {
                 (props.percent > 0 && props.percent) ? (
                     <ProgressCircle
                         percent={props.percent}
-                        radius={17}
+                        radius={16}
                         borderWidth={3}
                         shadowColor="#9383B9"
                         color="#FBA76E"
@@ -35,7 +35,7 @@ const CustomDayComponent = (props) => {
                     (
                         <ProgressCircle
                             percent={0}
-                            radius={17}
+                            radius={16}
                             borderWidth={0}
                             color="#FBA76E"
                             bgColor="#9383B9"

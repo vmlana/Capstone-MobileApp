@@ -6,7 +6,7 @@ import { colors } from "../../colors";
 
 import { getInstructorInfo } from "../../data/api";
 
-const TrainerName = ({ navigation, data, blog, page }) => {
+const TrainerName = ({ navigation, data, blog, page, screen }) => {
   const [instructorInfo, setInstructorInfo] = useState("");
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const TrainerName = ({ navigation, data, blog, page }) => {
         style={{
           ...styles.trainerName,
           fontFamily: "GothamRoundedLight_21020",
+          fontSize: screen === 'home' ? 11 : 13,
           color: colors.darkGrey,
         }}
       >
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   trainerName: {
-    fontSize: 13,
     lineHeight: 13,
   },
   trainerInfoForBlog: {
