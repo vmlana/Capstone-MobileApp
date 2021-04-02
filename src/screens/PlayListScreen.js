@@ -97,7 +97,7 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                   <Image
                     style={styles.image}
                     source={{ uri: item.imageFile }}
-                  // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                   <View style={styles.nameAndDesView}>
                     <Text style={styles.lessonName}>{item.lessonName}</Text>
@@ -107,7 +107,9 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                       </Text>
                     </View>
                     {item.videoDuration ? (
-                      <Text style={styles.duration}>Duration: {item.videoDuration} min</Text>
+                      <Text style={styles.duration}>
+                        Duration: {parseInt(item.videoDuration * 100)} sec
+                      </Text>
                     ) : null}
                   </View>
                 </TouchableOpacity>
@@ -131,13 +133,15 @@ const PlayListScreen = ({ navigation, playlistId }) => {
                       </Text>
                     </View>
                     {item.videoDuration ? (
-                      <Text style={styles.duration}>Duration: {item.videoDuration} min</Text>
+                      <Text style={styles.duration}>
+                        Duration: {parseInt(item.videoDuration * 100)} sec
+                      </Text>
                     ) : null}
                   </View>
                   <Image
                     style={styles.image}
                     source={{ uri: item.imageFile }}
-                  // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
+                    // source={{ uri: "https://pivotcare-s3.s3-us-west-2.amazonaws.com/" + item.imageFile }}
                   />
                 </TouchableOpacity>
               )}
@@ -186,15 +190,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   lessonName: {
-    fontFamily: 'GothamRoundedMedium_21022',
+    fontFamily: "GothamRoundedMedium_21022",
     fontSize: 19,
     marginBottom: 11,
     color: "#707070",
     lineHeight: 27,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
   lessonDescription: {
-    fontFamily: 'GothamLight',
+    fontFamily: "GothamLight",
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
     color: "#707070",
   },
   duration: {
-    fontFamily: 'GothamLight',
+    fontFamily: "GothamLight",
     fontSize: 13,
     lineHeight: 15,
     fontWeight: "300",

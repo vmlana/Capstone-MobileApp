@@ -82,7 +82,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
             fontFamily: "GothamBook",
             color: colors.darkGrey,
             fontSize: 13,
-            lineHeight: 18
+            lineHeight: 18,
           }}
         >
           {playListData.categoryName}
@@ -92,16 +92,16 @@ const SingleVideo = ({ navigation, data, playListData }) => {
             fontFamily: "GothamBook",
             color: colors.darkGrey,
             fontSize: 13,
-            lineHeight: 18
+            lineHeight: 18,
           }}
         >
-          {data.videoDuration} mins
+          {data.videoDuration * 100} sec
         </Text>
       </View>
       <Text
         style={{
           ...styles.desc,
-          fontFamily: "GothamBook"
+          fontFamily: "GothamBook",
         }}
       >
         {data.lessonDescription}
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 14,
     lineHeight: 20,
-    color: '#707070'
+    color: "#707070",
   },
 });
 
