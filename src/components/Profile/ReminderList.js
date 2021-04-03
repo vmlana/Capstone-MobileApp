@@ -132,7 +132,9 @@ const ReminderList = ({ navigation, getScheduleArr }) => {
                   >
                     {data.reminderMinutes !== 0 ? data.reminderMinutes : 0}
                   </Text>
-                  <Text>mins</Text>
+                  <Text style={{
+                    color: "#707070",
+                  }}>mins</Text>
                 </View>
                 <Text
                   style={{ fontSize: 12, color: "black", color: "#707070" }}
