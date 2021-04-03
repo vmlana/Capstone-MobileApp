@@ -192,9 +192,36 @@ const signup = (dispatch) => async (
   }
 };
 
-const signout = (dispatch) => async () => {
-  // console.log("signout");
+const signout = (dispatch) => async (navigation) => {
+  let userInfo = await AsyncStorage.getItem("userInfo");
+  userInfo = JSON.parse(userInfo);
+
+  const { accessToken, accessExpiresIn, refreshToken, refreshExpiresIn } = userInfo;
+
   await AsyncStorage.removeItem("userInfo");
+
+  await fetch(`${API_URL}/logout`, {
+    method: "POST",
+    headers: {
+      "access-token": `${accessToken}`,
+      "refresh-token": `${refreshToken}`,
+      "access-expiration-date": `${accessExpiresIn}`,
+      "refresh-expiration-date": `${refreshExpiresIn}`  
+    }
+  })
+  .then(result=>{
+    console.log('success', result);
+    // AsyncStorage.removeItem("userInfo");
+  })
+  .catch(error=>{
+    console.log('failed', error);
+    // AsyncStorage.removeItem("userInfo");
+  })
+
+  navigation.navigate("Signin");
+  dispatch({ type: "signout" });
+  console.log("signout");
+
 };
 
 const clearErrMsg = (dispatch) => () => {

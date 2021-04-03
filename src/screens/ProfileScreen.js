@@ -103,8 +103,8 @@ const ProfileScreen = ({ navigation }) => {
         >
           <Contact
             signout={() => {
-              signout();
-              navigation.navigate("Signin");
+              signout(navigation);
+              // navigation.navigate("Signin");
             }}
           />
         </ImageBackground>
