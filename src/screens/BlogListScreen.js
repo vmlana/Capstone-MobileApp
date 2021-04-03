@@ -17,12 +17,12 @@ import {
 import RectangleListContainer from "../components/Search/RectangleListContainer";
 import { Context as AuthContext } from "../context/AuthContext";
 
-import { getBlogs } from '../data/api';
+import { getBlogs, getBlogsByCategoryIdAndInstructorId } from '../data/api';
 
 const BlogListScreen = ({ navigation }) => {
   const [blogs, setBlogs] = useState({
     everydayReads: [],
-    about: []
+    mayLike: []
   })
   const { state } = useContext(AuthContext);
 
@@ -32,15 +32,15 @@ const BlogListScreen = ({ navigation }) => {
   useEffect(()=>{
     (async()=>{
       const everydayReads = await getBlogs(null, null);
-      const about = await getBlogs( null, state.userInfo.authId);
-      // const about = await getBlogs( null, 60);
+      const mayLike = await getBlogs( null, state.userInfo.authId);
+      // const mayLike = await getBlogs( null, 60);
 
-      // console.log(about)
+      // console.log(mayLike)
 
       setBlogs(prev=>({
         ...prev,
         everydayReads: everydayReads,
-        about: about
+        mayLike: mayLike
       }))
     })()
   }, [])
@@ -59,11 +59,11 @@ const BlogListScreen = ({ navigation }) => {
         }
         {/* Everyday Reads **********************/}
         {
-          blogs.about != null?
+          blogs.mayLike != null?
           <RectangleListContainer
             // title="About body stiffness"
             title="You May Like"
-            dataList={blogs.about}
+            dataList={blogs.mayLike}
             navigation={navigation}
           /> : null
         }

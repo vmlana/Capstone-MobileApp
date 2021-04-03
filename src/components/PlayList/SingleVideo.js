@@ -95,7 +95,7 @@ const SingleVideo = ({ navigation, data, playListData }) => {
             lineHeight: 18,
           }}
         >
-          {data.videoDuration * 100} sec
+          {Math.round(data.videoDuration * 100)} sec
         </Text>
       </View>
       <Text
