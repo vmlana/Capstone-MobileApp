@@ -79,8 +79,8 @@ const Reminder = ({
         body: `Booked Session - ${playListData.playlistName}`,
         data: { data: "goes here" },
       },
-      trigger: { seconds: 1 },
-      //   trigger: { seconds: (milSec - min - currentMil) / 1000 },
+      //   trigger: { seconds: 1 },
+      trigger: { seconds: (milSec - min - currentMil) / 1000 },
     });
 
     async function newList() {
@@ -197,7 +197,7 @@ const Reminder = ({
                   color: "white",
                   fontFamily: "GothamBook",
                   fontSize: 13,
-                  lineHeight: 19
+                  lineHeight: 19,
                 }}
               >
                 {dateTime.split(",")[0]}
@@ -209,7 +209,7 @@ const Reminder = ({
                   fontFamily: "GothamBook",
                   fontSize: 13,
                   lineHeight: 19,
-                  textTransform: "uppercase"
+                  textTransform: "uppercase",
                 }}
               >
                 {dateTime.split(",")[1]}
@@ -258,7 +258,7 @@ const Reminder = ({
                 fontSize: 10,
                 color: "white",
                 fontFamily: "GothamBook",
-                textAlign: "right"
+                textAlign: "right",
               }}
             >
               Before Session
@@ -325,14 +325,14 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 0,
     fontSize: 18,
-    lineHeight: 24
+    lineHeight: 24,
   },
   modalTextSmall: {
     marginBottom: 11,
     textAlign: "center",
     color: "white",
     fontSize: 14,
-    lineHeight: 20
+    lineHeight: 20,
   },
   reminderInfo: {
     justifyContent: "space-between",
